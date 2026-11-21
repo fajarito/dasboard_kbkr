@@ -1,11 +1,10 @@
 import { useState } from 'react'
-import { AuditSection } from './components/AuditSection'
+import { ComparisonBars } from './components/ComparisonBars'
 import { CoverageDonut } from './components/CoverageDonut'
 import { FilterBar } from './components/FilterBar'
 import { IndicatorGrid } from './components/IndicatorGrid'
 import { MapSection } from './components/MapSection'
 import { Sidebar } from './components/Sidebar'
-import { TrendChart } from './components/TrendChart'
 
 export default function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -39,23 +38,20 @@ export default function App() {
                 Dashboard 12 Indikator Prioritas
               </h1>
               <p className="mt-1 max-w-3xl text-[13px] text-slate-500 sm:text-[14px]">
-                Pemantauan capaian indikator dan audit service statistics secara
-                nasional hingga wilayah.
+                Pemantauan capaian indikator dan sebaran wilayah prioritas
+                secara nasional hingga wilayah.
               </p>
             </div>
 
             <FilterBar />
             <IndicatorGrid />
 
-            <div className="grid grid-cols-1 gap-4 xl:grid-cols-[1.45fr_1fr]">
-              <TrendChart />
+            <div className="grid grid-cols-1 gap-4 xl:grid-cols-[1.35fr_1fr]">
+              <ComparisonBars />
               <CoverageDonut />
             </div>
 
-            <div className="grid grid-cols-1 gap-4 xl:grid-cols-[1.35fr_1fr]">
-              <AuditSection />
-              <MapSection />
-            </div>
+            <MapSection />
           </div>
         </main>
       </div>

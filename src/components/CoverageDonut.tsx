@@ -3,24 +3,24 @@ import { coverageBands } from '../data/overview'
 
 export function CoverageDonut() {
   return (
-    <section className="rounded-2xl border border-slate-200/70 bg-white p-5 shadow-sm shadow-slate-200/40">
+    <section className="flex h-full flex-col rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm shadow-slate-200/30">
       <header className="mb-2">
         <h2 className="text-[15px] font-bold text-navy-950">Cakupan Wilayah</h2>
         <p className="mt-0.5 text-[12px] text-slate-500">
-          Distribusi provinsi menurut kelompok capaian
+          Distribusi 38 provinsi menurut kelompok capaian
         </p>
       </header>
 
-      <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div className="relative h-[220px] w-full max-w-[220px]">
+      <div className="flex flex-1 flex-col items-center gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="relative h-[200px] w-full max-w-[200px]">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <Pie
                 data={coverageBands}
                 dataKey="value"
                 nameKey="label"
-                innerRadius={62}
-                outerRadius={88}
+                innerRadius={58}
+                outerRadius={82}
                 paddingAngle={2}
                 stroke="none"
               >
@@ -40,7 +40,7 @@ export function CoverageDonut() {
           </div>
         </div>
 
-        <ul className="w-full space-y-2.5 sm:max-w-[160px]">
+        <ul className="w-full space-y-2.5 sm:max-w-[150px]">
           {coverageBands.map((band) => (
             <li
               key={band.key}
@@ -48,7 +48,7 @@ export function CoverageDonut() {
             >
               <span className="inline-flex items-center gap-2 text-slate-600">
                 <span
-                  className="h-2.5 w-2.5 rounded-[3px]"
+                  className="h-2.5 w-2.5 rounded-full"
                   style={{ backgroundColor: band.color }}
                 />
                 {band.label}
@@ -58,6 +58,10 @@ export function CoverageDonut() {
           ))}
         </ul>
       </div>
+
+      <p className="mt-3 text-[11px] text-slate-400">
+        Indikator dasar pengelompokan perlu dikonfirmasi.
+      </p>
     </section>
   )
 }

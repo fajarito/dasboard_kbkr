@@ -51,7 +51,7 @@ export const indicators: Indicator[] = [
   },
   {
     id: '06',
-    label: 'MK',
+    label: 'MII',
     value: '76,3',
     delta: '2,4',
     direction: 'up',
@@ -83,7 +83,7 @@ export const indicators: Indicator[] = [
   },
   {
     id: '10',
-    label: 'INDEKS KETEROBARAN',
+    label: 'INDEKS KETERPAPARAN',
     value: '66,4',
     delta: '2,7',
     direction: 'up',
@@ -106,63 +106,30 @@ export const indicators: Indicator[] = [
   },
 ]
 
-export const trendData = [
-  { month: 'Jan', mCPR: 58.2, demand: 84.6, unmet: 13.1 },
-  { month: 'Feb', mCPR: 58.8, demand: 85.1, unmet: 12.7 },
-  { month: 'Mar', mCPR: 59.4, demand: 85.9, unmet: 12.4 },
-  { month: 'Apr', mCPR: 60.1, demand: 86.7, unmet: 12.0 },
-  { month: 'Mei', mCPR: 60.7, demand: 87.4, unmet: 11.6 },
-  { month: 'Jun', mCPR: 61.4, demand: 88.1, unmet: 11.2 },
+export const comparisonBars = [
+  { key: 'mcpr', label: 'mCPR', valueLabel: '61,4%', value: 61.4, color: '#386de3' },
+  {
+    key: 'demand',
+    label: 'Demand Satisfied',
+    valueLabel: '88,1%',
+    value: 88.1,
+    color: '#377887',
+  },
+  {
+    key: 'unmet',
+    label: 'Unmet Need',
+    valueLabel: '11,2%',
+    value: 11.2,
+    color: '#e04444',
+  },
 ]
 
 export const coverageBands = [
-  { key: 'high', label: '≥ 60%', value: 11, color: '#2f8f8a' },
-  { key: 'mid', label: '40–59%', value: 15, color: '#4ea19d' },
-  { key: 'low', label: '20–39%', value: 9, color: '#e6a037' },
-  { key: 'crit', label: '< 20%', value: 3, color: '#cd5a55' },
+  { key: 'high', label: '≥ 60%', value: 11, color: '#377887' },
+  { key: 'mid', label: '40–59%', value: 15, color: '#4ba09b' },
+  { key: 'low', label: '20–39%', value: 9, color: '#e6b44b' },
+  { key: 'crit', label: '< 20%', value: 3, color: '#c34b46' },
 ]
-
-export const auditColumns = [
-  {
-    key: 'input',
-    badge: 'INPUT',
-    title: 'Kapasitas & Kemitraan',
-    badgeClass: 'text-input bg-green-50',
-    iconClass: 'bg-green-100 text-input',
-    items: [
-      'Faskes KB & kepemilikan',
-      'Kerja sama BPJS',
-      'Sarana & perlengkapan',
-      'Nakes & tenaga administrasi',
-    ],
-  },
-  {
-    key: 'proses',
-    badge: 'PROSES',
-    title: 'Throughput & Aktivitas',
-    badgeClass: 'text-proses bg-blue-50',
-    iconClass: 'bg-blue-100 text-proses',
-    items: [
-      'Kelengkapan laporan',
-      'Informed consent',
-      'Persediaan alokon',
-      'Pelayanan KB bergerak',
-    ],
-  },
-  {
-    key: 'output',
-    badge: 'OUTPUT',
-    title: 'Hasil Pelayanan',
-    badgeClass: 'text-output bg-violet-50',
-    iconClass: 'bg-violet-100 text-output',
-    items: [
-      'KB baru & ulangan',
-      'KB ganti cara',
-      'Pencabutan implant/IUD',
-      'Tingkat putus pakai',
-    ],
-  },
-] as const
 
 export const navItems = [
   { id: 'overview', label: 'Overview', active: true },

@@ -64,13 +64,9 @@ export function Sidebar({ open, onClose }: SidebarProps) {
         </nav>
 
         <div className="px-4 pb-5">
-          <div className="rounded-xl bg-navy-800 px-4 py-3">
-            <p className="text-[11px] font-medium text-slate-400">
-              Data terakhir
-            </p>
-            <p className="mt-0.5 text-[13px] font-bold text-white">
-              30 Juni 2026
-            </p>
+          <div className="rounded-xl bg-navy-800 px-4 py-3 text-[12px]">
+            <span className="font-medium text-slate-400">Data terakhir: </span>
+            <span className="font-bold text-white">30 Juni 2026</span>
           </div>
         </div>
       </aside>
