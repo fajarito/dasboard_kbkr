@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: dasboard-kbkr
+  namespace: dashboard-kbkr
   labels:
     app: dasboard-kbkr
 spec:
@@ -16,8 +17,8 @@ spec:
     spec:
       containers:
         - name: dashboard
-          # Ganti NAMESPACE / tag ke registry cluster Anda.
-          image: image-registry.openshift-image-registry.svc:5000/NAMESPACE/dasboard-kbkr:latest
+          # Image stream in OpenShift Project dashboard-kbkr (display: Dashboard KBKR).
+          image: image-registry.openshift-image-registry.svc:5000/dashboard-kbkr/dasboard-kbkr:latest
           imagePullPolicy: Always
           ports:
             - name: http
@@ -58,6 +59,7 @@ spec:
                 - ALL
             runAsNonRoot: true
       # OpenShift restricted SCC injects random UID; do not pin runAsUser.
+      # Image must stay nginx-unprivileged (see Dockerfile).
       securityContext:
         runAsNonRoot: true
         seccompProfile:

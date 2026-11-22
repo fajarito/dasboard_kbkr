@@ -15,7 +15,8 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npm run build
 
-# Unprivileged nginx (UID 101) — compatible with OpenShift restricted SCC.
+# Unprivileged nginx (UID 101) — required for OpenShift restricted pod security
+# (project dashboard-kbkr). Do not replace with root nginx.
 FROM nginxinc/nginx-unprivileged:1.27-alpine AS runner
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
