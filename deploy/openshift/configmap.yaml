@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dasboard-kbkr-config
+  labels:
+    app: dasboard-kbkr
+data:
+  # Non-secret runtime notes. This SPA is static (nginx); VITE_* must be set
+  # at image build time if you add client env later. No database secrets here.
+  APP_NAME: "dasboard-kbkr"
+  PORT: "8080"
+  # Optional future public API base (documentation only until injected at build):
+  # VITE_API_BASE_URL: "https://api.example.com"
