@@ -6,6 +6,8 @@ export type Indicator = {
   direction?: 'up' | 'down'
   status?: 'ok' | 'pending'
   pendingLabel?: string
+  /** Short SIGA / naming caveat under the KPI */
+  note?: string
 }
 
 export const indicators: Indicator[] = [
@@ -75,11 +77,12 @@ export const indicators: Indicator[] = [
   },
   {
     id: '09',
-    label: '% KB PRIA',
+    label: 'KB WIL. KHUSUS',
     value: '8,1%',
     delta: '0,5 p.p',
     direction: 'up',
     status: 'ok',
+    note: 'Historis % KB Pria · perlu konfirmasi',
   },
   {
     id: '10',
@@ -102,7 +105,7 @@ export const indicators: Indicator[] = [
     label: 'DCR',
     value: '—',
     status: 'pending',
-    pendingLabel: 'Perlu konfirmasi',
+    pendingLabel: 'DCR (Permas) · perlu konfirmasi',
   },
 ]
 

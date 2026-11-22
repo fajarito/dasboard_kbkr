@@ -87,9 +87,9 @@ export function McprDetailPage() {
         <KpiCard
           label="Sumber data"
           value={mcprMeta.sumber}
-          valueClassName="text-[18px] sm:text-[20px]"
+          valueClassName="text-[17px] sm:text-[19px]"
           footnote={
-            <span className="font-medium text-slate-500">
+            <span className="font-medium leading-snug text-slate-500">
               {mcprMeta.sumberNote}
             </span>
           }

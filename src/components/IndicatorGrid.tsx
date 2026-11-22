@@ -10,9 +10,11 @@ export function IndicatorGrid() {
         ))}
       </div>
       <p className="max-w-5xl text-[11px] leading-relaxed text-slate-400">
-        Catatan: periode pembanding dan target belum dicantumkan. Warna
-        perubahan bukan status pencapaian target. p.p = poin persentase.
-        Satuan/skala indeks MII, IKP, dan keterpaparan perlu dikonfirmasi.
+        Catatan: label #9 selaras SIGA (Kesertaan KB Wilayah Khusus; historis %
+        KB Pria — perlu konfirmasi). #11 KBPP Tanpa MAL; #12 DCR (Permas).
+        Periode pembanding dan target belum dicantumkan. Warna perubahan bukan
+        status pencapaian target. p.p = poin persentase. Satuan/skala indeks
+        MII, IKP, dan keterpaparan perlu dikonfirmasi.
       </p>
     </div>
   )
@@ -20,7 +22,7 @@ export function IndicatorGrid() {
 
 function IndicatorCard({ item }: { item: Indicator }) {
   const pending = item.status === 'pending'
-  const href = item.label === 'mCPR' ? '/indikator/mcpr' : undefined
+  const href = item.id === '02' ? '/indikator/mcpr' : undefined
 
   const card = (
     <article
@@ -40,7 +42,7 @@ function IndicatorCard({ item }: { item: Indicator }) {
       <p className="mt-2 text-[22px] leading-none font-extrabold tracking-tight text-navy-950">
         {item.value}
       </p>
-      <div className="mt-2 min-h-[18px]">
+      <div className="mt-2 min-h-[18px] space-y-1">
         {pending ? (
           <p className="text-[11px] font-semibold text-[#b45309]">
             {item.pendingLabel}
@@ -51,6 +53,11 @@ function IndicatorCard({ item }: { item: Indicator }) {
             {item.delta}
           </p>
         )}
+        {item.note ? (
+          <p className="text-[10px] leading-snug font-medium text-slate-400">
+            {item.note}
+          </p>
+        ) : null}
       </div>
     </article>
   )
@@ -58,7 +65,7 @@ function IndicatorCard({ item }: { item: Indicator }) {
   if (!href) return card
 
   return (
-    <Link to={href} aria-label={`Buka detail indikator ${item.label}`}>
+    <Link to={href} aria-label="Buka detail indikator mCPR">
       {card}
     </Link>
   )

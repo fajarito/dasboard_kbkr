@@ -7,10 +7,11 @@ export const mcprMeta = {
   target: '65,0%',
   selisih: '3,6 p.p',
   sumber: 'DALLAP Tabel 10–15',
-  sumberNote: 'Cross-check YanKB',
+  sumberNote: 'Cross-check YanKB · jalur model EMU (Track20)',
 } as const
 
-export const mcprTrend = [
+/** Annual series (≥5 tahun / RPJMN). Values from Figma — not invented kab data. */
+export const mcprTrendAnnual = [
   { period: '2020', value: 55, label: '55%' },
   { period: '2021', value: 56, label: '56%' },
   { period: '2022', value: 58, label: '58%' },
@@ -20,13 +21,22 @@ export const mcprTrend = [
   { period: '2026', value: 61, label: '61%' },
 ] as const
 
+/** @deprecated use mcprTrendAnnual */
+export const mcprTrend = mcprTrendAnnual
+
 export const mcprNotes = [
-  'Sumber SIGA dinilai kuat.',
-  'Rekonsiliasi DALLAP dan YanKB.',
-  'Drill-down kabupaten/kota serta kecamatan/faskes.',
+  'Sumber SIGA dinilai kuat (DALLAP Bulanan Tabel 10–15).',
+  'Rekonsiliasi DALLAP vs YanKB (jalur model EMU) diperlukan untuk validasi.',
+  'Breakdown standar hingga kabupaten/kota; kecamatan/faskes untuk model EMU menyusul.',
 ] as const
 
+export type TrendPeriod = 'tahunan' | 'bulanan'
 export type GeoLevel = 'nasional' | 'provinsi' | 'kabupaten'
+
+export const trendPeriods: { id: TrendPeriod; label: string }[] = [
+  { id: 'tahunan', label: 'Tren tahunan' },
+  { id: 'bulanan', label: 'Tren bulanan' },
+]
 
 export const geoLevels: { id: GeoLevel; label: string }[] = [
   { id: 'nasional', label: 'Nasional' },
