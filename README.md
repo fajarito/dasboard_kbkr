@@ -25,7 +25,7 @@ Local app: `http://127.0.0.1:5173/`
 
 - **Postgres** when `DATABASE_URL` or `PGHOST`/`PGPORT`/`PGDATABASE`/`PGUSER`/`PGPASSWORD` are set (default table `dwh_siga.fa_laporan_dallap_bulanan_tabel10_20rdk`). Example: port **5435**, database **BKKBN** — see [`.env.example`](.env.example).
 - **Wilayah names** from year-suffixed `d_provinsi_YYYY` / `d_kabupaten_YYYY` (exact `tahun_rekap`, else nearest year); fixture dims when DB unset.
-- **Excel dummy (default UI)** for **Oktober 2026** (`tahun=2026&bulan=10`): nasional Unmet Need ≈ **5,6%**, mCPR proxy ≈ **67,0%**, 4T ≈ **22,3%** (Tabel1 `jumlah_bumil_4t`÷`jumlah_bumil`) from `src/data/dummy/oct2026.json` (38 Provinsi). Set `VITE_USE_LIVE_API=true` to force `/api` instead.
+- **Excel dummy (default UI)** for **Oktober 2026** (`tahun=2026&bulan=10`): nasional Unmet Need ≈ **5,6%**, mCPR proxy ≈ **67,0%**, 4T ≈ **22,3%**, KTD count **143** (Tabel16 `hamil_tial`), Demand Satisfied ≈ **92,3%** (`modern÷(modern+unmet)`) from `src/data/dummy/oct2026.json` (38 Provinsi). Set `VITE_USE_LIVE_API=true` to force `/api` instead.
 - **Fixture fallback** if DB env is unset: Oct 2026 → `server/fixtures/oct2026_excel_dummy.json`; other periods → partial ~1000-row sample.
 
 ```bash

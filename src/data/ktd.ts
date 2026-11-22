@@ -1,22 +1,31 @@
+import {
+  formatCountId,
+  oct2026Dummy,
+  OCT2026_SOURCE_CAPTION,
+} from './dummy/oct2026'
+
+export type { GeoLevel, TrendPeriod } from './indicatorShared'
+export { geoLevels, trendPeriods } from './indicatorShared'
+
 export const ktdMeta = {
   title: 'Detail Indikator: KTD',
   shortName: 'KTD',
   subtitle:
-    'Kehamilan Tidak Diinginkan — proporsi kehamilan yang tidak diinginkan (saat itu atau sama sekali) dari total kehamilan.',
-  capaian: '10,8%',
-  capaianDelta: '0,9 p.p',
+    'Kehamilan Tidak Diinginkan — jumlah PUS hamil yang tidak ingin anak lagi (Tabel16 hamil_tial). Count, bukan persen.',
+  capaian: formatCountId(oct2026Dummy.nasional.ktd),
+  capaianDelta: undefined as string | undefined,
   capaianDirection: 'down' as const,
   target: 'Target belum dikonfirmasi',
   targetNote: 'Nilai target RPJMN belum ditetapkan di UI',
-  sumber: 'Kandidat: DALLAP T16 / Elsimil',
-  sumberNote:
-    'Proksi DALLAP Tabel 16; Elsimil Bumil T2/T4 — field intensi perlu konfirmasi',
-  strength: 'Lemah — keyakinan sumber paling rendah di 12 indikator',
+  sumber: 'Dummy Excel · Tabel 16',
+  sumberNote: OCT2026_SOURCE_CAPTION,
+  strength: 'Proksi DALLAP: hamil · tidak ingin anak lagi (hamil_tial)',
 } as const
 
 export const ktdNotes = [
-  'Kekuatan sumber SIGA lemah: gap field tertinggi di antara 12 indikator — konfirmasi field-level ke Elsimil/Dittasyan sebelum menganggap data tersedia.',
-  'Kandidat 1: DALLAP Tabel 16 (proksi — PUS hamil yang sebelumnya “tidak ingin anak lagi”; berbagi sumber dengan Unmet Need).',
-  'Kandidat 2–3: Elsimil IBU HAMIL Tabel 2 (hasil pemeriksaan) dan Tabel 4 (individu/BNBA) — PERLU KONFIRMASI apakah ada field intensi kehamilan.',
-  'Endpoint: report-siga-dallap-ocp (T16) + report-siga-elsimil-ocp (Bumil T2/T4). Breakdown kab/kota setelah sumber terverifikasi.',
+  'Sumber UI default: dummy Excel Oktober 2026 Tabel16 kolom HAMIL · TIDAK INGIN ANAK LAGI (hamil_tial).',
+  `Nasional KTD = ${formatCountId(oct2026Dummy.nasional.ktd)} (jumlah count 38 Provinsi; bukan persen).`,
+  'Definisi operasional di UI ini: count hamil_tial — bukan proporsi dari total kehamilan.',
+  'Breakdown 38 Provinsi dari Excel; kabupaten tidak ada di share ini.',
+  'Jalur live Postgres tetap tersedia dengan VITE_USE_LIVE_API=true.',
 ] as const

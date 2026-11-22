@@ -1,6 +1,7 @@
 /**
  * Oktober 2026 Excel dummy (Tabel1 / Tabel10 / Tabel11 / Tabel16) — nasional + 38 provinsi.
- * Source of truth: internal/dummy-oct2026 (Tabel1 → 4T; T10/11/16 → unmet/mCPR).
+ * Source of truth: internal/dummy-oct2026
+ * (Tabel1 → 4T; T10/11/16 → unmet/mCPR; T16 hamil_tial → KTD; T11+T16 → Demand Satisfied).
  *
  * Prefer this for UI default. Set VITE_USE_LIVE_API=true to hit /api (Postgres / sample).
  */
@@ -85,6 +86,10 @@ export type Oct2026Nasional = {
   unmet_need_pct: number
   peserta_kb_aktif_modern: number
   mcpr_pct: number
+  /** KTD count = sum of Tabel16 hamil_tial (not a percent). */
+  ktd: number
+  /** modern / (modern + unmet_need) * 100 */
+  demand_satisfied_pct: number
   jumlah_bumil: number
   terlalu_muda: number
   terlalu_tua: number
@@ -98,12 +103,22 @@ export type Oct2026Nasional = {
   pct_terlalu_banyak: number
 }
 
+export type Oct2026KtdDemandRow = {
+  kode: string
+  provinsi: string
+  ktd: number
+  modern: number
+  unmet_need: number
+  demand_satisfied_pct: number
+}
+
 export type Oct2026Dummy = {
   period: Oct2026Period
   tabel10_pus: Oct2026Tabel10[]
   tabel11_kb_aktif: Oct2026Tabel11[]
   tabel16_unmet_need: Oct2026Tabel16[]
   tabel1_4t: Oct2026Tabel1FourT[]
+  ktd_demand_satisfied: Oct2026KtdDemandRow[]
   nasional: Oct2026Nasional
   formulas: {
     unmet_need: string
@@ -112,6 +127,10 @@ export type Oct2026Dummy = {
     pct_4t: string
     pct_4t_note: string
     tabel1_source: string
+    ktd: string
+    ktd_note: string
+    demand_satisfied: string
+    demand_satisfied_note: string
   }
 }
 
@@ -131,6 +150,12 @@ export function formatPctId(
     minimumFractionDigits: digits,
     maximumFractionDigits: digits,
   })}%`
+}
+
+/** Integer count for KTD (id-ID grouping). */
+export function formatCountId(n: number | null | undefined): string {
+  if (n == null || !Number.isFinite(n)) return '—'
+  return n.toLocaleString('id-ID')
 }
 
 /** Unmet Need % — excludes “ingin segera”; matches Tabel16 col10 / PUS. */
@@ -154,6 +179,24 @@ export function unmetNeedPct(row: {
 export function mcprPct(totalModern: number, jumlahPus: number): number | null {
   if (!jumlahPus) return null
   return (totalModern / jumlahPus) * 100
+}
+
+/**
+ * Demand Satisfied % = modern / (modern + unmet_need) * 100.
+ * modern = Tabel11 total_modern; unmet_need = Tabel16 jumlah_unmet_need.
+ */
+export function demandSatisfiedPct(
+  modern: number,
+  unmetNeed: number,
+): number | null {
+  const denom = modern + unmetNeed
+  if (!denom) return null
+  return (modern / denom) * 100
+}
+
+/** KTD = Tabel16 hamil_tial (count). */
+export function ktdCount(hamilTial: number): number {
+  return hamilTial
 }
 
 export type ProvinceIndicatorRow = {
@@ -204,6 +247,38 @@ export function fourTProvinceRows(): ProvinceIndicatorRow[] {
     jumlah_pus: row.jumlah_bumil,
     numerator: row.jumlah_bumil_4t,
     pct: row.pct_4t,
+  }))
+}
+
+export type KtdProvinceRow = {
+  kode: string
+  provinsi: string
+  ktd: number
+}
+
+export function ktdProvinceRows(): KtdProvinceRow[] {
+  return oct2026Dummy.ktd_demand_satisfied.map((row) => ({
+    kode: row.kode,
+    provinsi: row.provinsi,
+    ktd: row.ktd,
+  }))
+}
+
+export type DemandSatisfiedProvinceRow = {
+  kode: string
+  provinsi: string
+  modern: number
+  unmet_need: number
+  pct: number
+}
+
+export function demandSatisfiedProvinceRows(): DemandSatisfiedProvinceRow[] {
+  return oct2026Dummy.ktd_demand_satisfied.map((row) => ({
+    kode: row.kode,
+    provinsi: row.provinsi,
+    modern: row.modern,
+    unmet_need: row.unmet_need,
+    pct: row.demand_satisfied_pct,
   }))
 }
 
@@ -540,6 +615,139 @@ export function buildFourTDummyResponse(
       pct_terlalu_tua: row.pct_terlalu_tua,
       pct_terlalu_dekat: row.pct_terlalu_dekat,
       pct_terlalu_banyak: row.pct_terlalu_banyak,
+    })),
+  }
+}
+
+export type DummyKtdResponse = {
+  meta: {
+    source: 'excel-dummy'
+    fixture_note: string
+    formula: string
+    filters: {
+      level: string
+      tahun_rekap: number
+      bulan_rekap: number
+      period_mode: 'bulanan'
+    }
+  }
+  data: Array<{
+    level: 'nasional' | 'provinsi'
+    nama_provinsi?: string
+    kode_provinsi?: string
+    ktd: number
+  }>
+}
+
+export function buildKtdDummyResponse(
+  level: 'nasional' | 'provinsi' | 'kabupaten',
+): DummyKtdResponse {
+  const { nasional, formulas, ktd_demand_satisfied } = oct2026Dummy
+  const meta = {
+    source: 'excel-dummy' as const,
+    fixture_note: OCT2026_SOURCE_CAPTION,
+    formula: formulas.ktd,
+    filters: {
+      level,
+      tahun_rekap: OCT2026_TAHUN,
+      bulan_rekap: OCT2026_BULAN,
+      period_mode: 'bulanan' as const,
+    },
+  }
+
+  if (level === 'kabupaten') {
+    return {
+      meta: { ...meta, filters: { ...meta.filters, level: 'kabupaten' } },
+      data: [],
+    }
+  }
+
+  if (level === 'nasional') {
+    return {
+      meta,
+      data: [{ level: 'nasional', ktd: nasional.ktd }],
+    }
+  }
+
+  return {
+    meta,
+    data: ktd_demand_satisfied.map((row) => ({
+      level: 'provinsi' as const,
+      nama_provinsi: row.provinsi,
+      kode_provinsi: row.kode,
+      ktd: row.ktd,
+    })),
+  }
+}
+
+export type DummyDemandSatisfiedResponse = {
+  meta: {
+    source: 'excel-dummy'
+    fixture_note: string
+    formula: string
+    filters: {
+      level: string
+      tahun_rekap: number
+      bulan_rekap: number
+      period_mode: 'bulanan'
+    }
+  }
+  data: Array<{
+    level: 'nasional' | 'provinsi'
+    nama_provinsi?: string
+    kode_provinsi?: string
+    modern: number
+    unmet_need: number
+    demand_satisfied_pct: number | null
+  }>
+}
+
+export function buildDemandSatisfiedDummyResponse(
+  level: 'nasional' | 'provinsi' | 'kabupaten',
+): DummyDemandSatisfiedResponse {
+  const { nasional, formulas, ktd_demand_satisfied } = oct2026Dummy
+  const meta = {
+    source: 'excel-dummy' as const,
+    fixture_note: OCT2026_SOURCE_CAPTION,
+    formula: formulas.demand_satisfied,
+    filters: {
+      level,
+      tahun_rekap: OCT2026_TAHUN,
+      bulan_rekap: OCT2026_BULAN,
+      period_mode: 'bulanan' as const,
+    },
+  }
+
+  if (level === 'kabupaten') {
+    return {
+      meta: { ...meta, filters: { ...meta.filters, level: 'kabupaten' } },
+      data: [],
+    }
+  }
+
+  if (level === 'nasional') {
+    return {
+      meta,
+      data: [
+        {
+          level: 'nasional',
+          modern: nasional.peserta_kb_aktif_modern,
+          unmet_need: nasional.unmet_need,
+          demand_satisfied_pct: nasional.demand_satisfied_pct,
+        },
+      ],
+    }
+  }
+
+  return {
+    meta,
+    data: ktd_demand_satisfied.map((row) => ({
+      level: 'provinsi' as const,
+      nama_provinsi: row.provinsi,
+      kode_provinsi: row.kode,
+      modern: row.modern,
+      unmet_need: row.unmet_need,
+      demand_satisfied_pct: row.demand_satisfied_pct,
     })),
   }
 }
