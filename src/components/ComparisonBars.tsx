@@ -37,7 +37,9 @@ export function ComparisonBars() {
               ? '/indikator/mcpr'
               : bar.key === 'unmet'
                 ? '/indikator/unmet-need'
-                : undefined
+                : bar.key === 'demand'
+                  ? '/indikator/demand-satisfied'
+                  : undefined
 
           if (!detailHref) {
             return <div key={bar.key}>{row}</div>
