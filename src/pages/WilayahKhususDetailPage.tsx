@@ -88,11 +88,7 @@ export function WilayahKhususDetailPage() {
       ) : null}
 
       <FilterBar
-        periode={
-          useDummy
-            ? `${OCT2026_LABEL} (dummy Excel Tabel20)`
-            : OCT2026_LABEL
-        }
+        periode={OCT2026_LABEL}
         wilayah="Nasional"
         level={levelLabel(level)}
       />
@@ -141,8 +137,8 @@ export function WilayahKhususDetailPage() {
               Ranking Provinsi (wilayah_khusus_pct)
             </h2>
             <p className="mt-0.5 text-[12px] text-slate-500">
-              Top 5 tertinggi &amp; terendah dari 15 Provinsi · dummy Tabel20
-              Oct 2026 (bukan 38)
+              Top 5 tertinggi &amp; terendah dari 15 Provinsi · Dallap Tabel 20 -
+              SIGA (bukan 38)
             </p>
           </header>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -158,7 +154,7 @@ export function WilayahKhususDetailPage() {
           defaultPeriod="bulanan"
           annualSubtitle="Seri tahunan · ≥5 tahun (RPJMN) · skala 0–100%"
           monthlySubtitle="Seri bulanan · ≥36 bulan · skala 0–100%"
-          monthlyStubDetail={`Seri bulanan belum tersedia. Capaian dummy Oct 2026 = ${wilayahKhususMeta.capaian} — tidak ada deret yang dikarang.`}
+          monthlyStubDetail={`Seri bulanan belum tersedia. Capaian Oktober 2026 = ${wilayahKhususMeta.capaian} — tidak ada deret yang dikarang.`}
           annualStubDetail={`Seri tahunan belum tersedia. Tidak ada nilai yang dikarang — hanya capaian Overview (${wilayahKhususMeta.capaian}) di kartu KPI.`}
         />
         <CatatanAnalitik notes={wilayahKhususNotes} />
@@ -174,7 +170,7 @@ export function WilayahKhususDetailPage() {
           level === 'kabupaten'
             ? {
                 title: 'Data per kabupaten belum tersedia',
-                body: 'Share dummy Excel Tabel20 Oct 2026 hanya nasional + 15 Provinsi (agregat kabupaten tertinggal). Tidak ada angka kabupaten yang dikarang.',
+                body: 'Data tersedia untuk nasional + 15 Provinsi (agregat kabupaten tertinggal). Kabupaten individual belum tersedia.',
               }
             : undefined
         }

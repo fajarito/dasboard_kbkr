@@ -20,7 +20,7 @@ export function OverviewPage() {
         </p>
       </div>
 
-      <FilterBar periode="Oktober 2026 · dummy Excel" />
+      <FilterBar periode="Oktober 2026 · Dallap - SIGA" />
       <IndicatorGrid />
 
       <div className="grid grid-cols-1 gap-4 xl:grid-cols-[1.35fr_1fr]">

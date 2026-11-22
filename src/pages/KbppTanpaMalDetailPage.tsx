@@ -88,9 +88,7 @@ export function KbppTanpaMalDetailPage() {
       ) : null}
 
       <FilterBar
-        periode={
-          useDummy ? `${OCT2026_LABEL} (dummy Excel Tabel1 KBPP)` : OCT2026_LABEL
-        }
+        periode={OCT2026_LABEL}
         wilayah="Nasional"
         level={levelLabel(level)}
       />
@@ -137,8 +135,8 @@ export function KbppTanpaMalDetailPage() {
               Ranking Provinsi (KBPP Tanpa MAL)
             </h2>
             <p className="mt-0.5 text-[12px] text-slate-500">
-              Top 5 tertinggi &amp; terendah dari 38 Provinsi · dummy Tabel1
-              KBPP Oct 2026
+              Top 5 tertinggi &amp; terendah dari 38 Provinsi · Dallap Tabel 1 -
+              SIGA
             </p>
           </header>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -154,7 +152,7 @@ export function KbppTanpaMalDetailPage() {
           defaultPeriod="bulanan"
           annualSubtitle="Seri tahunan · ≥5 tahun (RPJMN) · skala 0–100%"
           monthlySubtitle="Seri bulanan · ≥36 bulan · skala 0–100%"
-          monthlyStubDetail={`Seri bulanan belum tersedia. Capaian dummy Oct 2026 = ${kbppMeta.capaian} — tidak ada deret yang dikarang.`}
+          monthlyStubDetail={`Seri bulanan belum tersedia. Capaian Oktober 2026 = ${kbppMeta.capaian} — tidak ada deret yang dikarang.`}
           annualStubDetail={`Seri tahunan belum tersedia. Tidak ada nilai yang dikarang — hanya capaian Overview (${kbppMeta.capaian}) di kartu KPI.`}
         />
         <CatatanAnalitik notes={kbppNotes} />
@@ -170,7 +168,7 @@ export function KbppTanpaMalDetailPage() {
           level === 'kabupaten'
             ? {
                 title: 'Data per kabupaten belum tersedia',
-                body: 'Share dummy Excel Tabel1 KBPP Oct 2026 hanya nasional + 38 Provinsi. Tidak ada angka kabupaten yang dikarang.',
+                body: 'Data tersedia untuk nasional + 38 Provinsi. Kabupaten belum tersedia.',
               }
             : undefined
         }

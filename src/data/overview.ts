@@ -5,9 +5,13 @@ import {
   oct2026Dummy,
   OCT2026_SOURCE_CAPTION,
   OCT2026_SOURCE_CAPTION_4T,
+  OCT2026_SOURCE_CAPTION_DEMAND,
   OCT2026_SOURCE_CAPTION_KBPP,
+  OCT2026_SOURCE_CAPTION_KTD,
+  OCT2026_SOURCE_CAPTION_MCPR,
   OCT2026_SOURCE_CAPTION_MII,
   OCT2026_SOURCE_CAPTION_MKJP,
+  OCT2026_SOURCE_CAPTION_UNMET,
   OCT2026_SOURCE_CAPTION_WILAYAH_KHUSUS,
 } from './dummy/oct2026'
 
@@ -45,14 +49,14 @@ export const indicators: Indicator[] = [
     label: 'UNMET NEED',
     value: unmetNasional,
     status: 'ok',
-    note: 'Dummy Excel Oct 2026',
+    note: OCT2026_SOURCE_CAPTION_UNMET,
   },
   {
     id: '02',
     label: 'mCPR',
     value: mcprNasional,
     status: 'ok',
-    note: 'Proxy modern÷PUS · dummy Oct 2026',
+    note: OCT2026_SOURCE_CAPTION_MCPR,
   },
   {
     id: '03',
@@ -66,14 +70,14 @@ export const indicators: Indicator[] = [
     label: 'KTD',
     value: ktdNasional,
     status: 'ok',
-    note: 'hamil_tial count · dummy Oct 2026',
+    note: OCT2026_SOURCE_CAPTION_KTD,
   },
   {
     id: '05',
     label: 'DEMAND SATISFIED',
     value: demandSatisfiedNasional,
     status: 'ok',
-    note: 'modern÷(modern+unmet) · dummy Oct 2026',
+    note: OCT2026_SOURCE_CAPTION_DEMAND,
   },
   {
     id: '06',
@@ -152,7 +156,7 @@ export const comparisonBars = [
   },
 ]
 
-/** mCPR province bands from Excel dummy (38 Provinsi). */
+/** mCPR province bands from Oct 2026 snapshot (38 Provinsi). */
 export const coverageBands = mcprCoverageBands()
 
 export const navItems = [

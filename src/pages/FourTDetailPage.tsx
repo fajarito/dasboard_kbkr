@@ -92,9 +92,7 @@ export function FourTDetailPage() {
       ) : null}
 
       <FilterBar
-        periode={
-          useDummy ? `${OCT2026_LABEL} (dummy Excel Tabel1)` : OCT2026_LABEL
-        }
+        periode={OCT2026_LABEL}
         wilayah="Nasional"
         level={levelLabel(level)}
       />
@@ -173,8 +171,8 @@ export function FourTDetailPage() {
               Ranking Provinsi (pct_4t)
             </h2>
             <p className="mt-0.5 text-[12px] text-slate-500">
-              Top 5 tertinggi &amp; terendah dari 38 Provinsi · dummy Tabel1 Oct
-              2026
+              Top 5 tertinggi &amp; terendah dari 38 Provinsi · Dallap Tabel 1 -
+              SIGA
             </p>
           </header>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -190,7 +188,7 @@ export function FourTDetailPage() {
           individual tersedia lewat Elsimil IBU HAMIL Tabel 4 (DETAIL BUMIL
           TEREGISTER). Level kecamatan/faskes relevan untuk pemodelan
           service-statistic dan daftar individu; agregat kab/kota dari Tabel 1
-          belum ada di share dummy ini.
+          belum tersedia.
         </p>
       </section>
 
@@ -200,7 +198,7 @@ export function FourTDetailPage() {
           defaultPeriod="bulanan"
           annualSubtitle="Seri tahunan / kumulatif · ≥5 tahun (RPJMN) · skala 0–100%"
           monthlySubtitle="Seri bulanan · ≥36 bulan (Elsimil Bumil) · skala 0–100%"
-          monthlyStubDetail={`Seri bulanan belum tersedia. Capaian Overview ${capaianValue} dari dummy Tabel1 Oct 2026 saja yang ditampilkan — tidak ada deret yang dikarang.`}
+          monthlyStubDetail={`Seri bulanan belum tersedia. Capaian Overview ${capaianValue} dari Dallap Tabel 1 - SIGA saja yang ditampilkan — tidak ada deret yang dikarang.`}
           annualStubDetail={`Seri tahunan/kumulatif belum tersedia. Tidak ada nilai yang dikarang — hanya capaian Overview (${capaianValue}) di kartu KPI.`}
         />
         <CatatanAnalitik notes={fourTNotes} />
@@ -216,7 +214,7 @@ export function FourTDetailPage() {
           level === 'kabupaten'
             ? {
                 title: 'Data per kabupaten belum tersedia',
-                body: 'Share dummy Excel Tabel1 Oct 2026 hanya nasional + 38 Provinsi. Tidak ada angka kabupaten yang dikarang.',
+                body: 'Data tersedia untuk nasional + 38 Provinsi. Kabupaten belum tersedia.',
               }
             : undefined
         }

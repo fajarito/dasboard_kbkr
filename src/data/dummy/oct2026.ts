@@ -1,5 +1,5 @@
 /**
- * Oktober 2026 Excel dummy (Tabel1 / Tabel2 / Tabel3 / Tabel10 / Tabel11 / Tabel16 / Tabel20)
+ * Oktober 2026 snapshot (Tabel1 / Tabel2 / Tabel3 / Tabel10 / Tabel11 / Tabel16 / Tabel20)
  * — nasional + 38 provinsi (Tabel20 Wilayah Khusus: only 15 provinces).
  * Source of truth: internal/dummy-oct2026
  * (Tabel1 → 4T + KBPP Tanpa MAL; T10/11/16 → unmet/mCPR; T16 hamil_tial → KTD;
@@ -7,25 +7,25 @@
  *  Tabel3+Tabel10_v3 KB ulangan → MKJP; Tabel20 kabupaten tertinggal → Wilayah Khusus).
  *
  * Prefer this for UI default. Set VITE_USE_LIVE_API=true to hit /api (Postgres / sample).
+ * UI attribution: Dallap Tabel N - SIGA (no dummy/Excel wording).
  */
 import raw from './oct2026.json'
 
 export const OCT2026_BULAN = 10
 export const OCT2026_TAHUN = 2026
 export const OCT2026_LABEL = 'Oktober 2026'
-export const OCT2026_SOURCE_CAPTION =
-  'Dummy Excel Oct 2026 (Tabel1/2/3/10/11/16/20 · nasional + 38 Provinsi)'
-export const OCT2026_SOURCE_CAPTION_4T =
-  'Dummy Excel Tabel1 Oct 2026 (nasional + 38 Provinsi)'
-export const OCT2026_SOURCE_CAPTION_KBPP =
-  'Dummy Excel Tabel1 KBPP Oct 2026 (nasional + 38 Provinsi)'
-export const OCT2026_SOURCE_CAPTION_MII =
-  'Dummy Excel Tabel2/3/10 Oct 2026 (nasional + 38 Provinsi)'
-export const OCT2026_SOURCE_CAPTION_MKJP =
-  'Dummy Excel Tabel3/10 Oct 2026 (nasional + 38 Provinsi)'
-export const OCT2026_SOURCE_CAPTION_WILAYAH_KHUSUS =
-  'Dummy Excel Tabel20 Oct 2026 (nasional + 15 Provinsi · kabupaten tertinggal)'
-
+/** Generic overview attribution (not per-indicator). */
+export const OCT2026_SOURCE_CAPTION = 'Dallap - SIGA'
+export const OCT2026_SOURCE_CAPTION_UNMET = 'Dallap Tabel 16 - SIGA'
+export const OCT2026_SOURCE_CAPTION_MCPR = 'Dallap Tabel 11 - SIGA'
+export const OCT2026_SOURCE_CAPTION_KTD = 'Dallap Tabel 16 - SIGA'
+export const OCT2026_SOURCE_CAPTION_DEMAND = 'Dallap Tabel 11 & 16 - SIGA'
+export const OCT2026_SOURCE_CAPTION_PUS = 'Dallap Tabel 10 - SIGA'
+export const OCT2026_SOURCE_CAPTION_4T = 'Dallap Tabel 1 - SIGA'
+export const OCT2026_SOURCE_CAPTION_KBPP = 'Dallap Tabel 1 - SIGA'
+export const OCT2026_SOURCE_CAPTION_MII = 'Dallap Tabel 2, 3 & 10 - SIGA'
+export const OCT2026_SOURCE_CAPTION_MKJP = 'Dallap Tabel 3 & 10 - SIGA'
+export const OCT2026_SOURCE_CAPTION_WILAYAH_KHUSUS = 'Dallap Tabel 20 - SIGA'
 export type Oct2026Period = {
   bulan_rekap: number
   tahun_rekap: number
@@ -291,7 +291,7 @@ export type Oct2026Dummy = {
 
 export const oct2026Dummy = raw as Oct2026Dummy
 
-/** UI default: Excel dummy. Live API only when VITE_USE_LIVE_API=true. */
+/** UI default: Oct 2026 snapshot. Live API only when VITE_USE_LIVE_API=true. */
 export function preferOct2026Dummy(): boolean {
   return import.meta.env.VITE_USE_LIVE_API !== 'true'
 }
@@ -554,7 +554,7 @@ export function buildUnmetNeedDummyResponse(
   const { nasional, formulas, tabel16_unmet_need } = oct2026Dummy
   const meta = {
     source: 'excel-dummy' as const,
-    fixture_note: OCT2026_SOURCE_CAPTION,
+    fixture_note: OCT2026_SOURCE_CAPTION_UNMET,
     formula: formulas.unmet_need,
     filters: {
       level,
@@ -637,7 +637,7 @@ export function buildMcprDummyResponse(
   const { nasional, formulas } = oct2026Dummy
   const meta = {
     source: 'excel-dummy' as const,
-    fixture_note: OCT2026_SOURCE_CAPTION,
+    fixture_note: OCT2026_SOURCE_CAPTION_MCPR,
     formula: formulas.mcpr_proxy,
     filters: {
       level,
@@ -800,7 +800,7 @@ export function buildKtdDummyResponse(
   const { nasional, formulas, ktd_demand_satisfied } = oct2026Dummy
   const meta = {
     source: 'excel-dummy' as const,
-    fixture_note: OCT2026_SOURCE_CAPTION,
+    fixture_note: OCT2026_SOURCE_CAPTION_KTD,
     formula: formulas.ktd,
     filters: {
       level,
@@ -863,7 +863,7 @@ export function buildDemandSatisfiedDummyResponse(
   const { nasional, formulas, ktd_demand_satisfied } = oct2026Dummy
   const meta = {
     source: 'excel-dummy' as const,
-    fixture_note: OCT2026_SOURCE_CAPTION,
+    fixture_note: OCT2026_SOURCE_CAPTION_DEMAND,
     formula: formulas.demand_satisfied,
     filters: {
       level,

@@ -14,7 +14,7 @@ import {
   buildDemandSatisfiedDummyResponse,
   formatPctId,
   OCT2026_LABEL,
-  OCT2026_SOURCE_CAPTION,
+  OCT2026_SOURCE_CAPTION_DEMAND,
   preferOct2026Dummy,
 } from '../data/dummy/oct2026'
 import {
@@ -76,7 +76,7 @@ export function DemandSatisfiedDetailPage() {
 
       {useDummy ? (
         <p className="rounded-xl border border-sky-200 bg-sky-50 px-3 py-2 text-[12px] leading-relaxed text-sky-950">
-          {OCT2026_SOURCE_CAPTION}. Rumus = total_modern (Tabel11) ÷
+          {OCT2026_SOURCE_CAPTION_DEMAND}. Rumus = total_modern (Tabel11) ÷
           (total_modern + jumlah_unmet_need Tabel16) × 100. Live API:{' '}
           <code className="rounded bg-white px-1 py-0.5 text-[11px]">
             VITE_USE_LIVE_API=true
@@ -86,9 +86,7 @@ export function DemandSatisfiedDetailPage() {
       ) : null}
 
       <FilterBar
-        periode={
-          useDummy ? `${OCT2026_LABEL} (dummy Excel)` : OCT2026_LABEL
-        }
+        periode={OCT2026_LABEL}
         wilayah="Nasional"
         level={levelLabel(level)}
       />
@@ -99,7 +97,7 @@ export function DemandSatisfiedDetailPage() {
           value={capaianValue}
           footnote={
             <span className="font-medium leading-snug text-slate-500">
-              {useDummy ? OCT2026_SOURCE_CAPTION : 'Stub Overview'}
+              {useDummy ? OCT2026_SOURCE_CAPTION_DEMAND : 'Stub Overview'}
             </span>
           }
         />
@@ -157,7 +155,7 @@ export function DemandSatisfiedDetailPage() {
           defaultPeriod="bulanan"
           annualSubtitle="Seri tahunan · ≥5 tahun (opsional / RPJMN) · skala 0–100%"
           monthlySubtitle="Seri bulanan · ≥36 bulan (turunan DALLAP T11+T16) · skala 0–100%"
-          monthlyStubDetail={`Seri bulanan belum tersedia. Capaian dummy Oct 2026 = ${demandSatisfiedMeta.capaian} — tidak ada deret yang dikarang.`}
+          monthlyStubDetail={`Seri bulanan belum tersedia. Capaian Oktober 2026 = ${demandSatisfiedMeta.capaian} — tidak ada deret yang dikarang.`}
           annualStubDetail={`Seri tahunan belum tersedia. Tidak ada nilai yang dikarang — hanya capaian Overview (${demandSatisfiedMeta.capaian}) di kartu KPI.`}
         />
         <CatatanAnalitik notes={demandSatisfiedNotes} />
@@ -173,7 +171,7 @@ export function DemandSatisfiedDetailPage() {
           level === 'kabupaten'
             ? {
                 title: 'Data per kabupaten belum tersedia',
-                body: 'Share dummy Excel Oct 2026 hanya nasional + 38 Provinsi. Tidak ada angka kabupaten yang dikarang.',
+                body: 'Data tersedia untuk nasional + 38 Provinsi. Kabupaten belum tersedia.',
               }
             : undefined
         }

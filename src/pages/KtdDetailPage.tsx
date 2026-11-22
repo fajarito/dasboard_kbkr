@@ -14,7 +14,7 @@ import {
   buildKtdDummyResponse,
   formatCountId,
   OCT2026_LABEL,
-  OCT2026_SOURCE_CAPTION,
+  OCT2026_SOURCE_CAPTION_KTD,
   preferOct2026Dummy,
 } from '../data/dummy/oct2026'
 import { levelLabel, type GeoLevel } from '../data/indicatorShared'
@@ -70,7 +70,7 @@ export function KtdDetailPage() {
 
       {useDummy ? (
         <p className="rounded-xl border border-sky-200 bg-sky-50 px-3 py-2 text-[12px] leading-relaxed text-sky-950">
-          {OCT2026_SOURCE_CAPTION}. KTD = Tabel16{' '}
+          {OCT2026_SOURCE_CAPTION_KTD}. KTD = Tabel16{' '}
           <span className="font-semibold">hamil_tial</span> (HAMIL · TIDAK
           INGIN ANAK LAGI) — count, bukan %. Live API:{' '}
           <code className="rounded bg-white px-1 py-0.5 text-[11px]">
@@ -95,9 +95,7 @@ export function KtdDetailPage() {
       )}
 
       <FilterBar
-        periode={
-          useDummy ? `${OCT2026_LABEL} (dummy Excel)` : OCT2026_LABEL
-        }
+        periode={OCT2026_LABEL}
         wilayah="Nasional"
         level={levelLabel(level)}
       />
@@ -109,7 +107,7 @@ export function KtdDetailPage() {
           footnote={
             <span className="font-medium leading-snug text-slate-500">
               {useDummy
-                ? 'Count hamil_tial · dummy Excel Oct 2026'
+                ? 'Count hamil_tial · Dallap Tabel 16 - SIGA'
                 : 'Stub Overview'}
             </span>
           }
@@ -145,7 +143,7 @@ export function KtdDetailPage() {
           defaultPeriod="bulanan"
           annualSubtitle="Seri tahunan · ≥5 tahun (RPJMN) · skala count"
           monthlySubtitle="Seri bulanan · ≥36 bulan · skala count"
-          monthlyStubDetail={`Seri bulanan belum tersedia. Capaian dummy Oct 2026 = ${ktdMeta.capaian} (hamil_tial) — tidak ada deret yang dikarang.`}
+          monthlyStubDetail={`Seri bulanan belum tersedia. Capaian Oktober 2026 = ${ktdMeta.capaian} (hamil_tial) — tidak ada deret yang dikarang.`}
           annualStubDetail={`Seri tahunan belum tersedia. Tidak ada nilai yang dikarang — hanya capaian Overview (${ktdMeta.capaian}) di kartu KPI.`}
         />
         <CatatanAnalitik notes={ktdNotes} />
@@ -161,7 +159,7 @@ export function KtdDetailPage() {
           level === 'kabupaten'
             ? {
                 title: 'Data per kabupaten belum tersedia',
-                body: 'Share dummy Excel Oct 2026 hanya nasional + 38 Provinsi. Tidak ada angka kabupaten yang dikarang.',
+                body: 'Data tersedia untuk nasional + 38 Provinsi. Kabupaten belum tersedia.',
               }
             : undefined
         }
