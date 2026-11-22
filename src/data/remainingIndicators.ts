@@ -28,39 +28,6 @@ export type IndicatorDetailConfig = {
 
 export const remainingIndicators: IndicatorDetailConfig[] = [
   {
-    id: '06',
-    slug: 'mii',
-    title: 'Detail Indikator: MII',
-    shortName: 'MII',
-    subtitle:
-      'Method Information Index — rata-rata komponen informed choice (metode lain, efek samping, tindakan bila efek samping) pada peserta KB baru (standar DHS).',
-    capaian: '76,3',
-    capaianDelta: '2,4',
-    capaianDirection: 'up',
-    target: 'Target belum dikonfirmasi',
-    targetNote: 'Nilai target RPJMN belum ditetapkan di UI',
-    sumber: 'YanKB Tabel 2 / 20',
-    sumberNote:
-      'Endpoint report-siga-yankb-ocp · informed consent (gap: informed choice 3 komponen)',
-    strength: 'Sedang — Tabel ada; kedalaman field MII belum pasti',
-    strengthTone: 'warn',
-    gapBanner:
-      'Gap informed consent vs informed choice: katalog hanya menyebut “pemberian informed consent” secara umum. Perlu skema field R/I/KB atau K/0/KB untuk 3 komponen MII standar.',
-    notes: [
-      'Sumber utama: YanKB Bulanan Tabel 2 / Tabel 20 (informed consent KB baru & ulangan).',
-      'PERLU KONFIRMASI apakah field terpecah menjadi 3 komponen MII, bukan hanya ya/tidak consent.',
-      'Informed consent (izin) ≠ informed choice (pilihan diinformasikan) — keduanya diminta dieksplorasi.',
-      'Breakdown kab/kota setelah API YanKB tersedia; level BNBA belum diketahui.',
-    ],
-    metricColumn: 'MII',
-    defaultTrendPeriod: 'bulanan',
-    monthlyStubDetail:
-      'Seri bulanan belum tersedia. Akan diisi dari YanKB Tabel 2/20 setelah field MII terverifikasi. Capaian Overview 76,3 saja yang ditampilkan.',
-    annualStubDetail:
-      'Seri tahunan belum tersedia. Tidak ada nilai yang dikarang — hanya capaian Overview (76,3) di kartu KPI.',
-    screenshotBase: 'mii',
-  },
-  {
     id: '07',
     slug: 'ikp',
     title: 'Detail Indikator: IKP',

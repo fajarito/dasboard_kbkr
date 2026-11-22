@@ -1,7 +1,9 @@
 /**
- * Oktober 2026 Excel dummy (Tabel1 / Tabel10 / Tabel11 / Tabel16) — nasional + 38 provinsi.
+ * Oktober 2026 Excel dummy (Tabel1 / Tabel2 / Tabel3 / Tabel10 / Tabel11 / Tabel16)
+ * — nasional + 38 provinsi.
  * Source of truth: internal/dummy-oct2026
- * (Tabel1 → 4T; T10/11/16 → unmet/mCPR; T16 hamil_tial → KTD; T11+T16 → Demand Satisfied).
+ * (Tabel1 → 4T; T10/11/16 → unmet/mCPR; T16 hamil_tial → KTD; T11+T16 → Demand Satisfied;
+ *  Tabel2+3+Tabel10_v3 KB ulangan → MII).
  *
  * Prefer this for UI default. Set VITE_USE_LIVE_API=true to hit /api (Postgres / sample).
  */
@@ -11,9 +13,11 @@ export const OCT2026_BULAN = 10
 export const OCT2026_TAHUN = 2026
 export const OCT2026_LABEL = 'Oktober 2026'
 export const OCT2026_SOURCE_CAPTION =
-  'Dummy Excel Oct 2026 (Tabel1/10/11/16 · nasional + 38 Provinsi)'
+  'Dummy Excel Oct 2026 (Tabel1/2/3/10/11/16 · nasional + 38 Provinsi)'
 export const OCT2026_SOURCE_CAPTION_4T =
   'Dummy Excel Tabel1 Oct 2026 (nasional + 38 Provinsi)'
+export const OCT2026_SOURCE_CAPTION_MII =
+  'Dummy Excel Tabel2/3/10 Oct 2026 (nasional + 38 Provinsi)'
 
 export type Oct2026Period = {
   bulan_rekap: number
@@ -101,6 +105,21 @@ export type Oct2026Nasional = {
   pct_terlalu_tua: number
   pct_terlalu_dekat: number
   pct_terlalu_banyak: number
+  /** Tabel2 informed consent KB baru (selected methods). */
+  mii_ic_baru: number
+  /** Tabel2 informed consent KB ulangan. */
+  mii_ic_ulangan: number
+  /** Tabel3 KB baru selected (exclude pil & kondom). */
+  mii_denom_baru: number
+  /**
+   * Tabel10 KB ulangan selected (suntik+implan+IUD).
+   * Vasektomi/tubektomi absent in this Excel — treated as 0.
+   */
+  mii_denom_ulangan: number
+  mii_numerator: number
+  mii_denominator: number
+  /** (ic_baru + ic_ulangan) / (denom_baru + denom_ulangan) * 100 */
+  mii_pct: number
 }
 
 export type Oct2026KtdDemandRow = {
@@ -112,6 +131,26 @@ export type Oct2026KtdDemandRow = {
   demand_satisfied_pct: number
 }
 
+/**
+ * MII province row from Tabel2 (IC) + Tabel3 (KB baru selected) + Tabel10_v3 (KB ulangan).
+ * Tabel10 KB ulangan Excel has no vasektomi/tubektomi columns — ulang_* for those are 0.
+ */
+export type Oct2026MiiRow = {
+  kode: string
+  provinsi: string
+  ic_baru: number
+  ic_ulangan: number
+  denom_baru: number
+  denom_ulangan: number
+  /** Always 0 in this Excel share (no column). */
+  ulang_vasektomi: number
+  /** Always 0 in this Excel share (no column). */
+  ulang_tubektomi: number
+  numerator: number
+  denominator: number
+  mii_pct: number
+}
+
 export type Oct2026Dummy = {
   period: Oct2026Period
   tabel10_pus: Oct2026Tabel10[]
@@ -119,6 +158,7 @@ export type Oct2026Dummy = {
   tabel16_unmet_need: Oct2026Tabel16[]
   tabel1_4t: Oct2026Tabel1FourT[]
   ktd_demand_satisfied: Oct2026KtdDemandRow[]
+  mii: Oct2026MiiRow[]
   nasional: Oct2026Nasional
   formulas: {
     unmet_need: string
@@ -131,6 +171,9 @@ export type Oct2026Dummy = {
     ktd_note: string
     demand_satisfied: string
     demand_satisfied_note: string
+    mii_pct: string
+    mii_note: string
+    mii_sources: string
   }
 }
 
@@ -748,6 +791,109 @@ export function buildDemandSatisfiedDummyResponse(
       modern: row.modern,
       unmet_need: row.unmet_need,
       demand_satisfied_pct: row.demand_satisfied_pct,
+    })),
+  }
+}
+
+/**
+ * MII% = (IC_baru + IC_ulangan) / (KB_baru_selected + KB_ulangan_selected) × 100.
+ * denom_ulangan excludes vasektomi/tubektomi when Excel has no such columns (treated as 0).
+ */
+export function miiPct(numerator: number, denominator: number): number | null {
+  if (!denominator) return null
+  return (numerator / denominator) * 100
+}
+
+export function miiProvinceRows(): ProvinceIndicatorRow[] {
+  return oct2026Dummy.mii.map((row) => ({
+    kode: row.kode,
+    provinsi: row.provinsi,
+    jumlah_pus: row.denominator,
+    numerator: row.numerator,
+    pct: row.mii_pct,
+  }))
+}
+
+export type DummyMiiResponse = {
+  meta: {
+    source: 'excel-dummy'
+    fixture_note: string
+    formula: string
+    filters: {
+      level: string
+      tahun_rekap: number
+      bulan_rekap: number
+      period_mode: 'bulanan'
+    }
+  }
+  data: Array<{
+    level: 'nasional' | 'provinsi'
+    nama_provinsi?: string
+    kode_provinsi?: string
+    ic_baru: number
+    ic_ulangan: number
+    denom_baru: number
+    denom_ulangan: number
+    numerator: number
+    denominator: number
+    mii_pct: number | null
+  }>
+}
+
+export function buildMiiDummyResponse(
+  level: 'nasional' | 'provinsi' | 'kabupaten',
+): DummyMiiResponse {
+  const { nasional, formulas, mii } = oct2026Dummy
+  const meta = {
+    source: 'excel-dummy' as const,
+    fixture_note: OCT2026_SOURCE_CAPTION_MII,
+    formula: formulas.mii_pct,
+    filters: {
+      level,
+      tahun_rekap: OCT2026_TAHUN,
+      bulan_rekap: OCT2026_BULAN,
+      period_mode: 'bulanan' as const,
+    },
+  }
+
+  if (level === 'kabupaten') {
+    return {
+      meta: { ...meta, filters: { ...meta.filters, level: 'kabupaten' } },
+      data: [],
+    }
+  }
+
+  if (level === 'nasional') {
+    return {
+      meta,
+      data: [
+        {
+          level: 'nasional',
+          ic_baru: nasional.mii_ic_baru,
+          ic_ulangan: nasional.mii_ic_ulangan,
+          denom_baru: nasional.mii_denom_baru,
+          denom_ulangan: nasional.mii_denom_ulangan,
+          numerator: nasional.mii_numerator,
+          denominator: nasional.mii_denominator,
+          mii_pct: nasional.mii_pct,
+        },
+      ],
+    }
+  }
+
+  return {
+    meta,
+    data: mii.map((row) => ({
+      level: 'provinsi' as const,
+      nama_provinsi: row.provinsi,
+      kode_provinsi: row.kode,
+      ic_baru: row.ic_baru,
+      ic_ulangan: row.ic_ulangan,
+      denom_baru: row.denom_baru,
+      denom_ulangan: row.denom_ulangan,
+      numerator: row.numerator,
+      denominator: row.denominator,
+      mii_pct: row.mii_pct,
     })),
   }
 }
