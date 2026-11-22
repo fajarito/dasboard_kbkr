@@ -1,3 +1,6 @@
+export type { GeoLevel, TrendPeriod } from './indicatorShared'
+export { geoLevels, trendPeriods } from './indicatorShared'
+
 export const mcprMeta = {
   title: 'Detail Indikator: mCPR',
   subtitle:
@@ -29,17 +32,3 @@ export const mcprNotes = [
   'Rekonsiliasi DALLAP vs YanKB (jalur model EMU) diperlukan untuk validasi.',
   'Breakdown standar hingga kabupaten/kota; kecamatan/faskes untuk model EMU menyusul.',
 ] as const
-
-export type TrendPeriod = 'tahunan' | 'bulanan'
-export type GeoLevel = 'nasional' | 'provinsi' | 'kabupaten'
-
-export const trendPeriods: { id: TrendPeriod; label: string }[] = [
-  { id: 'tahunan', label: 'Tren tahunan' },
-  { id: 'bulanan', label: 'Tren bulanan' },
-]
-
-export const geoLevels: { id: GeoLevel; label: string }[] = [
-  { id: 'nasional', label: 'Nasional' },
-  { id: 'provinsi', label: 'Provinsi' },
-  { id: 'kabupaten', label: 'Kabupaten' },
-]

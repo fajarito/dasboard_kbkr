@@ -22,7 +22,12 @@ export function IndicatorGrid() {
 
 function IndicatorCard({ item }: { item: Indicator }) {
   const pending = item.status === 'pending'
-  const href = item.id === '02' ? '/indikator/mcpr' : undefined
+  const href =
+    item.id === '01'
+      ? '/indikator/unmet-need'
+      : item.id === '02'
+        ? '/indikator/mcpr'
+        : undefined
 
   const card = (
     <article
@@ -65,7 +70,7 @@ function IndicatorCard({ item }: { item: Indicator }) {
   if (!href) return card
 
   return (
-    <Link to={href} aria-label="Buka detail indikator mCPR">
+    <Link to={href} aria-label={`Buka detail indikator ${item.label}`}>
       {card}
     </Link>
   )
