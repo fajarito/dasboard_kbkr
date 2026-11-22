@@ -18,9 +18,10 @@ import {
 import { levelLabel, type GeoLevel } from '../data/indicatorShared'
 import { unmetNeedMeta, unmetNeedNotes } from '../data/unmetNeed'
 
-/** Default period matches the largest month present in the Phase-1 fixture. */
-const FIXTURE_TAHUN = 2023
-const FIXTURE_BULAN = 7
+/** Default period aligned with Overview: Oktober 2026. */
+const DEFAULT_TAHUN = 2026
+const DEFAULT_BULAN = 10
+const DEFAULT_PERIODE_LABEL = 'Oktober 2026'
 
 export function UnmetNeedDetailPage() {
   const [level, setLevel] = useState<GeoLevel>('nasional')
@@ -36,8 +37,8 @@ export function UnmetNeedDetailPage() {
     void fetchUnmetNeed(
       {
         level,
-        tahun: FIXTURE_TAHUN,
-        bulan: FIXTURE_BULAN,
+        tahun: DEFAULT_TAHUN,
+        bulan: DEFAULT_BULAN,
       },
       controller.signal,
     ).then((result) => {
@@ -78,9 +79,9 @@ export function UnmetNeedDetailPage() {
   const periodeLabel =
     apiStatus === 'ok'
       ? apiPayload?.meta.source === 'postgres'
-        ? `Jul ${FIXTURE_TAHUN} (Postgres DALLAP)`
-        : `Jul ${FIXTURE_TAHUN} (fixture DALLAP)`
-      : 'Jan – Jun 2026'
+        ? `${DEFAULT_PERIODE_LABEL} (Postgres DALLAP)`
+        : `${DEFAULT_PERIODE_LABEL} (fixture DALLAP)`
+      : DEFAULT_PERIODE_LABEL
 
   return (
     <DashboardLayout mobileTitle="Detail Unmet Need">
@@ -95,15 +96,15 @@ export function UnmetNeedDetailPage() {
         <p className="rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-[12px] leading-relaxed text-amber-900">
           {apiPayload.meta.fixture_note ??
             'Serving fixture sample (DB env unset). National % is fixture-only.'}{' '}
-          Periode API: tahun_rekap={FIXTURE_TAHUN}, bulan_rekap=
-          {FIXTURE_BULAN}.
+          Periode API: tahun_rekap={DEFAULT_TAHUN}, bulan_rekap=
+          {DEFAULT_BULAN}.
         </p>
       ) : null}
 
       {apiStatus === 'ok' && apiPayload?.meta.source === 'postgres' ? (
         <p className="rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2 text-[12px] leading-relaxed text-emerald-900">
           Live Postgres · {apiPayload.meta.table ?? 'dwh_siga…'} · tahun_rekap=
-          {FIXTURE_TAHUN}, bulan_rekap={FIXTURE_BULAN}.
+          {DEFAULT_TAHUN}, bulan_rekap={DEFAULT_BULAN}.
         </p>
       ) : null}
 
@@ -134,7 +135,10 @@ export function UnmetNeedDetailPage() {
           footnote={
             capaianFromApi ? (
               <span className="font-medium leading-snug text-slate-500">
-                Fixture agregat Jul {FIXTURE_TAHUN} · formula DALLAP T10/16
+                {apiPayload?.meta.source === 'postgres'
+                  ? `Agregat ${DEFAULT_PERIODE_LABEL}`
+                  : `Fixture agregat ${DEFAULT_PERIODE_LABEL}`}{' '}
+                · formula DALLAP T10/16
               </span>
             ) : (
               <span className="inline-flex items-center gap-1 font-semibold text-trend">
