@@ -13,7 +13,7 @@ import {
   buildMcprDummyResponse,
   formatPctId,
   OCT2026_LABEL,
-  OCT2026_SOURCE_CAPTION,
+  OCT2026_SOURCE_CAPTION_MCPR,
   preferOct2026Dummy,
 } from '../data/dummy/oct2026'
 import { levelLabel, type GeoLevel } from '../data/indicatorShared'
@@ -69,7 +69,7 @@ export function McprDetailPage() {
 
       {useDummy ? (
         <p className="rounded-xl border border-sky-200 bg-sky-50 px-3 py-2 text-[12px] leading-relaxed text-sky-950">
-          {OCT2026_SOURCE_CAPTION}. Proxy mCPR = total_modern (Tabel11) ÷
+          {OCT2026_SOURCE_CAPTION_MCPR}. Proxy mCPR = total_modern (Tabel11) ÷
           jumlah_pus (Tabel10). Live API:{' '}
           <code className="rounded bg-white px-1 py-0.5 text-[11px]">
             VITE_USE_LIVE_API=true
@@ -79,9 +79,7 @@ export function McprDetailPage() {
       ) : null}
 
       <FilterBar
-        periode={
-          useDummy ? `${OCT2026_LABEL} (dummy Excel)` : OCT2026_LABEL
-        }
+        periode={OCT2026_LABEL}
         wilayah="Nasional"
         level={levelLabel(level)}
       />
@@ -92,7 +90,7 @@ export function McprDetailPage() {
           value={capaianValue}
           footnote={
             <span className="font-medium leading-snug text-slate-500">
-              {useDummy ? OCT2026_SOURCE_CAPTION : 'Stub Overview'}
+              {useDummy ? OCT2026_SOURCE_CAPTION_MCPR : 'Stub Overview'}
             </span>
           }
         />
@@ -132,7 +130,7 @@ export function McprDetailPage() {
           level === 'kabupaten'
             ? {
                 title: 'Data per kabupaten belum tersedia',
-                body: 'Share dummy Excel Oct 2026 hanya nasional + 38 Provinsi. Tidak ada angka kabupaten yang dikarang.',
+                body: 'Data tersedia untuk nasional + 38 Provinsi. Kabupaten belum tersedia.',
               }
             : undefined
         }

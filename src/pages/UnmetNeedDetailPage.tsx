@@ -19,7 +19,7 @@ import {
   buildUnmetNeedDummyResponse,
   OCT2026_BULAN,
   OCT2026_LABEL,
-  OCT2026_SOURCE_CAPTION,
+  OCT2026_SOURCE_CAPTION_UNMET,
   OCT2026_TAHUN,
   preferOct2026Dummy,
 } from '../data/dummy/oct2026'
@@ -95,7 +95,7 @@ export function UnmetNeedDetailPage() {
       : undefined
 
   const periodeLabel = isExcelDummy
-    ? `${DEFAULT_PERIODE_LABEL} (dummy Excel)`
+    ? DEFAULT_PERIODE_LABEL
     : apiStatus === 'ok'
       ? isPostgres
         ? `${DEFAULT_PERIODE_LABEL} (Postgres DALLAP)`
@@ -113,7 +113,7 @@ export function UnmetNeedDetailPage() {
 
       {apiStatus === 'ok' && isExcelDummy ? (
         <p className="rounded-xl border border-sky-200 bg-sky-50 px-3 py-2 text-[12px] leading-relaxed text-sky-950">
-          {OCT2026_SOURCE_CAPTION}. Periode: tahun_rekap={DEFAULT_TAHUN},
+          {OCT2026_SOURCE_CAPTION_UNMET}. Periode: tahun_rekap={DEFAULT_TAHUN},
           bulan_rekap={DEFAULT_BULAN}. Live Postgres:{' '}
           <code className="rounded bg-white px-1 py-0.5 text-[11px]">
             VITE_USE_LIVE_API=true
@@ -148,7 +148,7 @@ export function UnmetNeedDetailPage() {
           <code className="rounded bg-white px-1 py-0.5 text-[11px]">
             VITE_USE_LIVE_API
           </code>{' '}
-          untuk dummy Excel.
+          untuk data default Oktober 2026.
         </p>
       ) : null}
 
@@ -166,7 +166,7 @@ export function UnmetNeedDetailPage() {
             capaianFromData ? (
               <span className="font-medium leading-snug text-slate-500">
                 {isExcelDummy
-                  ? OCT2026_SOURCE_CAPTION
+                  ? OCT2026_SOURCE_CAPTION_UNMET
                   : isPostgres
                     ? `Agregat ${DEFAULT_PERIODE_LABEL}`
                     : `Fixture agregat ${DEFAULT_PERIODE_LABEL}`}{' '}
@@ -174,7 +174,7 @@ export function UnmetNeedDetailPage() {
               </span>
             ) : (
               <span className="font-medium leading-snug text-slate-500">
-                {OCT2026_SOURCE_CAPTION}
+                {OCT2026_SOURCE_CAPTION_UNMET}
               </span>
             )
           }
@@ -199,7 +199,7 @@ export function UnmetNeedDetailPage() {
               <span className="mt-1 block text-[11px] text-slate-400">
                 {apiStatus === 'ok'
                   ? isExcelDummy
-                    ? 'UI default · Excel dummy (bukan Live Postgres)'
+                    ? 'UI default · Dallap Tabel 16 - SIGA'
                     : isPostgres
                       ? 'Live SQL via /api/unmet-need'
                       : 'Fixture sample via /api/unmet-need'
@@ -216,8 +216,8 @@ export function UnmetNeedDetailPage() {
           defaultPeriod="bulanan"
           annualSubtitle="Seri tahunan · ≥5 tahun (opsional / RPJMN) · skala 0–100%"
           monthlySubtitle="Seri bulanan primer · ≥36 bulan (DALLAP Bulanan) · skala 0–100%"
-          monthlyStubDetail={`Seri bulanan (≥36 bulan) belum diisi. Capaian snapshot ${capaianValue} dari dummy Excel Oct 2026 (satu bulan).`}
-          annualStubDetail={`Seri tahunan opsional belum tersedia. Snapshot KPI: ${capaianValue} (dummy Excel Oct 2026).`}
+          monthlyStubDetail={`Seri bulanan (≥36 bulan) belum diisi. Capaian snapshot ${capaianValue} dari Dallap Tabel 16 - SIGA (satu bulan).`}
+          annualStubDetail={`Seri tahunan opsional belum tersedia. Snapshot KPI: ${capaianValue} (Dallap Tabel 16 - SIGA).`}
         />
         <CatatanAnalitik notes={unmetNeedNotes} />
       </div>
@@ -232,14 +232,14 @@ export function UnmetNeedDetailPage() {
           level === 'kabupaten'
             ? {
                 title: 'Data per kabupaten belum tersedia',
-                body: 'Share dummy Excel Oct 2026 hanya nasional + 38 Provinsi. Tidak ada angka kabupaten yang dikarang.',
+                body: 'Data tersedia untuk nasional + 38 Provinsi. Kabupaten belum tersedia.',
               }
             : undefined
         }
         footerNote={
           apiStatus === 'ok'
             ? isExcelDummy
-              ? '38 Provinsi dari Tabel16 Excel · % = unmet / PUS. Kabupaten tidak disertakan.'
+              ? '38 Provinsi dari Dallap Tabel 16 - SIGA · % = unmet / PUS. Kabupaten belum tersedia.'
               : isPostgres
                 ? 'Nama wilayah dari d_provinsi / d_kabupaten (tahun dim mengikuti tahun_rekap, fallback tahun terdekat). Id tetap disertakan.'
                 : 'Nama dari sample dim JSON bila id cocok; jika tidak ada → id saja. Sample Unmet Need ~1000 baris (bukan angka nasional resmi).'

@@ -1,7 +1,7 @@
 import {
   formatPctId,
   oct2026Dummy,
-  OCT2026_SOURCE_CAPTION,
+  OCT2026_SOURCE_CAPTION_MCPR,
 } from './dummy/oct2026'
 
 export type { GeoLevel, TrendPeriod } from './indicatorShared'
@@ -14,13 +14,13 @@ export const mcprMeta = {
   capaian: formatPctId(oct2026Dummy.nasional.mcpr_pct),
   capaianDelta: undefined as string | undefined,
   target: '65,0%',
-  /** Nasional proxy already above 65% target (dummy Oct 2026). */
+  /** Nasional proxy already above 65% target (Oct 2026). */
   selisih: `${(oct2026Dummy.nasional.mcpr_pct - 65).toLocaleString('id-ID', {
     minimumFractionDigits: 1,
     maximumFractionDigits: 1,
   })} p.p di atas target`,
-  sumber: 'Dummy Excel · Tabel 11 (+ T10)',
-  sumberNote: OCT2026_SOURCE_CAPTION,
+  sumber: 'Dallap Tabel 11 - SIGA',
+  sumberNote: OCT2026_SOURCE_CAPTION_MCPR,
 } as const
 
 /** Annual series (≥5 tahun / RPJMN). Values from Figma — not invented kab data. */
@@ -42,9 +42,9 @@ export const mcprTrendAnnual = [
 export const mcprTrend = mcprTrendAnnual
 
 export const mcprNotes = [
-  'Sumber UI default: dummy Excel Oktober 2026 (Tabel11 modern ÷ Tabel10 PUS).',
+  'Sumber: Dallap Tabel 11 - SIGA (PUS dari Tabel 10).',
   `Nasional proxy: modern ${oct2026Dummy.nasional.peserta_kb_aktif_modern.toLocaleString('id-ID')} / PUS ${oct2026Dummy.nasional.jumlah_pus.toLocaleString('id-ID')} ≈ ${oct2026Dummy.nasional.mcpr_pct}%.`,
   'Konfirmasi definisi mCPR SIGA vs proxy modern total (col12) masih perlu.',
-  'Breakdown 38 Provinsi dari Excel; kabupaten tidak ada di share ini.',
+  'Breakdown 38 Provinsi; kabupaten belum tersedia.',
   'Jalur live Postgres tetap tersedia dengan VITE_USE_LIVE_API=true.',
 ] as const
