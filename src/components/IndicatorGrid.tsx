@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { detailPathByOverviewId } from '../data/remainingIndicators'
 import { indicators, type Indicator } from '../data/overview'
 
 export function IndicatorGrid() {
@@ -10,11 +11,12 @@ export function IndicatorGrid() {
         ))}
       </div>
       <p className="max-w-5xl text-[11px] leading-relaxed text-slate-400">
-        Catatan: label #9 selaras SIGA (Kesertaan KB Wilayah Khusus; historis %
-        KB Pria — perlu konfirmasi). #11 KBPP Tanpa MAL; #12 DCR (Permas).
-        Periode pembanding dan target belum dicantumkan. Warna perubahan bukan
-        status pencapaian target. p.p = poin persentase. Satuan/skala indeks
-        MII, IKP, dan keterpaparan perlu dikonfirmasi.
+        Catatan: seluruh 12 indikator punya halaman detail (klik kartu). Label
+        #9 selaras SIGA (Kesertaan KB Wilayah Khusus; historis % KB Pria —
+        perlu konfirmasi). #11 KBPP Tanpa MAL; #12 DCR (Permas). Periode
+        pembanding dan target belum dicantumkan. Warna perubahan bukan status
+        pencapaian target. p.p = poin persentase. Satuan/skala indeks MII, IKP,
+        dan keterpaparan perlu dikonfirmasi.
       </p>
     </div>
   )
@@ -22,18 +24,7 @@ export function IndicatorGrid() {
 
 function IndicatorCard({ item }: { item: Indicator }) {
   const pending = item.status === 'pending'
-  const href =
-    item.id === '01'
-      ? '/indikator/unmet-need'
-      : item.id === '02'
-        ? '/indikator/mcpr'
-        : item.id === '03'
-          ? '/indikator/4t'
-          : item.id === '04'
-            ? '/indikator/ktd'
-            : item.id === '05'
-              ? '/indikator/demand-satisfied'
-              : undefined
+  const href = detailPathByOverviewId[item.id]
 
   const card = (
     <article

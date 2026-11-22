@@ -1,0 +1,277 @@
+import type { TrendPeriod } from './indicatorShared'
+
+export type IndicatorDetailConfig = {
+  id: string
+  slug: string
+  title: string
+  shortName: string
+  subtitle: string
+  capaian: string
+  capaianDelta?: string
+  capaianDirection?: 'up' | 'down'
+  capaianPending?: boolean
+  capaianPendingLabel?: string
+  target: string
+  targetNote: string
+  sumber: string
+  sumberNote: string
+  strength: string
+  strengthTone?: 'ok' | 'warn' | 'weak'
+  gapBanner?: string
+  notes: readonly string[]
+  metricColumn: string
+  defaultTrendPeriod?: TrendPeriod
+  monthlyStubDetail: string
+  annualStubDetail: string
+  screenshotBase: string
+}
+
+export const remainingIndicators: IndicatorDetailConfig[] = [
+  {
+    id: '06',
+    slug: 'mii',
+    title: 'Detail Indikator: MII',
+    shortName: 'MII',
+    subtitle:
+      'Method Information Index — rata-rata komponen informed choice (metode lain, efek samping, tindakan bila efek samping) pada peserta KB baru (standar DHS).',
+    capaian: '76,3',
+    capaianDelta: '2,4',
+    capaianDirection: 'up',
+    target: 'Target belum dikonfirmasi',
+    targetNote: 'Nilai target RPJMN belum ditetapkan di UI',
+    sumber: 'YanKB Tabel 2 / 20',
+    sumberNote:
+      'Endpoint report-siga-yankb-ocp · informed consent (gap: informed choice 3 komponen)',
+    strength: 'Sedang — Tabel ada; kedalaman field MII belum pasti',
+    strengthTone: 'warn',
+    gapBanner:
+      'Gap informed consent vs informed choice: katalog hanya menyebut “pemberian informed consent” secara umum. Perlu skema field R/I/KB atau K/0/KB untuk 3 komponen MII standar.',
+    notes: [
+      'Sumber utama: YanKB Bulanan Tabel 2 / Tabel 20 (informed consent KB baru & ulangan).',
+      'PERLU KONFIRMASI apakah field terpecah menjadi 3 komponen MII, bukan hanya ya/tidak consent.',
+      'Informed consent (izin) ≠ informed choice (pilihan diinformasikan) — keduanya diminta dieksplorasi.',
+      'Breakdown kab/kota setelah API YanKB tersedia; level BNBA belum diketahui.',
+    ],
+    metricColumn: 'MII',
+    defaultTrendPeriod: 'bulanan',
+    monthlyStubDetail:
+      'Seri bulanan belum tersedia. Akan diisi dari YanKB Tabel 2/20 setelah field MII terverifikasi. Capaian Overview 76,3 saja yang ditampilkan.',
+    annualStubDetail:
+      'Seri tahunan belum tersedia. Tidak ada nilai yang dikarang — hanya capaian Overview (76,3) di kartu KPI.',
+    screenshotBase: 'mii',
+  },
+  {
+    id: '07',
+    slug: 'ikp',
+    title: 'Detail Indikator: IKP',
+    shortName: 'IKP',
+    subtitle:
+      'Indeks Kualitas Pelayanan KB — indeks komposit; bobot dan formula resmi antar-komponen belum dikonfirmasi ke Dittasyan.',
+    capaian: '80,6',
+    capaianDelta: '1,8',
+    capaianDirection: 'up',
+    target: 'Target belum dikonfirmasi',
+    targetNote: 'Nilai target RPJMN belum ditetapkan di UI',
+    sumber: 'Komposit YanKB',
+    sumberNote:
+      'Kandidat: informed consent, komplikasi, sarana, nakes, kelengkapan laporan — formula belum ada',
+    strength: 'Sedang — komponen kandidat ada; formula index belum ada',
+    strengthTone: 'warn',
+    gapBanner:
+      'Formula IKP belum tersedia. Jangan menghitung ulang indeks di UI hingga Dittasyan mengonfirmasi bobot/komponen resmi.',
+    notes: [
+      'Kandidat komponen: YanKB T2/20 (consent), T7/25 (komplikasi), Tahunan T5/5A/5B (sarana), T7A/7B (nakes), Bulanan T1 (laporan).',
+      'Endpoint: report-siga-yankb-ocp untuk seluruh Tabel kandidat.',
+      'Rekomendasi: minta formula resmi sebelum menarik seluruh Tabel.',
+      'Breakdown kab/kota setelah formula dan API tersedia.',
+    ],
+    metricColumn: 'IKP',
+    defaultTrendPeriod: 'bulanan',
+    monthlyStubDetail:
+      'Seri belum tersedia hingga formula IKP dikonfirmasi. Capaian Overview 80,6 saja yang ditampilkan — tidak ada deret yang dikarang.',
+    annualStubDetail:
+      'Seri tahunan belum tersedia. Tidak ada nilai yang dikarang — hanya capaian Overview (80,6) di kartu KPI.',
+    screenshotBase: 'ikp',
+  },
+  {
+    id: '08',
+    slug: 'mkjp',
+    title: 'Detail Indikator: % MKJP',
+    shortName: '% MKJP',
+    subtitle:
+      'Persentase Metode Kontrasepsi Jangka Panjang (IUD, Implan, MOW, MOP) dari peserta KB relevan — YanKB Bulanan Tabel 3 + Tabel 10.',
+    capaian: '27,3%',
+    capaianDelta: '1,9 p.p',
+    capaianDirection: 'up',
+    target: 'Target belum dikonfirmasi',
+    targetNote: 'Nilai target RPJMN belum ditetapkan di UI',
+    sumber: 'YanKB Tabel 3 + 10',
+    sumberNote: 'Endpoint report-siga-yankb-ocp · KB Baru + KB Ulangan',
+    strength: 'Kuat — Tabel YanKB cocok untuk % MKJP',
+    strengthTone: 'ok',
+    notes: [
+      'Sumber SIGA utama: YanKB Bulanan Tabel 3 (KB Baru) dan Tabel 10 (KB Ulangan) dengan breakdown metode.',
+      'MKJP = IUD, Implan, MOW, MOP; pastikan klasifikasi metode di YanKB selaras definisi program.',
+      'Endpoint report-siga-yankb-ocp.',
+      'Breakdown kab/kota standar setelah API tersedia.',
+    ],
+    metricColumn: '% MKJP',
+    defaultTrendPeriod: 'bulanan',
+    monthlyStubDetail:
+      'Seri bulanan (≥36 bulan) akan diisi dari YanKB Tabel 3 + 10. Capaian Overview 27,3% saja yang ditampilkan sementara.',
+    annualStubDetail:
+      'Seri tahunan belum tersedia. Tidak ada nilai yang dikarang — hanya capaian Overview (27,3%) di kartu KPI.',
+    screenshotBase: 'mkjp',
+  },
+  {
+    id: '09',
+    slug: 'wilayah-khusus',
+    title: 'Detail Indikator: Kesertaan KB Wilayah Khusus',
+    shortName: 'Wil. Khusus',
+    subtitle:
+      'Persentase kesertaan KB di 208 kabupaten/kota wilayah khusus (Dityansus). Historis sering disebut “% KB Pria” dari filter dataset mCPR — dual definition.',
+    capaian: '8,1%',
+    capaianDelta: '0,5 p.p',
+    capaianDirection: 'up',
+    target: 'Target belum dikonfirmasi',
+    targetNote: 'Nilai target RPJMN belum ditetapkan di UI',
+    sumber: 'Filter DALLAP T11 / mCPR',
+    sumberNote:
+      'Dipilah Tim Yansus dari mCPR kab/kota · daftar 208 kab perlu konfirmasi',
+    strength: 'Sedang — dual definition (Wilayah Khusus vs historis % KB Pria)',
+    strengthTone: 'warn',
+    gapBanner:
+      'Dual definition: dokumen resmi = Kesertaan KB Wilayah Khusus (208 kab/kota); historis UI/data PK = “% KB Pria”. Konfirmasi ke Tim Yansus apakah endpoint terpisah atau filter pada data mCPR mentah.',
+    notes: [
+      'Sumber: filter DALLAP Tabel 11 / dataset mCPR; YanKB jika butuh method-spesifik (pria).',
+      'Proses pemilahan wilayah khusus tampak di luar alur API standar — perlu konfirmasi Tim Yansus.',
+      'Daftar 208 kab/kota wilayah khusus (galciltas/perbatasan/kepulauan) belum dilampirkan di UI.',
+      'Breakdown kab/kota: empty hingga daftar & definisi operasional dikunci.',
+    ],
+    metricColumn: 'Kesertaan',
+    defaultTrendPeriod: 'bulanan',
+    monthlyStubDetail:
+      'Seri bulanan belum tersedia hingga definisi operasional (Wilayah Khusus vs % KB Pria) dikunci. Capaian Overview 8,1% saja yang ditampilkan.',
+    annualStubDetail:
+      'Seri tahunan belum tersedia. Tidak ada nilai yang dikarang — hanya capaian Overview (8,1%) di kartu KPI.',
+    screenshotBase: 'wilayah-khusus',
+  },
+  {
+    id: '10',
+    slug: 'keterpaparan',
+    title: 'Detail Indikator: Indeks Keterpaparan KBKR',
+    shortName: 'Keterpaparan',
+    subtitle:
+      'Indeks komposit paparan/jangkauan informasi dan layanan KBKR — formula resmi belum ditemukan; banyak Tabel kandidat DALLAP.',
+    capaian: '66,4',
+    capaianDelta: '2,7',
+    capaianDirection: 'up',
+    target: 'Target belum dikonfirmasi',
+    targetNote: 'Nilai target RPJMN belum ditetapkan di UI',
+    sumber: 'DALLAP T2–9 + T8–16',
+    sumberNote:
+      'Bulanan aktivitas + Tahunan kapasitas · report-siga-dallap-ocp · formula belum ada',
+    strength: 'Sedang — banyak kandidat Tabel; formula index belum ada',
+    strengthTone: 'warn',
+    gapBanner:
+      'Formula Indeks Keterpaparan belum dikonfirmasi. Rekomendasi: minta formula resmi Ditkespro sebelum menarik 15+ Tabel kandidat.',
+    notes: [
+      'Aktivitas bulanan: DALLAP Bulanan Tabel 2–9 (BKB/BKR/BKL/UPPKA/PIK-R/PPKS, dll.).',
+      'Kapasitas tahunan: DALLAP Tahunan Tabel 8–16 sebagai basis/denominator.',
+      'Indikator paling kompleks di 12 indikator dari sisi jumlah Tabel.',
+      'Breakdown kab/kota setelah formula dikunci.',
+    ],
+    metricColumn: 'Indeks',
+    defaultTrendPeriod: 'bulanan',
+    monthlyStubDetail:
+      'Seri belum tersedia hingga formula keterpaparan dikonfirmasi. Capaian Overview 66,4 saja yang ditampilkan — tidak ada deret yang dikarang.',
+    annualStubDetail:
+      'Seri tahunan belum tersedia. Tidak ada nilai yang dikarang — hanya capaian Overview (66,4) di kartu KPI.',
+    screenshotBase: 'keterpaparan',
+  },
+  {
+    id: '11',
+    slug: 'kbpp-tanpa-mal',
+    title: 'Detail Indikator: KBPP Tanpa MAL',
+    shortName: 'KBPP Tanpa MAL',
+    subtitle:
+      'Persentase ibu pascapersalinan yang mengikuti KBPP dengan metode selain MAL, dari total ibu pascapersalinan.',
+    capaian: '28,5%',
+    capaianDelta: '1,3 p.p',
+    capaianDirection: 'up',
+    target: 'Target belum dikonfirmasi',
+    targetNote: 'Nilai target RPJMN belum ditetapkan di UI',
+    sumber: 'Elsimil Pascasalin T1–2',
+    sumberNote:
+      'BNBA Tabel 4 · report-siga-elsimil-ocp · definisi operasional MAL perlu digali',
+    strength: 'Lemah–sedang — kandidat ada; filter MAL perlu konfirmasi',
+    strengthTone: 'warn',
+    gapBanner:
+      'Gap MAL: pastikan MAL muncul sebagai kategori metode yang bisa dikecualikan dari numerator KBPP. Definisi operasional MAL di Elsimil perlu dikonfirmasi.',
+    notes: [
+      'Sumber: PASCAPERSALINAN Tabel 1–2 (Bulanan/Tahunan/Kumulatif); individu Tabel 4 (BNBA).',
+      'MAL tidak dihitung sebagai kepesertaan KBPP pada numerator dalam rumusan ini.',
+      'Endpoint report-siga-elsimil-ocp.',
+      'BNBA relevan; breakdown kab/kota standar setelah API tersedia.',
+    ],
+    metricColumn: 'KBPP',
+    defaultTrendPeriod: 'bulanan',
+    monthlyStubDetail:
+      'Seri bulanan akan diisi dari Elsimil Pascasalin setelah filter MAL terverifikasi. Capaian Overview 28,5% saja yang ditampilkan sementara.',
+    annualStubDetail:
+      'Seri tahunan/kumulatif belum tersedia. Tidak ada nilai yang dikarang — hanya capaian Overview (28,5%) di kartu KPI.',
+    screenshotBase: 'kbpp-tanpa-mal',
+  },
+  {
+    id: '12',
+    slug: 'dcr',
+    title: 'Detail Indikator: DCR (Permas)',
+    shortName: 'DCR',
+    subtitle:
+      'Discontinuation Rate (tingkat putus pakai kontrasepsi) — “Permas” perlu dikonfirmasi arti operasionalnya ke Ditkespro/BKKBN.',
+    capaian: '—',
+    capaianPending: true,
+    capaianPendingLabel: 'DCR (Permas) · perlu konfirmasi',
+    target: 'Target belum dikonfirmasi',
+    targetNote: 'Nilai target dan definisi Permas belum ditetapkan di UI',
+    sumber: 'DALLAP Tabel 17',
+    sumberNote:
+      'Opsional YanKB pencabutan · report-siga-dallap-ocp (+ yankb) · arti Permas terbuka',
+    strength: 'Perlu konfirmasi — angka Overview belum diisi',
+    strengthTone: 'weak',
+    gapBanner:
+      'Overview menampilkan “—” / perlu konfirmasi. Arti “Permas” dan formula DCR operasional masih terbuka di Bagian 8 dokumen SIGA. Jangan mengisi angka hingga definisi dikunci.',
+    notes: [
+      'Kandidat sumber: DALLAP Bulanan Tabel 17; YanKB untuk data pencabutan/putus pakai.',
+      'Endpoint: report-siga-dallap-ocp (+ report-siga-yankb-ocp bila diperlukan).',
+      'Konfirmasi ke Ditkespro/BKKBN: definisi Permas, denominator, dan jendela waktu DCR.',
+      'Breakdown kab/kota setelah definisi dan API tersedia.',
+    ],
+    metricColumn: 'DCR',
+    defaultTrendPeriod: 'bulanan',
+    monthlyStubDetail:
+      'Seri bulanan belum tersedia. Tidak ada angka yang dikarang — tunggu konfirmasi definisi DCR/Permas dan DALLAP Tabel 17.',
+    annualStubDetail:
+      'Seri tahunan belum tersedia. Capaian Overview masih “—” / perlu konfirmasi.',
+    screenshotBase: 'dcr',
+  },
+]
+
+export const remainingBySlug = Object.fromEntries(
+  remainingIndicators.map((item) => [item.slug, item]),
+) as Record<string, IndicatorDetailConfig>
+
+export const detailPathByOverviewId: Record<string, string> = {
+  '01': '/indikator/unmet-need',
+  '02': '/indikator/mcpr',
+  '03': '/indikator/4t',
+  '04': '/indikator/ktd',
+  '05': '/indikator/demand-satisfied',
+  '06': '/indikator/mii',
+  '07': '/indikator/ikp',
+  '08': '/indikator/mkjp',
+  '09': '/indikator/wilayah-khusus',
+  '10': '/indikator/keterpaparan',
+  '11': '/indikator/kbpp-tanpa-mal',
+  '12': '/indikator/dcr',
+}
