@@ -9,7 +9,7 @@ export function ComparisonBars() {
           Perbandingan Indikator Utama
         </h2>
         <p className="mt-0.5 text-[12px] text-slate-500">
-          Capaian nasional • Oktober 2026
+          Capaian nasional • Oktober 2026 · Dallap - SIGA
         </p>
       </header>
 

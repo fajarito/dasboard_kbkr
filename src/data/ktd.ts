@@ -17,12 +17,13 @@ export const ktdMeta = {
   capaianDirection: 'down' as const,
   target: 'Target belum dikonfirmasi',
   targetNote: 'Nilai target RPJMN belum ditetapkan di UI',
-  sumber: 'SIGA',
+  sumber: 'Dallap Tabel 16 - SIGA',
   sumberNote: OCT2026_SOURCE_CAPTION_KTD,
-  strength: 'Proksi: hamil · tidak ingin anak lagi',
+  strength: 'Dallap Tabel 16 - SIGA',
 } as const
 
 export const ktdNotes = [
+  'Sumber: Dallap Tabel 16 - SIGA.',
   `Nasional KTD = ${formatCountId(oct2026Dummy.nasional.ktd)}.`,
   'Breakdown 38 Provinsi; kabupaten belum tersedia.',
 ] as const

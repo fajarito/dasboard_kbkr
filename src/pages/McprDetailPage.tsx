@@ -13,6 +13,7 @@ import {
   buildMcprDummyResponse,
   formatPctId,
   OCT2026_LABEL,
+  OCT2026_SOURCE_CAPTION_MCPR,
   preferOct2026Dummy,
 } from '../data/dummy/oct2026'
 import { levelLabel, type GeoLevel } from '../data/indicatorShared'
@@ -66,6 +67,12 @@ export function McprDetailPage() {
         indikatorPath="/indikator/mcpr"
       />
 
+      {useDummy ? (
+        <p className="rounded-xl border border-sky-200 bg-sky-50 px-3 py-2 text-[12px] leading-relaxed text-sky-950">
+          {OCT2026_SOURCE_CAPTION_MCPR}
+        </p>
+      ) : null}
+
       <FilterBar
         periode={OCT2026_LABEL}
         wilayah="Nasional"
@@ -78,7 +85,7 @@ export function McprDetailPage() {
           value={capaianValue}
           footnote={
             <span className="font-medium leading-snug text-slate-500">
-              {useDummy ? 'Oktober 2026' : 'Stub Overview'}
+              {useDummy ? OCT2026_SOURCE_CAPTION_MCPR : 'Stub Overview'}
             </span>
           }
         />
@@ -95,6 +102,11 @@ export function McprDetailPage() {
           label="Sumber data"
           value={mcprMeta.sumber}
           valueClassName="text-[17px] sm:text-[19px]"
+          footnote={
+            <span className="font-medium leading-snug text-slate-500">
+              {mcprMeta.sumberNote}
+            </span>
+          }
         />
       </div>
 

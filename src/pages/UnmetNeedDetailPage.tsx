@@ -19,6 +19,7 @@ import {
   buildUnmetNeedDummyResponse,
   OCT2026_BULAN,
   OCT2026_LABEL,
+  OCT2026_SOURCE_CAPTION_UNMET,
   OCT2026_TAHUN,
   preferOct2026Dummy,
 } from '../data/dummy/oct2026'
@@ -97,6 +98,12 @@ export function UnmetNeedDetailPage() {
         indikatorPath="/indikator/unmet-need"
       />
 
+      {useDummy ? (
+        <p className="rounded-xl border border-sky-200 bg-sky-50 px-3 py-2 text-[12px] leading-relaxed text-sky-950">
+          {OCT2026_SOURCE_CAPTION_UNMET}
+        </p>
+      ) : null}
+
       <FilterBar
         periode={DEFAULT_PERIODE_LABEL}
         wilayah="Nasional"
@@ -109,7 +116,7 @@ export function UnmetNeedDetailPage() {
           value={capaianValue}
           footnote={
             <span className="font-medium leading-snug text-slate-500">
-              {DEFAULT_PERIODE_LABEL}
+              {OCT2026_SOURCE_CAPTION_UNMET}
             </span>
           }
         />
@@ -127,6 +134,11 @@ export function UnmetNeedDetailPage() {
           label="Sumber data"
           value={unmetNeedMeta.sumber}
           valueClassName="text-[16px] sm:text-[18px]"
+          footnote={
+            <span className="font-medium leading-snug text-slate-500">
+              {unmetNeedMeta.sumberNote}
+            </span>
+          }
         />
       </div>
 
@@ -136,8 +148,8 @@ export function UnmetNeedDetailPage() {
           defaultPeriod="bulanan"
           annualSubtitle="Seri tahunan · ≥5 tahun (opsional / RPJMN) · skala 0–100%"
           monthlySubtitle="Seri bulanan primer · ≥36 bulan (DALLAP Bulanan) · skala 0–100%"
-          monthlyStubDetail={`Seri bulanan (≥36 bulan) belum diisi. Capaian snapshot ${capaianValue} (satu bulan).`}
-          annualStubDetail={`Seri tahunan opsional belum tersedia. Snapshot KPI: ${capaianValue}.`}
+          monthlyStubDetail={`Seri bulanan (≥36 bulan) belum diisi. Capaian snapshot ${capaianValue} dari Dallap Tabel 16 - SIGA (satu bulan).`}
+          annualStubDetail={`Seri tahunan opsional belum tersedia. Snapshot KPI: ${capaianValue} (Dallap Tabel 16 - SIGA).`}
         />
         <CatatanAnalitik notes={unmetNeedNotes} />
       </div>

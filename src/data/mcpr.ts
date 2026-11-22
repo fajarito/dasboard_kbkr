@@ -19,7 +19,7 @@ export const mcprMeta = {
     minimumFractionDigits: 1,
     maximumFractionDigits: 1,
   })} p.p di atas target`,
-  sumber: 'SIGA',
+  sumber: 'Dallap Tabel 11 - SIGA',
   sumberNote: OCT2026_SOURCE_CAPTION_MCPR,
 } as const
 
@@ -42,7 +42,7 @@ export const mcprTrendAnnual = [
 export const mcprTrend = mcprTrendAnnual
 
 export const mcprNotes = [
+  'Sumber: Dallap Tabel 11 - SIGA.',
   `Nasional proxy: modern ${oct2026Dummy.nasional.peserta_kb_aktif_modern.toLocaleString('id-ID')} / PUS ${oct2026Dummy.nasional.jumlah_pus.toLocaleString('id-ID')} ≈ ${oct2026Dummy.nasional.mcpr_pct}%.`,
-  'Konfirmasi definisi mCPR SIGA vs proxy modern total (col12) masih perlu.',
   'Breakdown 38 Provinsi; kabupaten belum tersedia.',
 ] as const

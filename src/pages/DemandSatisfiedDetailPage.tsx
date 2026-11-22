@@ -14,6 +14,7 @@ import {
   buildDemandSatisfiedDummyResponse,
   formatPctId,
   OCT2026_LABEL,
+  OCT2026_SOURCE_CAPTION_DEMAND,
   preferOct2026Dummy,
 } from '../data/dummy/oct2026'
 import {
@@ -73,6 +74,12 @@ export function DemandSatisfiedDetailPage() {
         indikatorPath="/indikator/demand-satisfied"
       />
 
+      {useDummy ? (
+        <p className="rounded-xl border border-sky-200 bg-sky-50 px-3 py-2 text-[12px] leading-relaxed text-sky-950">
+          {OCT2026_SOURCE_CAPTION_DEMAND}
+        </p>
+      ) : null}
+
       <FilterBar
         periode={OCT2026_LABEL}
         wilayah="Nasional"
@@ -85,7 +92,7 @@ export function DemandSatisfiedDetailPage() {
           value={capaianValue}
           footnote={
             <span className="font-medium leading-snug text-slate-500">
-              {useDummy ? 'Oktober 2026' : 'Stub Overview'}
+              {useDummy ? OCT2026_SOURCE_CAPTION_DEMAND : 'Stub Overview'}
             </span>
           }
         />
@@ -103,6 +110,11 @@ export function DemandSatisfiedDetailPage() {
           label="Sumber data"
           value={demandSatisfiedMeta.sumber}
           valueClassName="text-[16px] sm:text-[18px]"
+          footnote={
+            <span className="font-medium leading-snug text-slate-500">
+              {demandSatisfiedMeta.sumberNote}
+            </span>
+          }
         />
       </div>
 
@@ -134,8 +146,8 @@ export function DemandSatisfiedDetailPage() {
           title="Tren Demand Satisfied Nasional"
           defaultPeriod="bulanan"
           annualSubtitle="Seri tahunan · ≥5 tahun (opsional / RPJMN) · skala 0–100%"
-          monthlySubtitle="Seri bulanan · ≥36 bulan (turunan DALLAP T11+T16) · skala 0–100%"
-          monthlyStubDetail={`Seri bulanan belum tersedia. Capaian Oktober 2026 = ${demandSatisfiedMeta.capaian} — tidak ada deret yang dikarang.`}
+          monthlySubtitle="Seri bulanan · ≥36 bulan · skala 0–100%"
+          monthlyStubDetail={`Seri bulanan belum tersedia. Capaian Oktober 2026 = ${demandSatisfiedMeta.capaian} (Dallap Tabel 11 & 16 - SIGA) — tidak ada deret yang dikarang.`}
           annualStubDetail={`Seri tahunan belum tersedia. Tidak ada nilai yang dikarang — hanya capaian Overview (${demandSatisfiedMeta.capaian}) di kartu KPI.`}
         />
         <CatatanAnalitik notes={demandSatisfiedNotes} />
