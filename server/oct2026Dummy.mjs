@@ -1,6 +1,7 @@
 /**
  * Oktober 2026 Excel dummy aggregates (Tabel1/2/3/10/11/16/20) — nasional + 38 Provinsi.
  * Used when fixture mode serves tahun_rekap=2026 & bulan_rekap=10 (no kabupaten).
+ * Tabel1 also feeds KBPP Tanpa MAL (Ibu pasca persalinan · excl. MAL+Tradisional);
  * Tabel2/3/10_v3 (KB ulangan) feed MII; Tabel3/10_v3 feed MKJP;
  * Tabel20 kabupaten tertinggal feeds Wilayah Khusus (15 Provinsi only);
  * vasektomi/tubektomi ulangan absent → 0.

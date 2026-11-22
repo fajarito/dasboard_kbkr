@@ -2,9 +2,9 @@
  * Oktober 2026 Excel dummy (Tabel1 / Tabel2 / Tabel3 / Tabel10 / Tabel11 / Tabel16 / Tabel20)
  * — nasional + 38 provinsi (Tabel20 Wilayah Khusus: only 15 provinces).
  * Source of truth: internal/dummy-oct2026
- * (Tabel1 → 4T; T10/11/16 → unmet/mCPR; T16 hamil_tial → KTD; T11+T16 → Demand Satisfied;
- *  Tabel2+3+Tabel10_v3 KB ulangan → MII; Tabel3+Tabel10_v3 KB ulangan → MKJP;
- *  Tabel20 kabupaten tertinggal → Wilayah Khusus).
+ * (Tabel1 → 4T + KBPP Tanpa MAL; T10/11/16 → unmet/mCPR; T16 hamil_tial → KTD;
+ *  T11+T16 → Demand Satisfied; Tabel2+3+Tabel10_v3 KB ulangan → MII;
+ *  Tabel3+Tabel10_v3 KB ulangan → MKJP; Tabel20 kabupaten tertinggal → Wilayah Khusus).
  *
  * Prefer this for UI default. Set VITE_USE_LIVE_API=true to hit /api (Postgres / sample).
  */
@@ -17,6 +17,8 @@ export const OCT2026_SOURCE_CAPTION =
   'Dummy Excel Oct 2026 (Tabel1/2/3/10/11/16/20 · nasional + 38 Provinsi)'
 export const OCT2026_SOURCE_CAPTION_4T =
   'Dummy Excel Tabel1 Oct 2026 (nasional + 38 Provinsi)'
+export const OCT2026_SOURCE_CAPTION_KBPP =
+  'Dummy Excel Tabel1 KBPP Oct 2026 (nasional + 38 Provinsi)'
 export const OCT2026_SOURCE_CAPTION_MII =
   'Dummy Excel Tabel2/3/10 Oct 2026 (nasional + 38 Provinsi)'
 export const OCT2026_SOURCE_CAPTION_MKJP =
@@ -145,6 +147,16 @@ export type Oct2026Nasional = {
   wilayah_khusus_numerator: number
   /** (kondom + vasektomi) / jumlah_kb_aktif * 100 — only 15 provinces in Tabel20 */
   wilayah_khusus_pct: number
+  /** Tabel1 Ibu pasca persalinan (denominator KBPP). */
+  jumlah_ibu_pasca_persalinan: number
+  /** ber_kb from Tabel1 (includes MAL + tradisional). */
+  kbpp_ber_kb: number
+  kbpp_mal: number
+  kbpp_tradisional: number
+  /** IUD+MOW+MOP+Implan+Suntik+Pil+Kondom (= ber_kb − MAL − tradisional). */
+  kbpp_numerator: number
+  /** kbpp_numerator / jumlah_ibu_pasca_persalinan * 100 */
+  kbpp_tanpa_mal_pct: number
 }
 
 export type Oct2026KtdDemandRow = {
@@ -215,6 +227,29 @@ export type Oct2026WilayahKhususRow = {
   tradisional: number
 }
 
+/**
+ * KBPP (Tanpa MAL) province row from Tabel1 (Ibu pasca persalinan menurut kesertaan ber-KB).
+ * Numerator excludes MAL + Tradisional.
+ */
+export type Oct2026KbppRow = {
+  kode: string
+  provinsi: string
+  jumlah_ibu_pasca_persalinan: number
+  ber_kb: number
+  iud: number
+  mow: number
+  mop: number
+  implan: number
+  suntik: number
+  pil: number
+  kondom: number
+  mal: number
+  tradisional: number
+  /** IUD+MOW+MOP+Implan+Suntik+Pil+Kondom */
+  numerator: number
+  kbpp_tanpa_mal_pct: number
+}
+
 export type Oct2026Dummy = {
   period: Oct2026Period
   tabel10_pus: Oct2026Tabel10[]
@@ -225,6 +260,7 @@ export type Oct2026Dummy = {
   mii: Oct2026MiiRow[]
   mkjp: Oct2026MkjpRow[]
   tabel20_wilayah_khusus: Oct2026WilayahKhususRow[]
+  kbpp_tanpa_mal: Oct2026KbppRow[]
   nasional: Oct2026Nasional
   formulas: {
     unmet_need: string
@@ -247,6 +283,9 @@ export type Oct2026Dummy = {
     wilayah_khusus: string
     wilayah_khusus_note: string
     tabel20_source: string
+    kbpp_tanpa_mal_pct: string
+    kbpp_tanpa_mal_note: string
+    kbpp_tanpa_mal_source: string
   }
 }
 
@@ -1171,6 +1210,110 @@ export function buildWilayahKhususDummyResponse(
       numerator: row.numerator,
       denominator: row.jumlah_kb_aktif,
       wilayah_khusus_pct: row.wilayah_khusus_pct,
+    })),
+  }
+}
+
+/**
+ * KBPP (Tanpa MAL)% = (IUD+MOW+MOP+Implan+Suntik+Pil+Kondom) /
+ * jumlah_ibu_pasca_persalinan × 100. Excludes MAL + Tradisional
+ * (= ber_kb − MAL − tradisional).
+ */
+export function kbppTanpaMalPct(
+  numerator: number,
+  jumlahIbuPascaPersalinan: number,
+): number | null {
+  if (!jumlahIbuPascaPersalinan) return null
+  return (numerator / jumlahIbuPascaPersalinan) * 100
+}
+
+export function kbppProvinceRows(): ProvinceIndicatorRow[] {
+  return oct2026Dummy.kbpp_tanpa_mal.map((row) => ({
+    kode: row.kode,
+    provinsi: row.provinsi,
+    jumlah_pus: row.jumlah_ibu_pasca_persalinan,
+    numerator: row.numerator,
+    pct: row.kbpp_tanpa_mal_pct,
+  }))
+}
+
+export type DummyKbppResponse = {
+  meta: {
+    source: 'excel-dummy'
+    fixture_note: string
+    formula: string
+    filters: {
+      level: string
+      tahun_rekap: number
+      bulan_rekap: number
+      period_mode: 'bulanan'
+    }
+  }
+  data: Array<{
+    level: 'nasional' | 'provinsi'
+    nama_provinsi?: string
+    kode_provinsi?: string
+    ber_kb: number
+    mal: number
+    tradisional: number
+    numerator: number
+    denominator: number
+    kbpp_tanpa_mal_pct: number | null
+  }>
+}
+
+export function buildKbppDummyResponse(
+  level: 'nasional' | 'provinsi' | 'kabupaten',
+): DummyKbppResponse {
+  const { nasional, formulas, kbpp_tanpa_mal } = oct2026Dummy
+  const meta = {
+    source: 'excel-dummy' as const,
+    fixture_note: OCT2026_SOURCE_CAPTION_KBPP,
+    formula: formulas.kbpp_tanpa_mal_pct,
+    filters: {
+      level,
+      tahun_rekap: OCT2026_TAHUN,
+      bulan_rekap: OCT2026_BULAN,
+      period_mode: 'bulanan' as const,
+    },
+  }
+
+  if (level === 'kabupaten') {
+    return {
+      meta: { ...meta, filters: { ...meta.filters, level: 'kabupaten' } },
+      data: [],
+    }
+  }
+
+  if (level === 'nasional') {
+    return {
+      meta,
+      data: [
+        {
+          level: 'nasional',
+          ber_kb: nasional.kbpp_ber_kb,
+          mal: nasional.kbpp_mal,
+          tradisional: nasional.kbpp_tradisional,
+          numerator: nasional.kbpp_numerator,
+          denominator: nasional.jumlah_ibu_pasca_persalinan,
+          kbpp_tanpa_mal_pct: nasional.kbpp_tanpa_mal_pct,
+        },
+      ],
+    }
+  }
+
+  return {
+    meta,
+    data: kbpp_tanpa_mal.map((row) => ({
+      level: 'provinsi' as const,
+      nama_provinsi: row.provinsi,
+      kode_provinsi: row.kode,
+      ber_kb: row.ber_kb,
+      mal: row.mal,
+      tradisional: row.tradisional,
+      numerator: row.numerator,
+      denominator: row.jumlah_ibu_pasca_persalinan,
+      kbpp_tanpa_mal_pct: row.kbpp_tanpa_mal_pct,
     })),
   }
 }
