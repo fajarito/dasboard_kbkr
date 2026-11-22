@@ -32,16 +32,23 @@ export function ComparisonBars() {
             </div>
           )
 
-          if (bar.key !== 'mcpr') {
+          const detailHref =
+            bar.key === 'mcpr'
+              ? '/indikator/mcpr'
+              : bar.key === 'unmet'
+                ? '/indikator/unmet-need'
+                : undefined
+
+          if (!detailHref) {
             return <div key={bar.key}>{row}</div>
           }
 
           return (
             <Link
               key={bar.key}
-              to="/indikator/mcpr"
+              to={detailHref}
               className="rounded-xl outline-offset-4 transition hover:bg-navy-50/80"
-              aria-label="Buka detail indikator mCPR"
+              aria-label={`Buka detail indikator ${bar.label}`}
             >
               {row}
             </Link>

@@ -1,24 +1,28 @@
-import { geoLevels, type GeoLevel } from '../data/mcpr'
+import { geoLevels, type GeoLevel } from '../data/indicatorShared'
 
 type WilayahBreakdownProps = {
   level: GeoLevel
   onLevelChange: (level: GeoLevel) => void
+  metricColumn?: string
+  indicatorName?: string
 }
 
 export function WilayahBreakdown({
   level,
   onLevelChange,
+  metricColumn = 'Nilai',
+  indicatorName = 'indikator',
 }: WilayahBreakdownProps) {
   const emptyCopy =
     level === 'nasional'
       ? {
           title: 'Ringkasan nasional aktif',
-          body: 'Pilih Provinsi atau Kabupaten untuk melihat daftar wilayah. Data per kabupaten belum tersedia.',
+          body: `Pilih Provinsi atau Kabupaten untuk melihat daftar wilayah. Data per kabupaten belum tersedia.`,
         }
       : level === 'provinsi'
         ? {
             title: 'Data per provinsi belum tersedia',
-            body: 'Daftar wilayah akan tampil setelah dataset geografis mCPR terhubung. Tidak ada angka yang diisi sementara.',
+            body: `Daftar wilayah akan tampil setelah dataset geografis ${indicatorName} terhubung. Tidak ada angka yang diisi sementara.`,
           }
         : {
             title: 'Data per kabupaten belum tersedia',
@@ -69,7 +73,7 @@ export function WilayahBreakdown({
         <div className="min-w-[520px]">
           <div className="grid grid-cols-[1.4fr_0.7fr_0.8fr_0.7fr] gap-2 border-b border-slate-200 bg-slate-50 px-4 py-2.5 text-[11px] font-semibold tracking-wide text-slate-500 uppercase">
             <span>Wilayah</span>
-            <span>mCPR</span>
+            <span>{metricColumn}</span>
             <span>vs target</span>
             <span>Tren</span>
           </div>
