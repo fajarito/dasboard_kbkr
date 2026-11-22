@@ -16,7 +16,9 @@ npm run api            # http://127.0.0.1:8787
 npm run dev:all        # SPA + API (Vite proxies /api → :8787)
 ```
 
-Without DB env, the API uses `server/fixtures/…_sample.json` (fixture-only %).
+Without DB env:
+- `tahun=2026&bulan=10` → `fixtures/oct2026_excel_dummy.json` (`meta.source: excel-dummy`)
+- otherwise → `fixtures/…_sample.json` (fixture-only %)
 
 Health: `GET /api/health` — reports `data_source: postgres|fixture`.
 

@@ -1,21 +1,28 @@
+import {
+  formatPctId,
+  oct2026Dummy,
+  OCT2026_SOURCE_CAPTION,
+} from './dummy/oct2026'
+
 export const unmetNeedMeta = {
   title: 'Detail Indikator: Unmet Need',
   shortName: 'Unmet Need',
   subtitle:
     'PUS yang ingin menunda kehamilan atau tidak ingin anak lagi, namun tidak menggunakan kontrasepsi ÷ total PUS.',
-  capaian: '11,2%',
-  capaianDelta: '0,8 p.p',
+  capaian: formatPctId(oct2026Dummy.nasional.unmet_need_pct),
+  capaianDelta: undefined as string | undefined,
   capaianDirection: 'down' as const,
   target: 'Target belum dikonfirmasi',
   targetNote: 'Nilai target RPJMN belum ditetapkan di UI',
-  sumber: 'DALLAP Tabel 16 (+ T10)',
-  sumberNote: 'Endpoint report-siga-dallap-ocp · denom Tabel 10',
-  strength: 'Sedang — perlu verifikasi konsep (admin vs survei)',
+  sumber: 'Dummy Excel · Tabel 16 (+ T10)',
+  sumberNote: OCT2026_SOURCE_CAPTION,
+  strength: 'Dummy Excel Oct 2026 — formula verified vs Tabel16',
 } as const
 
 export const unmetNeedNotes = [
-  'Kekuatan sumber SIGA sedang: kandidat kuat, perlu verifikasi konsep.',
-  'Data administratif rutin (DALLAP), bukan survei SKI/SDKI yang biasa jadi basis unmet need internasional.',
-  'Verifikasi kategori “keinginan punya anak” di formulir PUS vs mistimed/unwanted sebelum menggantikan PK.',
-  'Breakdown standar hingga kabupaten/kota setelah API tersedia.',
+  'Sumber UI default: dummy Excel Oktober 2026 (Tabel10 PUS + Tabel16 unmet).',
+  'Formula: (hamil_ihn + hamil_tial + tdkhamil_ihn + tdkhamil_tial) / jumlah_pus × 100 — excludes “ingin segera”.',
+  `Nasional: unmet ${oct2026Dummy.nasional.unmet_need.toLocaleString('id-ID')} / PUS ${oct2026Dummy.nasional.jumlah_pus.toLocaleString('id-ID')} ≈ ${oct2026Dummy.nasional.unmet_need_pct}%.`,
+  'Breakdown 38 Provinsi dari Excel; kabupaten tidak ada di share ini.',
+  'Jalur live Postgres tetap tersedia dengan VITE_USE_LIVE_API=true.',
 ] as const

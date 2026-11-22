@@ -15,13 +15,20 @@ import {
   WilayahBreakdown,
   type WilayahBreakdownRow,
 } from '../components/WilayahBreakdown'
+import {
+  buildUnmetNeedDummyResponse,
+  OCT2026_BULAN,
+  OCT2026_LABEL,
+  OCT2026_SOURCE_CAPTION,
+  OCT2026_TAHUN,
+  preferOct2026Dummy,
+} from '../data/dummy/oct2026'
 import { levelLabel, type GeoLevel } from '../data/indicatorShared'
 import { unmetNeedMeta, unmetNeedNotes } from '../data/unmetNeed'
 
-/** Default period aligned with Overview: Oktober 2026. */
-const DEFAULT_TAHUN = 2026
-const DEFAULT_BULAN = 10
-const DEFAULT_PERIODE_LABEL = 'Oktober 2026'
+const DEFAULT_TAHUN = OCT2026_TAHUN
+const DEFAULT_BULAN = OCT2026_BULAN
+const DEFAULT_PERIODE_LABEL = OCT2026_LABEL
 
 export function UnmetNeedDetailPage() {
   const [level, setLevel] = useState<GeoLevel>('nasional')
@@ -29,8 +36,16 @@ export function UnmetNeedDetailPage() {
   const [apiStatus, setApiStatus] = useState<'loading' | 'ok' | 'fallback'>(
     'loading',
   )
+  const useDummy = preferOct2026Dummy()
 
   useEffect(() => {
+    if (useDummy) {
+      const dummy = buildUnmetNeedDummyResponse(level)
+      setApiPayload(dummy as UnmetNeedResponse)
+      setApiStatus('ok')
+      return
+    }
+
     const controller = new AbortController()
     setApiStatus('loading')
 
@@ -53,19 +68,22 @@ export function UnmetNeedDetailPage() {
     })
 
     return () => controller.abort()
-  }, [level])
+  }, [level, useDummy])
 
-  const capaianFromApi =
-    apiStatus === 'ok' &&
-    level === 'nasional' &&
-    apiPayload?.data[0] != null
+  const source = apiPayload?.meta.source
+  const isExcelDummy = source === 'excel-dummy'
+  const isPostgres = source === 'postgres'
+  const isSampleFixture = source === 'fixture'
 
-  const capaianValue = capaianFromApi
+  const capaianFromData =
+    apiStatus === 'ok' && level === 'nasional' && apiPayload?.data[0] != null
+
+  const capaianValue = capaianFromData
     ? formatUnmetNeedPct(apiPayload!.data[0].unmet_need_pct)
     : unmetNeedMeta.capaian
 
   const breakdownRows: WilayahBreakdownRow[] | undefined =
-    apiStatus === 'ok' && apiPayload
+    apiStatus === 'ok' && apiPayload && level !== 'kabupaten'
       ? apiPayload.data.map((row) => ({
           wilayah: wilayahLabelFromIds(row),
           value: formatUnmetNeedPct(row.unmet_need_pct),
@@ -76,9 +94,10 @@ export function UnmetNeedDetailPage() {
         }))
       : undefined
 
-  const periodeLabel =
-    apiStatus === 'ok'
-      ? apiPayload?.meta.source === 'postgres'
+  const periodeLabel = isExcelDummy
+    ? `${DEFAULT_PERIODE_LABEL} (dummy Excel)`
+    : apiStatus === 'ok'
+      ? isPostgres
         ? `${DEFAULT_PERIODE_LABEL} (Postgres DALLAP)`
         : `${DEFAULT_PERIODE_LABEL} (fixture DALLAP)`
       : DEFAULT_PERIODE_LABEL
@@ -92,18 +111,29 @@ export function UnmetNeedDetailPage() {
         indikatorPath="/indikator/unmet-need"
       />
 
-      {apiStatus === 'ok' && apiPayload?.meta.source === 'fixture' ? (
+      {apiStatus === 'ok' && isExcelDummy ? (
+        <p className="rounded-xl border border-sky-200 bg-sky-50 px-3 py-2 text-[12px] leading-relaxed text-sky-950">
+          {OCT2026_SOURCE_CAPTION}. Periode: tahun_rekap={DEFAULT_TAHUN},
+          bulan_rekap={DEFAULT_BULAN}. Live Postgres:{' '}
+          <code className="rounded bg-white px-1 py-0.5 text-[11px]">
+            VITE_USE_LIVE_API=true
+          </code>
+          .
+        </p>
+      ) : null}
+
+      {apiStatus === 'ok' && isSampleFixture ? (
         <p className="rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-[12px] leading-relaxed text-amber-900">
-          {apiPayload.meta.fixture_note ??
+          {apiPayload?.meta.fixture_note ??
             'Serving fixture sample (DB env unset). National % is fixture-only.'}{' '}
           Periode API: tahun_rekap={DEFAULT_TAHUN}, bulan_rekap=
           {DEFAULT_BULAN}.
         </p>
       ) : null}
 
-      {apiStatus === 'ok' && apiPayload?.meta.source === 'postgres' ? (
+      {apiStatus === 'ok' && isPostgres ? (
         <p className="rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2 text-[12px] leading-relaxed text-emerald-900">
-          Live Postgres · {apiPayload.meta.table ?? 'dwh_siga…'} · tahun_rekap=
+          Live Postgres · {apiPayload?.meta.table ?? 'dwh_siga…'} · tahun_rekap=
           {DEFAULT_TAHUN}, bulan_rekap={DEFAULT_BULAN}.
         </p>
       ) : null}
@@ -114,11 +144,11 @@ export function UnmetNeedDetailPage() {
           <code className="rounded bg-white px-1 py-0.5 text-[11px]">
             npm run api
           </code>{' '}
-          atau{' '}
+          atau unset{' '}
           <code className="rounded bg-white px-1 py-0.5 text-[11px]">
-            npm run dev:all
-          </code>
-          .
+            VITE_USE_LIVE_API
+          </code>{' '}
+          untuk dummy Excel.
         </p>
       ) : null}
 
@@ -133,16 +163,18 @@ export function UnmetNeedDetailPage() {
           label="Capaian saat ini"
           value={capaianValue}
           footnote={
-            capaianFromApi ? (
+            capaianFromData ? (
               <span className="font-medium leading-snug text-slate-500">
-                {apiPayload?.meta.source === 'postgres'
-                  ? `Agregat ${DEFAULT_PERIODE_LABEL}`
-                  : `Fixture agregat ${DEFAULT_PERIODE_LABEL}`}{' '}
+                {isExcelDummy
+                  ? OCT2026_SOURCE_CAPTION
+                  : isPostgres
+                    ? `Agregat ${DEFAULT_PERIODE_LABEL}`
+                    : `Fixture agregat ${DEFAULT_PERIODE_LABEL}`}{' '}
                 · formula DALLAP T10/16
               </span>
             ) : (
-              <span className="inline-flex items-center gap-1 font-semibold text-trend">
-                <ArrowDown />−{unmetNeedMeta.capaianDelta}
+              <span className="font-medium leading-snug text-slate-500">
+                {OCT2026_SOURCE_CAPTION}
               </span>
             )
           }
@@ -166,9 +198,11 @@ export function UnmetNeedDetailPage() {
               {unmetNeedMeta.sumberNote}
               <span className="mt-1 block text-[11px] text-slate-400">
                 {apiStatus === 'ok'
-                  ? apiPayload?.meta.source === 'postgres'
-                    ? 'Live SQL via /api/unmet-need'
-                    : 'Fixture sample via /api/unmet-need'
+                  ? isExcelDummy
+                    ? 'UI default · Excel dummy (bukan Live Postgres)'
+                    : isPostgres
+                      ? 'Live SQL via /api/unmet-need'
+                      : 'Fixture sample via /api/unmet-need'
                   : unmetNeedMeta.strength}
               </span>
             </span>
@@ -182,8 +216,8 @@ export function UnmetNeedDetailPage() {
           defaultPeriod="bulanan"
           annualSubtitle="Seri tahunan · ≥5 tahun (opsional / RPJMN) · skala 0–100%"
           monthlySubtitle="Seri bulanan primer · ≥36 bulan (DALLAP Bulanan) · skala 0–100%"
-          monthlyStubDetail="Seri bulanan (≥36 bulan) akan diisi dari DALLAP Bulanan Tabel 16 (+ denom Tabel 10). Capaian saat ini 11,2% dari Overview; angka deret bulanan tidak diisi sementara."
-          annualStubDetail="Seri tahunan opsional belum tersedia. Tidak ada nilai yang dikarang — hanya capaian Overview (11,2%) yang ditampilkan di kartu KPI."
+          monthlyStubDetail={`Seri bulanan (≥36 bulan) belum diisi. Capaian snapshot ${capaianValue} dari dummy Excel Oct 2026 (satu bulan).`}
+          annualStubDetail={`Seri tahunan opsional belum tersedia. Snapshot KPI: ${capaianValue} (dummy Excel Oct 2026).`}
         />
         <CatatanAnalitik notes={unmetNeedNotes} />
       </div>
@@ -194,22 +228,24 @@ export function UnmetNeedDetailPage() {
         metricColumn="Unmet Need"
         indicatorName="Unmet Need"
         rows={breakdownRows}
+        emptyOverride={
+          level === 'kabupaten'
+            ? {
+                title: 'Data per kabupaten belum tersedia',
+                body: 'Share dummy Excel Oct 2026 hanya nasional + 38 Provinsi. Tidak ada angka kabupaten yang dikarang.',
+              }
+            : undefined
+        }
         footerNote={
           apiStatus === 'ok'
-            ? apiPayload?.meta.source === 'postgres'
-              ? 'Nama wilayah dari d_provinsi / d_kabupaten (tahun dim mengikuti tahun_rekap, fallback tahun terdekat). Id tetap disertakan.'
-              : 'Nama dari sample dim JSON bila id cocok; jika tidak ada → id saja. Sample Unmet Need ~1000 baris (bukan angka nasional resmi).'
+            ? isExcelDummy
+              ? '38 Provinsi dari Tabel16 Excel · % = unmet / PUS. Kabupaten tidak disertakan.'
+              : isPostgres
+                ? 'Nama wilayah dari d_provinsi / d_kabupaten (tahun dim mengikuti tahun_rekap, fallback tahun terdekat). Id tetap disertakan.'
+                : 'Nama dari sample dim JSON bila id cocok; jika tidak ada → id saja. Sample Unmet Need ~1000 baris (bukan angka nasional resmi).'
             : undefined
         }
       />
     </DashboardLayout>
-  )
-}
-
-function ArrowDown() {
-  return (
-    <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden>
-      <path d="M5 8.5 L1.5 3 H8.5 Z" fill="currentColor" />
-    </svg>
   )
 }

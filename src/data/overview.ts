@@ -1,3 +1,10 @@
+import {
+  formatPctId,
+  mcprCoverageBands,
+  oct2026Dummy,
+  OCT2026_SOURCE_CAPTION,
+} from './dummy/oct2026'
+
 export type Indicator = {
   id: string
   label: string
@@ -10,22 +17,25 @@ export type Indicator = {
   note?: string
 }
 
+const unmetNasional = formatPctId(oct2026Dummy.nasional.unmet_need_pct)
+const mcprNasional = formatPctId(oct2026Dummy.nasional.mcpr_pct)
+
+export const overviewDataCaption = OCT2026_SOURCE_CAPTION
+
 export const indicators: Indicator[] = [
   {
     id: '01',
     label: 'UNMET NEED',
-    value: '11,2%',
-    delta: '0,8 p.p',
-    direction: 'down',
+    value: unmetNasional,
     status: 'ok',
+    note: 'Dummy Excel Oct 2026',
   },
   {
     id: '02',
     label: 'mCPR',
-    value: '61,4%',
-    delta: '2,1 p.p',
-    direction: 'up',
+    value: mcprNasional,
     status: 'ok',
+    note: 'Proxy modern÷PUS · dummy Oct 2026',
   },
   {
     id: '03',
@@ -110,7 +120,13 @@ export const indicators: Indicator[] = [
 ]
 
 export const comparisonBars = [
-  { key: 'mcpr', label: 'mCPR', valueLabel: '61,4%', value: 61.4, color: '#386de3' },
+  {
+    key: 'mcpr',
+    label: 'mCPR',
+    valueLabel: mcprNasional,
+    value: oct2026Dummy.nasional.mcpr_pct,
+    color: '#386de3',
+  },
   {
     key: 'demand',
     label: 'Demand Satisfied',
@@ -121,18 +137,14 @@ export const comparisonBars = [
   {
     key: 'unmet',
     label: 'Unmet Need',
-    valueLabel: '11,2%',
-    value: 11.2,
+    valueLabel: unmetNasional,
+    value: oct2026Dummy.nasional.unmet_need_pct,
     color: '#e04444',
   },
 ]
 
-export const coverageBands = [
-  { key: 'high', label: '≥ 60%', value: 11, color: '#377887' },
-  { key: 'mid', label: '40–59%', value: 15, color: '#4ba09b' },
-  { key: 'low', label: '20–39%', value: 9, color: '#e6b44b' },
-  { key: 'crit', label: '< 20%', value: 3, color: '#c34b46' },
-]
+/** mCPR province bands from Excel dummy (38 Provinsi). */
+export const coverageBands = mcprCoverageBands()
 
 export const navItems = [
   { id: 'overview', label: 'Overview', to: '/' },
