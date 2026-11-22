@@ -7,6 +7,7 @@ import {
   OCT2026_SOURCE_CAPTION_4T,
   OCT2026_SOURCE_CAPTION_MII,
   OCT2026_SOURCE_CAPTION_MKJP,
+  OCT2026_SOURCE_CAPTION_WILAYAH_KHUSUS,
 } from './dummy/oct2026'
 
 export type Indicator = {
@@ -30,6 +31,9 @@ const demandSatisfiedNasional = formatPctId(
 )
 const miiNasional = formatPctId(oct2026Dummy.nasional.mii_pct)
 const mkjpNasional = formatPctId(oct2026Dummy.nasional.mkjp_pct)
+const wilayahKhususNasional = formatPctId(
+  oct2026Dummy.nasional.wilayah_khusus_pct,
+)
 
 export const overviewDataCaption = OCT2026_SOURCE_CAPTION
 
@@ -94,11 +98,9 @@ export const indicators: Indicator[] = [
   {
     id: '09',
     label: 'KB WIL. KHUSUS',
-    value: '8,1%',
-    delta: '0,5 p.p',
-    direction: 'up',
+    value: wilayahKhususNasional,
     status: 'ok',
-    note: 'Historis % KB Pria · perlu konfirmasi',
+    note: OCT2026_SOURCE_CAPTION_WILAYAH_KHUSUS,
   },
   {
     id: '10',

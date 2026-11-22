@@ -11,12 +11,13 @@ export function IndicatorGrid() {
         ))}
       </div>
       <p className="max-w-5xl text-[11px] leading-relaxed text-slate-400">
-        Sumber Unmet Need &amp; mCPR: {overviewDataCaption}. Indikator lain
-        masih stub/mock. Seluruh 12 indikator punya halaman detail (klik kartu).
-        Label #9 selaras SIGA (Kesertaan KB Wilayah Khusus; historis % KB Pria —
-        perlu konfirmasi). #11 KBPP Tanpa MAL; #12 DCR (Permas). Periode
-        pembanding dan target belum dicantumkan. Warna perubahan bukan status
-        pencapaian target. p.p = poin persentase.
+        Sumber Unmet Need, mCPR, 4T, KTD, Demand Satisfied, MII, MKJP &amp;
+        Wilayah Khusus: {overviewDataCaption}. Indikator lain masih stub/mock.
+        Seluruh 12 indikator punya halaman detail (klik kartu). #9 Wilayah
+        Khusus = (kondom+vasektomi)/KB aktif dari Tabel20 (15 Provinsi). #11
+        KBPP Tanpa MAL; #12 DCR (Permas). Periode pembanding dan target belum
+        dicantumkan. Warna perubahan bukan status pencapaian target. p.p = poin
+        persentase.
       </p>
     </div>
   )

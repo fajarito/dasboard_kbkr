@@ -9,6 +9,7 @@ import { MkjpDetailPage } from './pages/MkjpDetailPage'
 import { OverviewPage } from './pages/OverviewPage'
 import { PetaCapaianPage } from './pages/PetaCapaianPage'
 import { UnmetNeedDetailPage } from './pages/UnmetNeedDetailPage'
+import { WilayahKhususDetailPage } from './pages/WilayahKhususDetailPage'
 import { remainingIndicators } from './data/remainingIndicators'
 
 export default function App() {
@@ -27,6 +28,10 @@ export default function App() {
         <Route path="/indikator/ktd" element={<KtdDetailPage />} />
         <Route path="/indikator/mii" element={<MiiDetailPage />} />
         <Route path="/indikator/mkjp" element={<MkjpDetailPage />} />
+        <Route
+          path="/indikator/wilayah-khusus"
+          element={<WilayahKhususDetailPage />}
+        />
         {remainingIndicators.map((config) => (
           <Route
             key={config.slug}

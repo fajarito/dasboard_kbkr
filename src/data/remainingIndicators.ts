@@ -61,39 +61,6 @@ export const remainingIndicators: IndicatorDetailConfig[] = [
     screenshotBase: 'ikp',
   },
   {
-    id: '09',
-    slug: 'wilayah-khusus',
-    title: 'Detail Indikator: Kesertaan KB Wilayah Khusus',
-    shortName: 'Wil. Khusus',
-    subtitle:
-      'Persentase kesertaan KB di 208 kabupaten/kota wilayah khusus (Dityansus). Historis sering disebut “% KB Pria” dari filter dataset mCPR — dual definition.',
-    capaian: '8,1%',
-    capaianDelta: '0,5 p.p',
-    capaianDirection: 'up',
-    target: 'Target belum dikonfirmasi',
-    targetNote: 'Nilai target RPJMN belum ditetapkan di UI',
-    sumber: 'Filter DALLAP T11 / mCPR',
-    sumberNote:
-      'Dipilah Tim Yansus dari mCPR kab/kota · daftar 208 kab perlu konfirmasi',
-    strength: 'Sedang — dual definition (Wilayah Khusus vs historis % KB Pria)',
-    strengthTone: 'warn',
-    gapBanner:
-      'Dual definition: dokumen resmi = Kesertaan KB Wilayah Khusus (208 kab/kota); historis UI/data PK = “% KB Pria”. Konfirmasi ke Tim Yansus apakah endpoint terpisah atau filter pada data mCPR mentah.',
-    notes: [
-      'Sumber: filter DALLAP Tabel 11 / dataset mCPR; YanKB jika butuh method-spesifik (pria).',
-      'Proses pemilahan wilayah khusus tampak di luar alur API standar — perlu konfirmasi Tim Yansus.',
-      'Daftar 208 kab/kota wilayah khusus (galciltas/perbatasan/kepulauan) belum dilampirkan di UI.',
-      'Breakdown kab/kota: empty hingga daftar & definisi operasional dikunci.',
-    ],
-    metricColumn: 'Kesertaan',
-    defaultTrendPeriod: 'bulanan',
-    monthlyStubDetail:
-      'Seri bulanan belum tersedia hingga definisi operasional (Wilayah Khusus vs % KB Pria) dikunci. Capaian Overview 8,1% saja yang ditampilkan.',
-    annualStubDetail:
-      'Seri tahunan belum tersedia. Tidak ada nilai yang dikarang — hanya capaian Overview (8,1%) di kartu KPI.',
-    screenshotBase: 'wilayah-khusus',
-  },
-  {
     id: '10',
     slug: 'keterpaparan',
     title: 'Detail Indikator: Indeks Keterpaparan KBKR',
