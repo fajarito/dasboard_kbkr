@@ -13,11 +13,26 @@ Overview + detail indikator + Peta Capaian for Kemendukbangga — 12 indikator p
 
 ```bash
 npm install
-npm run dev
+npm run dev          # SPA only (Vite)
+npm run api          # Unmet Need fixture API → http://127.0.0.1:8787
+npm run dev:all      # SPA + API (Vite proxies /api → :8787)
 npm run build
 ```
 
 Local app: `http://127.0.0.1:5173/`
+
+### Unmet Need API (Phase 1 fixture)
+
+Serves aggregates from a **partial** DALLAP sample (~1000 kelurahan rows) — national % is fixture-only, not official.
+
+```bash
+npm run api
+curl 'http://127.0.0.1:8787/api/unmet-need?level=nasional&tahun=2023&bulan=7'
+```
+
+Details, SQL examples for Postgres `dwh_siga.fa_laporan_dallap_bulanan_tabel10_20rdk`, and OpenShift notes: [`server/README.md`](server/README.md).
+
+The OpenShift SPA image stays nginx-only; the API is a separate Node process for local/dev (can be its own service later).
 
 ## OpenShift deploy
 
