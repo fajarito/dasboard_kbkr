@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dasboard-kbkr
+  namespace: dashboard-kbkr
+  labels:
+    app: dasboard-kbkr
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: dasboard-kbkr
+  template:
+    metadata:
+      labels:
+        app: dasboard-kbkr
+    spec:
+      containers:
+        - name: dashboard
+          # Image stream in OpenShift Project dashboard-kbkr (display: Dashboard KBKR).
+          image: image-registry.openshift-image-registry.svc:5000/dashboard-kbkr/dasboard-kbkr:latest
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          # ConfigMap is optional for this static SPA (no secrets required).
+          envFrom:
+            - configMapRef:
+                name: dasboard-kbkr-config
+                optional: true
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 3
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 20
+            timeoutSeconds: 2
+            failureThreshold: 3
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            runAsNonRoot: true
+      # OpenShift restricted SCC injects random UID; do not pin runAsUser.
+      # Image must stay nginx-unprivileged (see Dockerfile).
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
