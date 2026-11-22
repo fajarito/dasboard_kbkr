@@ -5,6 +5,7 @@ import {
   oct2026Dummy,
   OCT2026_SOURCE_CAPTION,
   OCT2026_SOURCE_CAPTION_4T,
+  OCT2026_SOURCE_CAPTION_KBPP,
   OCT2026_SOURCE_CAPTION_MII,
   OCT2026_SOURCE_CAPTION_MKJP,
   OCT2026_SOURCE_CAPTION_WILAYAH_KHUSUS,
@@ -34,6 +35,7 @@ const mkjpNasional = formatPctId(oct2026Dummy.nasional.mkjp_pct)
 const wilayahKhususNasional = formatPctId(
   oct2026Dummy.nasional.wilayah_khusus_pct,
 )
+const kbppNasional = formatPctId(oct2026Dummy.nasional.kbpp_tanpa_mal_pct)
 
 export const overviewDataCaption = OCT2026_SOURCE_CAPTION
 
@@ -113,10 +115,9 @@ export const indicators: Indicator[] = [
   {
     id: '11',
     label: 'KBPP TANPA MAL',
-    value: '28,5%',
-    delta: '1,3 p.p',
-    direction: 'up',
+    value: kbppNasional,
     status: 'ok',
+    note: OCT2026_SOURCE_CAPTION_KBPP,
   },
   {
     id: '12',

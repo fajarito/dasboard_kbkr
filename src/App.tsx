@@ -2,6 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { DemandSatisfiedDetailPage } from './pages/DemandSatisfiedDetailPage'
 import { FourTDetailPage } from './pages/FourTDetailPage'
 import { GenericIndicatorDetailPage } from './pages/GenericIndicatorDetailPage'
+import { KbppTanpaMalDetailPage } from './pages/KbppTanpaMalDetailPage'
 import { KtdDetailPage } from './pages/KtdDetailPage'
 import { McprDetailPage } from './pages/McprDetailPage'
 import { MiiDetailPage } from './pages/MiiDetailPage'
@@ -31,6 +32,10 @@ export default function App() {
         <Route
           path="/indikator/wilayah-khusus"
           element={<WilayahKhususDetailPage />}
+        />
+        <Route
+          path="/indikator/kbpp-tanpa-mal"
+          element={<KbppTanpaMalDetailPage />}
         />
         {remainingIndicators.map((config) => (
           <Route

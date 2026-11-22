@@ -94,39 +94,6 @@ export const remainingIndicators: IndicatorDetailConfig[] = [
     screenshotBase: 'keterpaparan',
   },
   {
-    id: '11',
-    slug: 'kbpp-tanpa-mal',
-    title: 'Detail Indikator: KBPP Tanpa MAL',
-    shortName: 'KBPP Tanpa MAL',
-    subtitle:
-      'Persentase ibu pascapersalinan yang mengikuti KBPP dengan metode selain MAL, dari total ibu pascapersalinan.',
-    capaian: '28,5%',
-    capaianDelta: '1,3 p.p',
-    capaianDirection: 'up',
-    target: 'Target belum dikonfirmasi',
-    targetNote: 'Nilai target RPJMN belum ditetapkan di UI',
-    sumber: 'Elsimil Pascasalin T1–2',
-    sumberNote:
-      'BNBA Tabel 4 · report-siga-elsimil-ocp · definisi operasional MAL perlu digali',
-    strength: 'Lemah–sedang — kandidat ada; filter MAL perlu konfirmasi',
-    strengthTone: 'warn',
-    gapBanner:
-      'Gap MAL: pastikan MAL muncul sebagai kategori metode yang bisa dikecualikan dari numerator KBPP. Definisi operasional MAL di Elsimil perlu dikonfirmasi.',
-    notes: [
-      'Sumber: PASCAPERSALINAN Tabel 1–2 (Bulanan/Tahunan/Kumulatif); individu Tabel 4 (BNBA).',
-      'MAL tidak dihitung sebagai kepesertaan KBPP pada numerator dalam rumusan ini.',
-      'Endpoint report-siga-elsimil-ocp.',
-      'BNBA relevan; breakdown kab/kota standar setelah API tersedia.',
-    ],
-    metricColumn: 'KBPP',
-    defaultTrendPeriod: 'bulanan',
-    monthlyStubDetail:
-      'Seri bulanan akan diisi dari Elsimil Pascasalin setelah filter MAL terverifikasi. Capaian Overview 28,5% saja yang ditampilkan sementara.',
-    annualStubDetail:
-      'Seri tahunan/kumulatif belum tersedia. Tidak ada nilai yang dikarang — hanya capaian Overview (28,5%) di kartu KPI.',
-    screenshotBase: 'kbpp-tanpa-mal',
-  },
-  {
     id: '12',
     slug: 'dcr',
     title: 'Detail Indikator: DCR (Permas)',
