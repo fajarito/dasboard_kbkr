@@ -10,6 +10,7 @@
  * Wilayah names joined from fixture d_provinsi / d_kabupaten samples.
  */
 
+import { omitNullish } from './omitNullish.mjs'
 import { enrichFromFixtureDims } from './wilayah.mjs'
 
 function n(value) {
@@ -156,11 +157,11 @@ export function queryUnmetNeed(rows, query) {
   }
 
   const enriched = enrichFromFixtureDims(data, meta.filters.tahun_rekap)
-  return {
+  return omitNullish({
     meta: {
       ...meta,
       wilayah: enriched.wilayah,
     },
     data: enriched.data,
-  }
+  })
 }

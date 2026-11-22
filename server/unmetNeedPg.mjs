@@ -7,6 +7,7 @@
  */
 
 import { getPool, resolveTableName } from './db.mjs'
+import { omitNullish } from './omitNullish.mjs'
 import { enrichFromPgDims } from './wilayahPg.mjs'
 
 const FORMULA =
@@ -179,7 +180,7 @@ export async function queryUnmetNeedFromPg(query) {
     0,
   )
 
-  return {
+  return omitNullish({
     meta: {
       source: 'postgres',
       table,
@@ -196,5 +197,5 @@ export async function queryUnmetNeedFromPg(query) {
       wilayah: enriched.wilayah,
     },
     data: enriched.data,
-  }
+  })
 }

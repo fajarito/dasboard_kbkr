@@ -52,11 +52,13 @@ Denominator 0 → `unmet_need_pct: null`.
 
 Each row includes:
 
-- `numerator`, `denominator`, `unmet_need_pct`, `row_count`
-- `id_provinsi` / `id_kabupaten`
-- `nama_provinsi` / `kode_provinsi` / `nama_kabupaten` / `kode_kabupaten` (null when dim miss)
+- `numerator`, `denominator`, `unmet_need_pct`, `row_count` (`0` kept; denom-0 → `unmet_need_pct` omitted)
+- `id_provinsi` / `id_kabupaten` when applicable
+- `nama_provinsi` / `kode_provinsi` / `nama_kabupaten` / `kode_kabupaten` when dim join hits
 
-`meta.wilayah` reports which dim year/tables were used.
+**Null keys are omitted** from `data[]` items and `meta` (including nested filters/wilayah). Zeros and empty strings are kept.
+
+`meta.wilayah` reports which dim year/tables were used when present.
 
 ### Wilayah dims
 
