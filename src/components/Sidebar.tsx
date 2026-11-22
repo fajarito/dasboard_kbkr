@@ -51,7 +51,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
                 : 'matchPrefix' in item &&
                     typeof item.matchPrefix === 'string'
                   ? location.pathname.startsWith(item.matchPrefix)
-                  : false
+                  : !item.to.includes('#') && location.pathname === item.to
 
             return (
               <div key={item.id}>

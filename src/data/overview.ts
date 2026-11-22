@@ -161,7 +161,7 @@ export const navItems = [
     section: 'OUTPUT',
     to: '/#output',
   },
-  { id: 'peta', label: 'Peta Capaian', to: '/#peta' },
+  { id: 'peta', label: 'Peta Capaian', to: '/peta', matchPrefix: '/peta' },
   { id: 'wilayah', label: 'Wilayah Prioritas', to: '/#wilayah' },
   { id: 'data', label: 'Data & Sumber', to: '/#data' },
 ] as const
