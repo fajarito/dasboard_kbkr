@@ -4,6 +4,7 @@ import { readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { getPool, isPostgresConfigured, resolveTableName } from './db.mjs'
+import { isOct2026Period, queryUnmetNeedOct2026 } from './oct2026Dummy.mjs'
 import { queryUnmetNeed } from './unmetNeed.mjs'
 import { queryUnmetNeedFromPg } from './unmetNeedPg.mjs'
 
@@ -81,6 +82,10 @@ app.get('/api/unmet-need', async (req, res) => {
     if (usePostgres) {
       const result = await queryUnmetNeedFromPg(query)
       return res.json(result)
+    }
+    // Prefer Excel dummy for Oct 2026 when DB unset (UI default period).
+    if (isOct2026Period(query)) {
+      return res.json(queryUnmetNeedOct2026(query))
     }
     const result = queryUnmetNeed(rows, query)
     return res.json(result)

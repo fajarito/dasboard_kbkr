@@ -16,6 +16,7 @@ export type UnmetNeedRow = {
 
 export type UnmetNeedResponse = {
   meta: {
+    /** postgres | fixture | excel-dummy */
     source: string
     table?: string
     fixture_note?: string

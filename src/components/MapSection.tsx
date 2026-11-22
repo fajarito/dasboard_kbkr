@@ -1,5 +1,14 @@
 import { Link } from 'react-router-dom'
+import {
+  formatPctId,
+  rankedProvinces,
+  unmetNeedProvinceRows,
+} from '../data/dummy/oct2026'
 import { IndonesiaChoroplethMap } from './IndonesiaChoroplethMap'
+
+const unmetRows = unmetNeedProvinceRows()
+const highestUnmet = rankedProvinces(unmetRows, 'desc', 5)
+const lowestUnmet = rankedProvinces(unmetRows, 'asc', 5)
 
 export function MapSection() {
   return (
@@ -13,7 +22,7 @@ export function MapSection() {
             Peta Capaian Indikator
           </h2>
           <p className="mt-0.5 text-[12px] text-slate-500">
-            Outline Provinsi (MapLibre) — nilai capaian belum tersedia
+            Ranking Unmet Need · dummy Excel Oct 2026 (38 Provinsi)
           </p>
         </div>
         <Link
@@ -33,23 +42,47 @@ export function MapSection() {
         <div className="flex flex-col justify-center gap-6 px-1 py-2 sm:px-3">
           <div>
             <p className="text-[13px] font-bold text-navy-950">
-              5 provinsi tertinggi
+              5 Provinsi Unmet Need tertinggi
             </p>
-            <p className="mt-1 text-[13px] text-slate-400">
-              Data belum tersedia
-            </p>
+            <ul className="mt-1.5 space-y-1">
+              {highestUnmet.map((row) => (
+                <li
+                  key={row.kode}
+                  className="flex items-baseline justify-between gap-2 text-[12px] text-slate-600"
+                >
+                  <span className="truncate font-medium text-navy-900">
+                    {row.provinsi}
+                  </span>
+                  <span className="shrink-0 font-semibold tabular-nums text-navy-950">
+                    {formatPctId(row.pct)}
+                  </span>
+                </li>
+              ))}
+            </ul>
           </div>
           <div>
             <p className="text-[13px] font-bold text-navy-950">
-              5 provinsi prioritas
+              5 Provinsi Unmet Need terendah
             </p>
-            <p className="mt-1 text-[13px] text-slate-400">
-              Data belum tersedia
-            </p>
+            <ul className="mt-1.5 space-y-1">
+              {lowestUnmet.map((row) => (
+                <li
+                  key={row.kode}
+                  className="flex items-baseline justify-between gap-2 text-[12px] text-slate-600"
+                >
+                  <span className="truncate font-medium text-navy-900">
+                    {row.provinsi}
+                  </span>
+                  <span className="shrink-0 font-semibold tabular-nums text-navy-950">
+                    {formatPctId(row.pct)}
+                  </span>
+                </li>
+              ))}
+            </ul>
           </div>
           <p className="text-[11px] leading-relaxed text-slate-400">
-            Legenda dan warna choropleth akan aktif setelah data indikator per
-            Provinsi terhubung. Tidak ada angka wilayah yang dikarang.
+            Ranking dari Tabel16 Excel (bukan Live Postgres). Choropleth warna
+            per Provinsi menyusul — tidak ada data kabupaten di share ini.
           </p>
         </div>
       </div>
