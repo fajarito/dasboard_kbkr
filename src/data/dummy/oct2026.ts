@@ -3,7 +3,7 @@
  * — nasional + 38 provinsi.
  * Source of truth: internal/dummy-oct2026
  * (Tabel1 → 4T; T10/11/16 → unmet/mCPR; T16 hamil_tial → KTD; T11+T16 → Demand Satisfied;
- *  Tabel2+3+Tabel10_v3 KB ulangan → MII).
+ *  Tabel2+3+Tabel10_v3 KB ulangan → MII; Tabel3+Tabel10_v3 KB ulangan → MKJP).
  *
  * Prefer this for UI default. Set VITE_USE_LIVE_API=true to hit /api (Postgres / sample).
  */
@@ -18,6 +18,8 @@ export const OCT2026_SOURCE_CAPTION_4T =
   'Dummy Excel Tabel1 Oct 2026 (nasional + 38 Provinsi)'
 export const OCT2026_SOURCE_CAPTION_MII =
   'Dummy Excel Tabel2/3/10 Oct 2026 (nasional + 38 Provinsi)'
+export const OCT2026_SOURCE_CAPTION_MKJP =
+  'Dummy Excel Tabel3/10 Oct 2026 (nasional + 38 Provinsi)'
 
 export type Oct2026Period = {
   bulan_rekap: number
@@ -120,6 +122,18 @@ export type Oct2026Nasional = {
   mii_denominator: number
   /** (ic_baru + ic_ulangan) / (denom_baru + denom_ulangan) * 100 */
   mii_pct: number
+  /** Tabel3 MKJP methods KB baru (IUD+Implan+Vasektomi+Tubektomi). */
+  mkjp_baru: number
+  /** Tabel10 KB ulangan MKJP (Implan+IUD; vasektomi/tubektomi absent → 0). */
+  mkjp_ulangan: number
+  /** Tabel3 jumlah KB baru (all methods). */
+  mkjp_total_baru: number
+  /** Tabel10 jumlah KB ulangan. */
+  mkjp_total_ulangan: number
+  mkjp_numerator: number
+  mkjp_denominator: number
+  /** (mkjp_baru + mkjp_ulangan) / (total_baru + total_ulangan) * 100 */
+  mkjp_pct: number
 }
 
 export type Oct2026KtdDemandRow = {
@@ -151,6 +165,22 @@ export type Oct2026MiiRow = {
   mii_pct: number
 }
 
+/**
+ * MKJP province row from Tabel3 (KB baru MKJP methods) + Tabel10_v3 (KB ulangan).
+ * Tabel10 KB ulangan Excel has no vasektomi/tubektomi columns — those contribute 0.
+ */
+export type Oct2026MkjpRow = {
+  kode: string
+  provinsi: string
+  mkjp_baru: number
+  total_baru: number
+  mkjp_ulangan: number
+  total_ulangan: number
+  numerator: number
+  denominator: number
+  mkjp_pct: number
+}
+
 export type Oct2026Dummy = {
   period: Oct2026Period
   tabel10_pus: Oct2026Tabel10[]
@@ -159,6 +189,7 @@ export type Oct2026Dummy = {
   tabel1_4t: Oct2026Tabel1FourT[]
   ktd_demand_satisfied: Oct2026KtdDemandRow[]
   mii: Oct2026MiiRow[]
+  mkjp: Oct2026MkjpRow[]
   nasional: Oct2026Nasional
   formulas: {
     unmet_need: string
@@ -174,6 +205,10 @@ export type Oct2026Dummy = {
     mii_pct: string
     mii_note: string
     mii_sources: string
+    mkjp_pct: string
+    mkjp_note: string
+    mkjp_sources: string
+    mkjp_methods: string
   }
 }
 
@@ -894,6 +929,109 @@ export function buildMiiDummyResponse(
       numerator: row.numerator,
       denominator: row.denominator,
       mii_pct: row.mii_pct,
+    })),
+  }
+}
+
+/**
+ * MKJP% = (mkjp_baru + mkjp_ulangan) / (total_baru + total_ulangan) × 100.
+ * Methods: IUD+Implan+Vasektomi+Tubektomi. Tabel10 ulangan has no vasektomi/tubektomi → 0.
+ */
+export function mkjpPct(numerator: number, denominator: number): number | null {
+  if (!denominator) return null
+  return (numerator / denominator) * 100
+}
+
+export function mkjpProvinceRows(): ProvinceIndicatorRow[] {
+  return oct2026Dummy.mkjp.map((row) => ({
+    kode: row.kode,
+    provinsi: row.provinsi,
+    jumlah_pus: row.denominator,
+    numerator: row.numerator,
+    pct: row.mkjp_pct,
+  }))
+}
+
+export type DummyMkjpResponse = {
+  meta: {
+    source: 'excel-dummy'
+    fixture_note: string
+    formula: string
+    filters: {
+      level: string
+      tahun_rekap: number
+      bulan_rekap: number
+      period_mode: 'bulanan'
+    }
+  }
+  data: Array<{
+    level: 'nasional' | 'provinsi'
+    nama_provinsi?: string
+    kode_provinsi?: string
+    mkjp_baru: number
+    total_baru: number
+    mkjp_ulangan: number
+    total_ulangan: number
+    numerator: number
+    denominator: number
+    mkjp_pct: number | null
+  }>
+}
+
+export function buildMkjpDummyResponse(
+  level: 'nasional' | 'provinsi' | 'kabupaten',
+): DummyMkjpResponse {
+  const { nasional, formulas, mkjp } = oct2026Dummy
+  const meta = {
+    source: 'excel-dummy' as const,
+    fixture_note: OCT2026_SOURCE_CAPTION_MKJP,
+    formula: formulas.mkjp_pct,
+    filters: {
+      level,
+      tahun_rekap: OCT2026_TAHUN,
+      bulan_rekap: OCT2026_BULAN,
+      period_mode: 'bulanan' as const,
+    },
+  }
+
+  if (level === 'kabupaten') {
+    return {
+      meta: { ...meta, filters: { ...meta.filters, level: 'kabupaten' } },
+      data: [],
+    }
+  }
+
+  if (level === 'nasional') {
+    return {
+      meta,
+      data: [
+        {
+          level: 'nasional',
+          mkjp_baru: nasional.mkjp_baru,
+          total_baru: nasional.mkjp_total_baru,
+          mkjp_ulangan: nasional.mkjp_ulangan,
+          total_ulangan: nasional.mkjp_total_ulangan,
+          numerator: nasional.mkjp_numerator,
+          denominator: nasional.mkjp_denominator,
+          mkjp_pct: nasional.mkjp_pct,
+        },
+      ],
+    }
+  }
+
+  return {
+    meta,
+    data: mkjp.map((row) => ({
+      level: 'provinsi' as const,
+      nama_provinsi: row.provinsi,
+      kode_provinsi: row.kode,
+      mkjp_baru: row.mkjp_baru,
+      total_baru: row.total_baru,
+      mkjp_ulangan: row.mkjp_ulangan,
+      total_ulangan: row.total_ulangan,
+      numerator: row.numerator,
+      denominator: row.denominator,
+      mkjp_pct: row.mkjp_pct,
     })),
   }
 }

@@ -1555,7 +1555,14 @@
     "mii_denom_ulangan": 483943,
     "mii_numerator": 531746,
     "mii_denominator": 721996,
-    "mii_pct": 73.6494
+    "mii_pct": 73.6494,
+    "mkjp_baru": 94869,
+    "mkjp_ulangan": 30545,
+    "mkjp_total_baru": 339072,
+    "mkjp_total_ulangan": 803005,
+    "mkjp_numerator": 125414,
+    "mkjp_denominator": 1142077,
+    "mkjp_pct": 10.9812
   },
   "formulas": {
     "unmet_need": "(hamil_ihn + hamil_tial + tdkhamil_ihn + tdkhamil_tial) / jumlah_pus * 100",
@@ -1570,7 +1577,11 @@
     "demand_satisfied_note": "Demand Satisfied %; unmet_need = unique unmet count (calc_unmet / jumlah_unmet_need), not %",
     "mii_pct": "(ic_baru + ic_ulangan) / (denom_baru + denom_ulangan) * 100",
     "mii_note": "IC_baru+IC_ulangan from Tabel2 (suntik,implan,IUD,vasektomi,tubektomi). denom_baru=Tabel3 selected (suntik 1bln+3komb+3prog + implan 1+2 batang + IUD + vasektomi + tubektomi; exclude pil & kondom). denom_ulangan=Tabel10 KB ulangan (suntik+implan+IUD); vasektomi/tubektomi columns absent in this Excel — treated as 0.",
-    "mii_sources": "Tabel2.xlsx + Tabel3.xlsx + Tabel10_v3.xlsx (KB ulangan; different from PUS Tabel10)"
+    "mii_sources": "Tabel2.xlsx + Tabel3.xlsx + Tabel10_v3.xlsx (KB ulangan; different from PUS Tabel10)",
+    "mkjp_pct": "(mkjp_baru+mkjp_ulangan)/(total_baru+total_ulangan)*100",
+    "mkjp_note": "MKJP methods = IUD+Implan+Vasektomi+Tubektomi. mkjp_baru from Tabel3 (implan 1+2 batang + IUD + vasektomi + tubektomi); total_baru = Tabel3 jumlah KB baru. mkjp_ulangan from Tabel10 KB ulangan (implan+IUD only; vasektomi/tubektomi cols absent → 0); total_ulangan = Tabel10 jumlah KB ulangan.",
+    "mkjp_sources": "Tabel3.xlsx + Tabel10_v3.xlsx (KB ulangan; different from PUS Tabel10)",
+    "mkjp_methods": "IUD+Implan+Vasektomi+Tubektomi"
   },
   "tabel1_4t": [
     {
@@ -2944,6 +2955,426 @@
       "numerator": 922,
       "denominator": 981,
       "mii_pct": 93.9857
+    }
+  ],
+  "mkjp": [
+    {
+      "kode": "11",
+      "provinsi": "ACEH",
+      "mkjp_baru": 1671,
+      "total_baru": 8914,
+      "mkjp_ulangan": 397,
+      "total_ulangan": 20335,
+      "numerator": 2068,
+      "denominator": 29249,
+      "mkjp_pct": 7.0703
+    },
+    {
+      "kode": "12",
+      "provinsi": "SUMATERA UTARA",
+      "mkjp_baru": 4506,
+      "total_baru": 18250,
+      "mkjp_ulangan": 1006,
+      "total_ulangan": 22249,
+      "numerator": 5512,
+      "denominator": 40499,
+      "mkjp_pct": 13.6102
+    },
+    {
+      "kode": "13",
+      "provinsi": "SUMATERA BARAT",
+      "mkjp_baru": 2272,
+      "total_baru": 6453,
+      "mkjp_ulangan": 530,
+      "total_ulangan": 15038,
+      "numerator": 2802,
+      "denominator": 21491,
+      "mkjp_pct": 13.038
+    },
+    {
+      "kode": "14",
+      "provinsi": "RIAU",
+      "mkjp_baru": 1642,
+      "total_baru": 7194,
+      "mkjp_ulangan": 539,
+      "total_ulangan": 17458,
+      "numerator": 2181,
+      "denominator": 24652,
+      "mkjp_pct": 8.8472
+    },
+    {
+      "kode": "15",
+      "provinsi": "JAMBI",
+      "mkjp_baru": 1513,
+      "total_baru": 4710,
+      "mkjp_ulangan": 581,
+      "total_ulangan": 21041,
+      "numerator": 2094,
+      "denominator": 25751,
+      "mkjp_pct": 8.1317
+    },
+    {
+      "kode": "16",
+      "provinsi": "SUMATERA SELATAN",
+      "mkjp_baru": 3313,
+      "total_baru": 16759,
+      "mkjp_ulangan": 2318,
+      "total_ulangan": 29710,
+      "numerator": 5631,
+      "denominator": 46469,
+      "mkjp_pct": 12.1178
+    },
+    {
+      "kode": "17",
+      "provinsi": "BENGKULU",
+      "mkjp_baru": 651,
+      "total_baru": 1722,
+      "mkjp_ulangan": 302,
+      "total_ulangan": 5398,
+      "numerator": 953,
+      "denominator": 7120,
+      "mkjp_pct": 13.3848
+    },
+    {
+      "kode": "18",
+      "provinsi": "LAMPUNG",
+      "mkjp_baru": 3143,
+      "total_baru": 8719,
+      "mkjp_ulangan": 987,
+      "total_ulangan": 14504,
+      "numerator": 4130,
+      "denominator": 23223,
+      "mkjp_pct": 17.7841
+    },
+    {
+      "kode": "19",
+      "provinsi": "KEPULAUAN BANGKA BELITUNG",
+      "mkjp_baru": 501,
+      "total_baru": 1799,
+      "mkjp_ulangan": 173,
+      "total_ulangan": 7126,
+      "numerator": 674,
+      "denominator": 8925,
+      "mkjp_pct": 7.5518
+    },
+    {
+      "kode": "21",
+      "provinsi": "KEPULAUAN RIAU",
+      "mkjp_baru": 452,
+      "total_baru": 3184,
+      "mkjp_ulangan": 107,
+      "total_ulangan": 3978,
+      "numerator": 559,
+      "denominator": 7162,
+      "mkjp_pct": 7.8051
+    },
+    {
+      "kode": "31",
+      "provinsi": "DKI JAKARTA",
+      "mkjp_baru": 2738,
+      "total_baru": 4502,
+      "mkjp_ulangan": 545,
+      "total_ulangan": 6373,
+      "numerator": 3283,
+      "denominator": 10875,
+      "mkjp_pct": 30.1885
+    },
+    {
+      "kode": "32",
+      "provinsi": "JAWA BARAT",
+      "mkjp_baru": 15464,
+      "total_baru": 56540,
+      "mkjp_ulangan": 3499,
+      "total_ulangan": 210636,
+      "numerator": 18963,
+      "denominator": 267176,
+      "mkjp_pct": 7.0976
+    },
+    {
+      "kode": "33",
+      "provinsi": "JAWA TENGAH",
+      "mkjp_baru": 14534,
+      "total_baru": 53564,
+      "mkjp_ulangan": 5210,
+      "total_ulangan": 75199,
+      "numerator": 19744,
+      "denominator": 128763,
+      "mkjp_pct": 15.3336
+    },
+    {
+      "kode": "34",
+      "provinsi": "DAERAH ISTIMEWA YOGYAKARTA",
+      "mkjp_baru": 900,
+      "total_baru": 4638,
+      "mkjp_ulangan": 748,
+      "total_ulangan": 14677,
+      "numerator": 1648,
+      "denominator": 19315,
+      "mkjp_pct": 8.5322
+    },
+    {
+      "kode": "35",
+      "provinsi": "JAWA TIMUR",
+      "mkjp_baru": 13976,
+      "total_baru": 56924,
+      "mkjp_ulangan": 3778,
+      "total_ulangan": 85934,
+      "numerator": 17754,
+      "denominator": 142858,
+      "mkjp_pct": 12.4277
+    },
+    {
+      "kode": "36",
+      "provinsi": "BANTEN",
+      "mkjp_baru": 3061,
+      "total_baru": 14562,
+      "mkjp_ulangan": 914,
+      "total_ulangan": 42236,
+      "numerator": 3975,
+      "denominator": 56798,
+      "mkjp_pct": 6.9985
+    },
+    {
+      "kode": "51",
+      "provinsi": "BALI",
+      "mkjp_baru": 1398,
+      "total_baru": 3163,
+      "mkjp_ulangan": 341,
+      "total_ulangan": 14078,
+      "numerator": 1739,
+      "denominator": 17241,
+      "mkjp_pct": 10.0864
+    },
+    {
+      "kode": "52",
+      "provinsi": "NUSA TENGGARA BARAT",
+      "mkjp_baru": 2740,
+      "total_baru": 5940,
+      "mkjp_ulangan": 1028,
+      "total_ulangan": 14803,
+      "numerator": 3768,
+      "denominator": 20743,
+      "mkjp_pct": 18.1652
+    },
+    {
+      "kode": "53",
+      "provinsi": "NUSA TENGGARA TIMUR",
+      "mkjp_baru": 2064,
+      "total_baru": 3858,
+      "mkjp_ulangan": 764,
+      "total_ulangan": 17744,
+      "numerator": 2828,
+      "denominator": 21602,
+      "mkjp_pct": 13.0914
+    },
+    {
+      "kode": "61",
+      "provinsi": "KALIMANTAN BARAT",
+      "mkjp_baru": 1643,
+      "total_baru": 6767,
+      "mkjp_ulangan": 409,
+      "total_ulangan": 24450,
+      "numerator": 2052,
+      "denominator": 31217,
+      "mkjp_pct": 6.5733
+    },
+    {
+      "kode": "62",
+      "provinsi": "KALIMANTAN TENGAH",
+      "mkjp_baru": 605,
+      "total_baru": 2295,
+      "mkjp_ulangan": 261,
+      "total_ulangan": 14014,
+      "numerator": 866,
+      "denominator": 16309,
+      "mkjp_pct": 5.31
+    },
+    {
+      "kode": "63",
+      "provinsi": "KALIMANTAN SELATAN",
+      "mkjp_baru": 1204,
+      "total_baru": 7892,
+      "mkjp_ulangan": 376,
+      "total_ulangan": 27796,
+      "numerator": 1580,
+      "denominator": 35688,
+      "mkjp_pct": 4.4273
+    },
+    {
+      "kode": "64",
+      "provinsi": "KALIMANTAN TIMUR",
+      "mkjp_baru": 1864,
+      "total_baru": 5614,
+      "mkjp_ulangan": 547,
+      "total_ulangan": 13014,
+      "numerator": 2411,
+      "denominator": 18628,
+      "mkjp_pct": 12.9429
+    },
+    {
+      "kode": "65",
+      "provinsi": "KALIMANTAN UTARA",
+      "mkjp_baru": 322,
+      "total_baru": 1241,
+      "mkjp_ulangan": 117,
+      "total_ulangan": 2720,
+      "numerator": 439,
+      "denominator": 3961,
+      "mkjp_pct": 11.0831
+    },
+    {
+      "kode": "71",
+      "provinsi": "SULAWESI UTARA",
+      "mkjp_baru": 1810,
+      "total_baru": 3501,
+      "mkjp_ulangan": 459,
+      "total_ulangan": 2212,
+      "numerator": 2269,
+      "denominator": 5713,
+      "mkjp_pct": 39.7164
+    },
+    {
+      "kode": "72",
+      "provinsi": "SULAWESI TENGAH",
+      "mkjp_baru": 1817,
+      "total_baru": 4192,
+      "mkjp_ulangan": 771,
+      "total_ulangan": 14817,
+      "numerator": 2588,
+      "denominator": 19009,
+      "mkjp_pct": 13.6146
+    },
+    {
+      "kode": "73",
+      "provinsi": "SULAWESI SELATAN",
+      "mkjp_baru": 4446,
+      "total_baru": 12465,
+      "mkjp_ulangan": 2100,
+      "total_ulangan": 28897,
+      "numerator": 6546,
+      "denominator": 41362,
+      "mkjp_pct": 15.8261
+    },
+    {
+      "kode": "74",
+      "provinsi": "SULAWESI TENGGARA",
+      "mkjp_baru": 1117,
+      "total_baru": 5030,
+      "mkjp_ulangan": 386,
+      "total_ulangan": 14173,
+      "numerator": 1503,
+      "denominator": 19203,
+      "mkjp_pct": 7.8269
+    },
+    {
+      "kode": "75",
+      "provinsi": "GORONTALO",
+      "mkjp_baru": 529,
+      "total_baru": 1493,
+      "mkjp_ulangan": 187,
+      "total_ulangan": 4388,
+      "numerator": 716,
+      "denominator": 5881,
+      "mkjp_pct": 12.1748
+    },
+    {
+      "kode": "76",
+      "provinsi": "SULAWESI BARAT",
+      "mkjp_baru": 637,
+      "total_baru": 1885,
+      "mkjp_ulangan": 254,
+      "total_ulangan": 6331,
+      "numerator": 891,
+      "denominator": 8216,
+      "mkjp_pct": 10.8447
+    },
+    {
+      "kode": "81",
+      "provinsi": "MALUKU",
+      "mkjp_baru": 612,
+      "total_baru": 1566,
+      "mkjp_ulangan": 166,
+      "total_ulangan": 2566,
+      "numerator": 778,
+      "denominator": 4132,
+      "mkjp_pct": 18.8287
+    },
+    {
+      "kode": "82",
+      "provinsi": "MALUKU UTARA",
+      "mkjp_baru": 892,
+      "total_baru": 1771,
+      "mkjp_ulangan": 334,
+      "total_ulangan": 3805,
+      "numerator": 1226,
+      "denominator": 5576,
+      "mkjp_pct": 21.9871
+    },
+    {
+      "kode": "91",
+      "provinsi": "PAPUA",
+      "mkjp_baru": 264,
+      "total_baru": 676,
+      "mkjp_ulangan": 102,
+      "total_ulangan": 1676,
+      "numerator": 366,
+      "denominator": 2352,
+      "mkjp_pct": 15.5612
+    },
+    {
+      "kode": "92",
+      "provinsi": "PAPUA BARAT",
+      "mkjp_baru": 182,
+      "total_baru": 354,
+      "mkjp_ulangan": 48,
+      "total_ulangan": 1041,
+      "numerator": 230,
+      "denominator": 1395,
+      "mkjp_pct": 16.4875
+    },
+    {
+      "kode": "93",
+      "provinsi": "PAPUA SELATAN",
+      "mkjp_baru": 27,
+      "total_baru": 116,
+      "mkjp_ulangan": 13,
+      "total_ulangan": 587,
+      "numerator": 40,
+      "denominator": 703,
+      "mkjp_pct": 5.6899
+    },
+    {
+      "kode": "94",
+      "provinsi": "PAPUA TENGAH",
+      "mkjp_baru": 119,
+      "total_baru": 310,
+      "mkjp_ulangan": 197,
+      "total_ulangan": 982,
+      "numerator": 316,
+      "denominator": 1292,
+      "mkjp_pct": 24.4582
+    },
+    {
+      "kode": "95",
+      "provinsi": "PAPUA PEGUNUNGAN",
+      "mkjp_baru": 81,
+      "total_baru": 111,
+      "mkjp_ulangan": 12,
+      "total_ulangan": 276,
+      "numerator": 93,
+      "denominator": 387,
+      "mkjp_pct": 24.031
+    },
+    {
+      "kode": "96",
+      "provinsi": "PAPUA BARAT DAYA",
+      "mkjp_baru": 159,
+      "total_baru": 398,
+      "mkjp_ulangan": 39,
+      "total_ulangan": 743,
+      "numerator": 198,
+      "denominator": 1141,
+      "mkjp_pct": 17.3532
     }
   ]
 }

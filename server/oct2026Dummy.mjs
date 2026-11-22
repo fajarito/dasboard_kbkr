@@ -1,7 +1,8 @@
 /**
  * Oktober 2026 Excel dummy aggregates (Tabel1/2/3/10/11/16) — nasional + 38 Provinsi.
  * Used when fixture mode serves tahun_rekap=2026 & bulan_rekap=10 (no kabupaten).
- * Tabel2/3/10_v3 (KB ulangan) feed MII; vasektomi/tubektomi ulangan absent → 0.
+ * Tabel2/3/10_v3 (KB ulangan) feed MII; Tabel3/10_v3 feed MKJP;
+ * vasektomi/tubektomi ulangan absent → 0.
  */
 import { readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'

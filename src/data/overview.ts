@@ -6,6 +6,7 @@ import {
   OCT2026_SOURCE_CAPTION,
   OCT2026_SOURCE_CAPTION_4T,
   OCT2026_SOURCE_CAPTION_MII,
+  OCT2026_SOURCE_CAPTION_MKJP,
 } from './dummy/oct2026'
 
 export type Indicator = {
@@ -28,6 +29,7 @@ const demandSatisfiedNasional = formatPctId(
   oct2026Dummy.nasional.demand_satisfied_pct,
 )
 const miiNasional = formatPctId(oct2026Dummy.nasional.mii_pct)
+const mkjpNasional = formatPctId(oct2026Dummy.nasional.mkjp_pct)
 
 export const overviewDataCaption = OCT2026_SOURCE_CAPTION
 
@@ -85,10 +87,9 @@ export const indicators: Indicator[] = [
   {
     id: '08',
     label: '% MKJP',
-    value: '27,3%',
-    delta: '1,9 p.p',
-    direction: 'up',
+    value: mkjpNasional,
     status: 'ok',
+    note: OCT2026_SOURCE_CAPTION_MKJP,
   },
   {
     id: '09',
