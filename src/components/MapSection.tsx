@@ -1,14 +1,18 @@
 import { Link } from 'react-router-dom'
 import {
   formatPctId,
+  OCT2026_SOURCE_CAPTION_UNMET,
   rankedProvinces,
   unmetNeedProvinceRows,
 } from '../data/dummy/oct2026'
+import { mapIndicatorById, valuesByCode } from '../data/mapIndicators'
 import { IndonesiaChoroplethMap } from './IndonesiaChoroplethMap'
 
+const unmetIndicator = mapIndicatorById['unmet-need']
 const unmetRows = unmetNeedProvinceRows()
 const highestUnmet = rankedProvinces(unmetRows, 'desc', 5)
 const lowestUnmet = rankedProvinces(unmetRows, 'asc', 5)
+const unmetByCode = valuesByCode(unmetIndicator.getRows())
 
 export function MapSection() {
   return (
@@ -22,7 +26,7 @@ export function MapSection() {
             Peta Capaian Indikator
           </h2>
           <p className="mt-0.5 text-[12px] text-slate-500">
-            Ranking Unmet Need · Dallap Tabel 16 - SIGA (38 Provinsi)
+            Ranking Unmet Need · {OCT2026_SOURCE_CAPTION_UNMET} (38 Provinsi)
           </p>
         </div>
         <Link
@@ -37,6 +41,11 @@ export function MapSection() {
         <IndonesiaChoroplethMap
           heightClassName="h-[280px] md:h-[320px]"
           showLegend={false}
+          valuesByCode={unmetByCode}
+          valueKind={unmetIndicator.kind}
+          higherIsBetter={unmetIndicator.higherIsBetter}
+          formatValue={unmetIndicator.formatValue}
+          legendTitle={unmetIndicator.shortLabel}
         />
 
         <div className="flex flex-col justify-center gap-6 px-1 py-2 sm:px-3">
@@ -81,8 +90,8 @@ export function MapSection() {
             </ul>
           </div>
           <p className="text-[11px] leading-relaxed text-slate-400">
-            Ranking dari Dallap Tabel 16 - SIGA. Choropleth warna per Provinsi
-            menyusul — data kabupaten belum tersedia.
+            Ranking dari {OCT2026_SOURCE_CAPTION_UNMET}. Buka Peta Capaian untuk
+            memilih indikator lain. GeoJSON kabupaten belum dilampirkan.
           </p>
         </div>
       </div>
