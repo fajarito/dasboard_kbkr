@@ -77,7 +77,9 @@ export function UnmetNeedDetailPage() {
 
   const periodeLabel =
     apiStatus === 'ok'
-      ? `Jul ${FIXTURE_TAHUN} (fixture DALLAP)`
+      ? apiPayload?.meta.source === 'postgres'
+        ? `Jul ${FIXTURE_TAHUN} (Postgres DALLAP)`
+        : `Jul ${FIXTURE_TAHUN} (fixture DALLAP)`
       : 'Jan – Jun 2026'
 
   return (
@@ -89,9 +91,18 @@ export function UnmetNeedDetailPage() {
         indikatorPath="/indikator/unmet-need"
       />
 
-      {apiStatus === 'ok' && apiPayload?.meta.fixture_note ? (
+      {apiStatus === 'ok' && apiPayload?.meta.source === 'fixture' ? (
         <p className="rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-[12px] leading-relaxed text-amber-900">
-          {apiPayload.meta.fixture_note} Periode API: tahun_rekap=
+          {apiPayload.meta.fixture_note ??
+            'Serving fixture sample (DB env unset). National % is fixture-only.'}{' '}
+          Periode API: tahun_rekap={FIXTURE_TAHUN}, bulan_rekap=
+          {FIXTURE_BULAN}.
+        </p>
+      ) : null}
+
+      {apiStatus === 'ok' && apiPayload?.meta.source === 'postgres' ? (
+        <p className="rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2 text-[12px] leading-relaxed text-emerald-900">
+          Live Postgres · {apiPayload.meta.table ?? 'dwh_siga…'} · tahun_rekap=
           {FIXTURE_TAHUN}, bulan_rekap={FIXTURE_BULAN}.
         </p>
       ) : null}
@@ -151,7 +162,9 @@ export function UnmetNeedDetailPage() {
               {unmetNeedMeta.sumberNote}
               <span className="mt-1 block text-[11px] text-slate-400">
                 {apiStatus === 'ok'
-                  ? 'Phase 1: sample JSON via /api/unmet-need'
+                  ? apiPayload?.meta.source === 'postgres'
+                    ? 'Live SQL via /api/unmet-need'
+                    : 'Fixture sample via /api/unmet-need'
                   : unmetNeedMeta.strength}
               </span>
             </span>
@@ -179,7 +192,9 @@ export function UnmetNeedDetailPage() {
         rows={breakdownRows}
         footerNote={
           apiStatus === 'ok'
-            ? 'Label wilayah memakai id dari fixture saja (nama resmi tidak diisi). Sample ~1000 baris — bukan angka nasional resmi.'
+            ? apiPayload?.meta.source === 'postgres'
+              ? 'Label wilayah memakai id dari database (nama resmi tidak diisi di UI).'
+              : 'Label wilayah memakai id dari fixture saja (nama resmi tidak diisi). Sample ~1000 baris — bukan angka nasional resmi.'
             : undefined
         }
       />

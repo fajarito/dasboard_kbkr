@@ -13,6 +13,7 @@ export type UnmetNeedRow = {
 export type UnmetNeedResponse = {
   meta: {
     source: string
+    table?: string
     fixture_note?: string
     formula: string
     filters: {
