@@ -21,19 +21,16 @@ export const kbppMeta = {
   capaianDirection: 'up' as const,
   target: 'Target belum dikonfirmasi',
   targetNote: 'Nilai target RPJMN belum ditetapkan di UI',
-  sumber: 'Dallap Tabel 1 - SIGA',
+  sumber: 'SIGA',
   sumberNote: OCT2026_SOURCE_CAPTION_KBPP,
-  strength:
-    'Dallap Tabel 1 - SIGA — KBPP Tanpa MAL verified vs Tabel1 (excl. MAL+Tradisional)',
+  strength: 'KBPP Tanpa MAL (excl. MAL+Tradisional)',
 } as const
 
 export const kbppTopProvinces = rankedProvinces(kbppProvinceRows(), 'desc', 5)
 export const kbppLowestProvinces = rankedProvinces(kbppProvinceRows(), 'asc', 5)
 
 export const kbppNotes = [
-  'Sumber: Dallap Tabel 1 - SIGA — Ibu pasca persalinan menurut kesertaan ber-KB.',
   `Nasional: numerator ${n.kbpp_numerator.toLocaleString('id-ID')} / ibu pasca persalinan ${n.jumlah_ibu_pasca_persalinan.toLocaleString('id-ID')} ≈ ${n.kbpp_tanpa_mal_pct}% → UI ${formatPctId(n.kbpp_tanpa_mal_pct)}.`,
   'Numerator = IUD+MOW+MOP+Implan+Suntik+Pil+Kondom (= ber_kb − MAL − tradisional). MAL dan Tradisional dikecualikan.',
   'Breakdown 38 Provinsi; kabupaten belum tersedia.',
-  'Jalur live Postgres tetap tersedia dengan VITE_USE_LIVE_API=true.',
 ] as const

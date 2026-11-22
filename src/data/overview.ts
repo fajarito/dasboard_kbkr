@@ -3,16 +3,6 @@ import {
   formatPctId,
   mcprCoverageBands,
   oct2026Dummy,
-  OCT2026_SOURCE_CAPTION,
-  OCT2026_SOURCE_CAPTION_4T,
-  OCT2026_SOURCE_CAPTION_DEMAND,
-  OCT2026_SOURCE_CAPTION_KBPP,
-  OCT2026_SOURCE_CAPTION_KTD,
-  OCT2026_SOURCE_CAPTION_MCPR,
-  OCT2026_SOURCE_CAPTION_MII,
-  OCT2026_SOURCE_CAPTION_MKJP,
-  OCT2026_SOURCE_CAPTION_UNMET,
-  OCT2026_SOURCE_CAPTION_WILAYAH_KHUSUS,
 } from './dummy/oct2026'
 
 export type Indicator = {
@@ -23,7 +13,7 @@ export type Indicator = {
   direction?: 'up' | 'down'
   status?: 'ok' | 'pending'
   pendingLabel?: string
-  /** Short SIGA / naming caveat under the KPI */
+  /** Optional short note under the KPI (kept for type compat; Overview no longer shows it). */
   note?: string
 }
 
@@ -41,50 +31,42 @@ const wilayahKhususNasional = formatPctId(
 )
 const kbppNasional = formatPctId(oct2026Dummy.nasional.kbpp_tanpa_mal_pct)
 
-export const overviewDataCaption = OCT2026_SOURCE_CAPTION
-
 export const indicators: Indicator[] = [
   {
     id: '01',
     label: 'UNMET NEED',
     value: unmetNasional,
     status: 'ok',
-    note: OCT2026_SOURCE_CAPTION_UNMET,
   },
   {
     id: '02',
     label: 'mCPR',
     value: mcprNasional,
     status: 'ok',
-    note: OCT2026_SOURCE_CAPTION_MCPR,
   },
   {
     id: '03',
     label: '4T (RISIKO)',
     value: fourTNasional,
     status: 'ok',
-    note: OCT2026_SOURCE_CAPTION_4T,
   },
   {
     id: '04',
     label: 'KTD',
     value: ktdNasional,
     status: 'ok',
-    note: OCT2026_SOURCE_CAPTION_KTD,
   },
   {
     id: '05',
     label: 'DEMAND SATISFIED',
     value: demandSatisfiedNasional,
     status: 'ok',
-    note: OCT2026_SOURCE_CAPTION_DEMAND,
   },
   {
     id: '06',
     label: 'MII',
     value: miiNasional,
     status: 'ok',
-    note: OCT2026_SOURCE_CAPTION_MII,
   },
   {
     id: '07',
@@ -99,18 +81,16 @@ export const indicators: Indicator[] = [
     label: '% MKJP',
     value: mkjpNasional,
     status: 'ok',
-    note: OCT2026_SOURCE_CAPTION_MKJP,
   },
   {
     id: '09',
     label: 'KB WIL. KHUSUS',
     value: wilayahKhususNasional,
     status: 'ok',
-    note: OCT2026_SOURCE_CAPTION_WILAYAH_KHUSUS,
   },
   {
     id: '10',
-    label: 'INDEKS KETERPAPARAN',
+    label: 'INDEKS KETEROPARAN',
     value: '66,4',
     delta: '2,7',
     direction: 'up',
@@ -121,7 +101,6 @@ export const indicators: Indicator[] = [
     label: 'KBPP TANPA MAL',
     value: kbppNasional,
     status: 'ok',
-    note: OCT2026_SOURCE_CAPTION_KBPP,
   },
   {
     id: '12',

@@ -22,7 +22,7 @@ export function MapSection() {
             Peta Capaian Indikator
           </h2>
           <p className="mt-0.5 text-[12px] text-slate-500">
-            Ranking Unmet Need · Dallap Tabel 16 - SIGA (38 Provinsi)
+            Ranking Unmet Need · 38 Provinsi
           </p>
         </div>
         <Link
@@ -81,8 +81,8 @@ export function MapSection() {
             </ul>
           </div>
           <p className="text-[11px] leading-relaxed text-slate-400">
-            Ranking dari Dallap Tabel 16 - SIGA. Choropleth warna
-            per Provinsi menyusul — data kabupaten belum tersedia.
+            Choropleth warna per Provinsi menyusul — data kabupaten belum
+            tersedia.
           </p>
         </div>
       </div>

@@ -1,25 +1,13 @@
 import { Link } from 'react-router-dom'
 import { detailPathByOverviewId } from '../data/remainingIndicators'
-import { indicators, overviewDataCaption, type Indicator } from '../data/overview'
+import { indicators, type Indicator } from '../data/overview'
 
 export function IndicatorGrid() {
   return (
-    <div className="space-y-3">
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-6">
-        {indicators.map((item) => (
-          <IndicatorCard key={item.id} item={item} />
-        ))}
-      </div>
-      <p className="max-w-5xl text-[11px] leading-relaxed text-slate-400">
-        Sumber Unmet Need, mCPR, 4T, KTD, Demand Satisfied, MII, MKJP, Wilayah
-        Khusus &amp; KBPP Tanpa MAL: {overviewDataCaption}. Indikator lain
-        masih stub/mock. Seluruh 12 indikator punya halaman detail (klik kartu).
-        #9 Wilayah Khusus = (kondom+vasektomi)/KB aktif dari Tabel20 (15
-        Provinsi). #11 KBPP Tanpa MAL = (IUD+MOW+MOP+Implan+Suntik+Pil+Kondom) /
-        ibu pasca persalinan (excl. MAL+Tradisional). #12 DCR (Permas). Periode
-        pembanding dan target belum dicantumkan. Warna perubahan bukan status
-        pencapaian target. p.p = poin persentase.
-      </p>
+    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-6">
+      {indicators.map((item) => (
+        <IndicatorCard key={item.id} item={item} />
+      ))}
     </div>
   )
 }
@@ -55,11 +43,6 @@ function IndicatorCard({ item }: { item: Indicator }) {
           <p className="inline-flex items-center gap-1 text-[11px] font-semibold text-trend">
             {item.direction === 'up' ? <ArrowUp /> : <ArrowDown />}
             {item.delta}
-          </p>
-        ) : null}
-        {item.note ? (
-          <p className="text-[10px] leading-snug font-medium text-slate-400">
-            {item.note}
           </p>
         ) : null}
       </div>

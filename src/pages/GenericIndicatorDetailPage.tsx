@@ -38,15 +38,6 @@ export function GenericIndicatorDetailPage({ config }: Props) {
         level={levelLabel(level)}
       />
 
-      {config.gapBanner ? (
-        <div className="rounded-2xl border border-[#e8c98a] bg-[#f7edd8] px-4 py-3 sm:px-5">
-          <p className="text-[12px] leading-relaxed text-[#9a6b2f]">
-            <span className="font-bold">Gap / catatan SIGA (#{config.id}):</span>{' '}
-            {config.gapBanner}
-          </p>
-        </div>
-      ) : null}
-
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
         <DetailKpiCard
           label="Capaian saat ini"
@@ -83,11 +74,8 @@ export function GenericIndicatorDetailPage({ config }: Props) {
           value={config.sumber}
           valueClassName="text-[15px] sm:text-[17px]"
           footnote={
-            <span className="font-medium leading-snug text-slate-500">
-              {config.sumberNote}
-              <span className={`mt-1 block text-[11px] font-semibold ${strengthClass}`}>
-                {config.strength}
-              </span>
+            <span className={`font-medium leading-snug ${strengthClass}`}>
+              {config.strength}
             </span>
           }
         />

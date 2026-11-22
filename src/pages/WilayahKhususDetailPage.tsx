@@ -13,7 +13,6 @@ import {
   buildWilayahKhususDummyResponse,
   formatPctId,
   OCT2026_LABEL,
-  OCT2026_SOURCE_CAPTION_WILAYAH_KHUSUS,
   preferOct2026Dummy,
 } from '../data/dummy/oct2026'
 import { levelLabel, type GeoLevel } from '../data/indicatorShared'
@@ -75,18 +74,6 @@ export function WilayahKhususDetailPage() {
         indikatorPath="/indikator/wilayah-khusus"
       />
 
-      {useDummy ? (
-        <p className="rounded-xl border border-sky-200 bg-sky-50 px-3 py-2 text-[12px] leading-relaxed text-sky-950">
-          {OCT2026_SOURCE_CAPTION_WILAYAH_KHUSUS}. Rumus = (Kondom + Vasektomi)
-          ÷ Jumlah Peserta KB Aktif × 100. Hanya 15 Provinsi di Tabel20 —
-          Provinsi lain tidak dikarang. Live API:{' '}
-          <code className="rounded bg-white px-1 py-0.5 text-[11px]">
-            VITE_USE_LIVE_API=true
-          </code>
-          .
-        </p>
-      ) : null}
-
       <FilterBar
         periode={OCT2026_LABEL}
         wilayah="Nasional"
@@ -99,9 +86,7 @@ export function WilayahKhususDetailPage() {
           value={capaianValue}
           footnote={
             <span className="font-medium leading-snug text-slate-500">
-              {useDummy
-                ? OCT2026_SOURCE_CAPTION_WILAYAH_KHUSUS
-                : 'Stub Overview'}
+              {useDummy ? 'Oktober 2026' : 'Stub Overview'}
             </span>
           }
         />
@@ -119,14 +104,6 @@ export function WilayahKhususDetailPage() {
           label="Sumber data"
           value={wilayahKhususMeta.sumber}
           valueClassName="text-[15px] sm:text-[17px]"
-          footnote={
-            <span className="font-medium leading-snug text-slate-500">
-              {wilayahKhususMeta.sumberNote}
-              <span className="mt-1 block text-[11px] text-slate-400">
-                {wilayahKhususMeta.strength}
-              </span>
-            </span>
-          }
         />
       </div>
 
@@ -137,8 +114,7 @@ export function WilayahKhususDetailPage() {
               Ranking Provinsi (wilayah_khusus_pct)
             </h2>
             <p className="mt-0.5 text-[12px] text-slate-500">
-              Top 5 tertinggi &amp; terendah dari 15 Provinsi · Dallap Tabel 20 -
-              SIGA (bukan 38)
+              Top 5 tertinggi &amp; terendah dari 15 Provinsi (bukan 38)
             </p>
           </header>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
