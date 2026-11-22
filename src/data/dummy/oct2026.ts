@@ -1,9 +1,10 @@
 /**
- * Oktober 2026 Excel dummy (Tabel1 / Tabel2 / Tabel3 / Tabel10 / Tabel11 / Tabel16)
- * — nasional + 38 provinsi.
+ * Oktober 2026 Excel dummy (Tabel1 / Tabel2 / Tabel3 / Tabel10 / Tabel11 / Tabel16 / Tabel20)
+ * — nasional + 38 provinsi (Tabel20 Wilayah Khusus: only 15 provinces).
  * Source of truth: internal/dummy-oct2026
  * (Tabel1 → 4T; T10/11/16 → unmet/mCPR; T16 hamil_tial → KTD; T11+T16 → Demand Satisfied;
- *  Tabel2+3+Tabel10_v3 KB ulangan → MII; Tabel3+Tabel10_v3 KB ulangan → MKJP).
+ *  Tabel2+3+Tabel10_v3 KB ulangan → MII; Tabel3+Tabel10_v3 KB ulangan → MKJP;
+ *  Tabel20 kabupaten tertinggal → Wilayah Khusus).
  *
  * Prefer this for UI default. Set VITE_USE_LIVE_API=true to hit /api (Postgres / sample).
  */
@@ -13,13 +14,15 @@ export const OCT2026_BULAN = 10
 export const OCT2026_TAHUN = 2026
 export const OCT2026_LABEL = 'Oktober 2026'
 export const OCT2026_SOURCE_CAPTION =
-  'Dummy Excel Oct 2026 (Tabel1/2/3/10/11/16 · nasional + 38 Provinsi)'
+  'Dummy Excel Oct 2026 (Tabel1/2/3/10/11/16/20 · nasional + 38 Provinsi)'
 export const OCT2026_SOURCE_CAPTION_4T =
   'Dummy Excel Tabel1 Oct 2026 (nasional + 38 Provinsi)'
 export const OCT2026_SOURCE_CAPTION_MII =
   'Dummy Excel Tabel2/3/10 Oct 2026 (nasional + 38 Provinsi)'
 export const OCT2026_SOURCE_CAPTION_MKJP =
   'Dummy Excel Tabel3/10 Oct 2026 (nasional + 38 Provinsi)'
+export const OCT2026_SOURCE_CAPTION_WILAYAH_KHUSUS =
+  'Dummy Excel Tabel20 Oct 2026 (nasional + 15 Provinsi · kabupaten tertinggal)'
 
 export type Oct2026Period = {
   bulan_rekap: number
@@ -134,6 +137,14 @@ export type Oct2026Nasional = {
   mkjp_denominator: number
   /** (mkjp_baru + mkjp_ulangan) / (total_baru + total_ulangan) * 100 */
   mkjp_pct: number
+  /** Tabel20 jumlah peserta KB aktif di kabupaten tertinggal. */
+  wilayah_khusus_jumlah_kb_aktif: number
+  wilayah_khusus_kondom: number
+  wilayah_khusus_vasektomi: number
+  /** kondom + vasektomi */
+  wilayah_khusus_numerator: number
+  /** (kondom + vasektomi) / jumlah_kb_aktif * 100 — only 15 provinces in Tabel20 */
+  wilayah_khusus_pct: number
 }
 
 export type Oct2026KtdDemandRow = {
@@ -181,6 +192,29 @@ export type Oct2026MkjpRow = {
   mkjp_pct: number
 }
 
+/**
+ * Wilayah Khusus province row from Tabel20 (PESERTA KB AKTIF PADA KABUPATEN TERTINGGAL).
+ * Only 15 provinces appear in this table — do not invent the rest.
+ */
+export type Oct2026WilayahKhususRow = {
+  kode: string
+  provinsi: string
+  jumlah_kb_aktif: number
+  kondom: number
+  vasektomi: number
+  /** kondom + vasektomi */
+  numerator: number
+  wilayah_khusus_pct: number
+  suntik: number
+  pil: number
+  implan: number
+  iud: number
+  tubektomi: number
+  mal: number
+  total_modern: number
+  tradisional: number
+}
+
 export type Oct2026Dummy = {
   period: Oct2026Period
   tabel10_pus: Oct2026Tabel10[]
@@ -190,6 +224,7 @@ export type Oct2026Dummy = {
   ktd_demand_satisfied: Oct2026KtdDemandRow[]
   mii: Oct2026MiiRow[]
   mkjp: Oct2026MkjpRow[]
+  tabel20_wilayah_khusus: Oct2026WilayahKhususRow[]
   nasional: Oct2026Nasional
   formulas: {
     unmet_need: string
@@ -209,6 +244,9 @@ export type Oct2026Dummy = {
     mkjp_note: string
     mkjp_sources: string
     mkjp_methods: string
+    wilayah_khusus: string
+    wilayah_khusus_note: string
+    tabel20_source: string
   }
 }
 
@@ -1032,6 +1070,107 @@ export function buildMkjpDummyResponse(
       numerator: row.numerator,
       denominator: row.denominator,
       mkjp_pct: row.mkjp_pct,
+    })),
+  }
+}
+
+/**
+ * Wilayah Khusus % = (kondom + vasektomi) / jumlah_peserta_kb_aktif × 100.
+ * Tabel20 covers kabupaten tertinggal only — 15 provinces, not all 38.
+ */
+export function wilayahKhususPct(
+  kondom: number,
+  vasektomi: number,
+  jumlahKbAktif: number,
+): number | null {
+  if (!jumlahKbAktif) return null
+  return ((kondom + vasektomi) / jumlahKbAktif) * 100
+}
+
+export function wilayahKhususProvinceRows(): ProvinceIndicatorRow[] {
+  return oct2026Dummy.tabel20_wilayah_khusus.map((row) => ({
+    kode: row.kode,
+    provinsi: row.provinsi,
+    jumlah_pus: row.jumlah_kb_aktif,
+    numerator: row.numerator,
+    pct: row.wilayah_khusus_pct,
+  }))
+}
+
+export type DummyWilayahKhususResponse = {
+  meta: {
+    source: 'excel-dummy'
+    fixture_note: string
+    formula: string
+    filters: {
+      level: string
+      tahun_rekap: number
+      bulan_rekap: number
+      period_mode: 'bulanan'
+    }
+  }
+  data: Array<{
+    level: 'nasional' | 'provinsi'
+    nama_provinsi?: string
+    kode_provinsi?: string
+    kondom: number
+    vasektomi: number
+    numerator: number
+    denominator: number
+    wilayah_khusus_pct: number | null
+  }>
+}
+
+export function buildWilayahKhususDummyResponse(
+  level: 'nasional' | 'provinsi' | 'kabupaten',
+): DummyWilayahKhususResponse {
+  const { nasional, formulas, tabel20_wilayah_khusus } = oct2026Dummy
+  const meta = {
+    source: 'excel-dummy' as const,
+    fixture_note: OCT2026_SOURCE_CAPTION_WILAYAH_KHUSUS,
+    formula: formulas.wilayah_khusus,
+    filters: {
+      level,
+      tahun_rekap: OCT2026_TAHUN,
+      bulan_rekap: OCT2026_BULAN,
+      period_mode: 'bulanan' as const,
+    },
+  }
+
+  if (level === 'kabupaten') {
+    return {
+      meta: { ...meta, filters: { ...meta.filters, level: 'kabupaten' } },
+      data: [],
+    }
+  }
+
+  if (level === 'nasional') {
+    return {
+      meta,
+      data: [
+        {
+          level: 'nasional',
+          kondom: nasional.wilayah_khusus_kondom,
+          vasektomi: nasional.wilayah_khusus_vasektomi,
+          numerator: nasional.wilayah_khusus_numerator,
+          denominator: nasional.wilayah_khusus_jumlah_kb_aktif,
+          wilayah_khusus_pct: nasional.wilayah_khusus_pct,
+        },
+      ],
+    }
+  }
+
+  return {
+    meta,
+    data: tabel20_wilayah_khusus.map((row) => ({
+      level: 'provinsi' as const,
+      nama_provinsi: row.provinsi,
+      kode_provinsi: row.kode,
+      kondom: row.kondom,
+      vasektomi: row.vasektomi,
+      numerator: row.numerator,
+      denominator: row.jumlah_kb_aktif,
+      wilayah_khusus_pct: row.wilayah_khusus_pct,
     })),
   }
 }
