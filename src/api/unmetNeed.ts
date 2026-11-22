@@ -4,6 +4,10 @@ export type UnmetNeedRow = {
   level: UnmetNeedLevel
   id_provinsi: number | null
   id_kabupaten: number | null
+  nama_provinsi?: string | null
+  kode_provinsi?: string | null
+  nama_kabupaten?: string | null
+  kode_kabupaten?: string | null
   numerator: number
   denominator: number
   unmet_need_pct: number | null
@@ -25,6 +29,14 @@ export type UnmetNeedResponse = {
       period_mode: string
     }
     matched_rows: number
+    wilayah?: {
+      source?: string
+      dim_tahun_requested?: number | null
+      dim_tahun_provinsi?: number | null
+      dim_tahun_kabupaten?: number | null
+      note?: string
+      tables?: { d_provinsi?: string | null; d_kabupaten?: string | null }
+    }
   }
   data: UnmetNeedRow[]
 }
@@ -70,9 +82,24 @@ export function formatUnmetNeedPct(pct: number | null | undefined): string {
   })}%`
 }
 
-/** Label from ids only — never invent official wilayah names. */
+/**
+ * Prefer dim names from API; fall back to ids only (never invent names).
+ */
 export function wilayahLabelFromIds(row: UnmetNeedRow): string {
-  if (row.level === 'nasional') return 'Nasional (fixture)'
-  if (row.level === 'provinsi') return `Provinsi id ${row.id_provinsi}`
+  if (row.level === 'nasional') return 'Nasional'
+  if (row.level === 'provinsi') {
+    if (row.nama_provinsi) {
+      return row.kode_provinsi
+        ? `${row.nama_provinsi} (${row.kode_provinsi})`
+        : row.nama_provinsi
+    }
+    return `Provinsi id ${row.id_provinsi}`
+  }
+  if (row.nama_kabupaten) {
+    const kab = row.kode_kabupaten
+      ? `${row.nama_kabupaten} (${row.kode_kabupaten})`
+      : row.nama_kabupaten
+    return row.nama_provinsi ? `${kab} · ${row.nama_provinsi}` : kab
+  }
   return `Kabupaten id ${row.id_kabupaten} (prov ${row.id_provinsi})`
 }

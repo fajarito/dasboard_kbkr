@@ -24,6 +24,7 @@ Local app: `http://127.0.0.1:5173/`
 ### Unmet Need API
 
 - **Postgres** when `DATABASE_URL` or `PGHOST`/`PGPORT`/`PGDATABASE`/`PGUSER`/`PGPASSWORD` are set (default table `dwh_siga.fa_laporan_dallap_bulanan_tabel10_20rdk`). Example: port **5435**, database **BKKBN** — see [`.env.example`](.env.example).
+- **Wilayah names** from year-suffixed `d_provinsi_YYYY` / `d_kabupaten_YYYY` (exact `tahun_rekap`, else nearest year); fixture dims when DB unset.
 - **Fixture fallback** if DB env is unset (partial ~1000-row sample; national % fixture-only).
 
 ```bash

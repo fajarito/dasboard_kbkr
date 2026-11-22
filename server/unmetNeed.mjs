@@ -7,7 +7,10 @@
  *   unmet_need_pct = denominator === 0 ? null : numerator / denominator * 100
  *
  * Yearly rollup: SUM numerators and denominators across months, then compute %.
+ * Wilayah names joined from fixture d_provinsi / d_kabupaten samples.
  */
+
+import { enrichFromFixtureDims } from './wilayah.mjs'
 
 function n(value) {
   const x = Number(value)
@@ -106,29 +109,25 @@ export function queryUnmetNeed(rows, query) {
     matched_rows: filtered.length,
   }
 
+  let data
   if (level === 'nasional') {
     const agg = aggregateBucket(filtered)
-    return {
-      meta,
-      data: [
-        {
-          level: 'nasional',
-          id_provinsi: null,
-          id_kabupaten: null,
-          ...agg,
-        },
-      ],
-    }
-  }
-
-  if (level === 'provinsi') {
+    data = [
+      {
+        level: 'nasional',
+        id_provinsi: null,
+        id_kabupaten: null,
+        ...agg,
+      },
+    ]
+  } else if (level === 'provinsi') {
     const groups = new Map()
     for (const row of filtered) {
       const key = Number(row.id_provinsi)
       if (!groups.has(key)) groups.set(key, [])
       groups.get(key).push(row)
     }
-    const data = [...groups.entries()]
+    data = [...groups.entries()]
       .sort((a, b) => a[0] - b[0])
       .map(([id_provinsi, bucket]) => ({
         level: 'provinsi',
@@ -136,26 +135,32 @@ export function queryUnmetNeed(rows, query) {
         id_kabupaten: null,
         ...aggregateBucket(bucket),
       }))
-    return { meta, data }
+  } else {
+    const groups = new Map()
+    for (const row of filtered) {
+      const key = `${Number(row.id_provinsi)}:${Number(row.id_kabupaten)}`
+      if (!groups.has(key)) groups.set(key, [])
+      groups.get(key).push(row)
+    }
+    data = [...groups.entries()]
+      .sort((a, b) => a[0].localeCompare(b[0]))
+      .map(([key, bucket]) => {
+        const [id_provinsi, id_kabupaten] = key.split(':').map(Number)
+        return {
+          level: 'kabupaten',
+          id_provinsi,
+          id_kabupaten,
+          ...aggregateBucket(bucket),
+        }
+      })
   }
 
-  // kabupaten
-  const groups = new Map()
-  for (const row of filtered) {
-    const key = `${Number(row.id_provinsi)}:${Number(row.id_kabupaten)}`
-    if (!groups.has(key)) groups.set(key, [])
-    groups.get(key).push(row)
+  const enriched = enrichFromFixtureDims(data, meta.filters.tahun_rekap)
+  return {
+    meta: {
+      ...meta,
+      wilayah: enriched.wilayah,
+    },
+    data: enriched.data,
   }
-  const data = [...groups.entries()]
-    .sort((a, b) => a[0].localeCompare(b[0]))
-    .map(([key, bucket]) => {
-      const [id_provinsi, id_kabupaten] = key.split(':').map(Number)
-      return {
-        level: 'kabupaten',
-        id_provinsi,
-        id_kabupaten,
-        ...aggregateBucket(bucket),
-      }
-    })
-  return { meta, data }
 }
