@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { indicators, type Indicator } from '../data/overview'
 
 export function IndicatorGrid() {
@@ -19,14 +20,15 @@ export function IndicatorGrid() {
 
 function IndicatorCard({ item }: { item: Indicator }) {
   const pending = item.status === 'pending'
+  const href = item.label === 'mCPR' ? '/indikator/mcpr' : undefined
 
-  return (
+  const card = (
     <article
-      className={`rounded-2xl border p-3.5 shadow-sm shadow-slate-200/30 ${
+      className={`rounded-2xl border p-3.5 shadow-sm shadow-slate-200/30 transition ${
         pending
           ? 'border-[#e8c98a] bg-[#f7edd8]'
           : 'border-slate-200/80 bg-white'
-      }`}
+      } ${href ? 'hover:border-brand-500/50 hover:shadow-md hover:shadow-brand-500/10' : ''}`}
     >
       <p
         className={`text-[10px] font-semibold tracking-[0.06em] uppercase ${
@@ -51,6 +53,14 @@ function IndicatorCard({ item }: { item: Indicator }) {
         )}
       </div>
     </article>
+  )
+
+  if (!href) return card
+
+  return (
+    <Link to={href} aria-label={`Buka detail indikator ${item.label}`}>
+      {card}
+    </Link>
   )
 }
 

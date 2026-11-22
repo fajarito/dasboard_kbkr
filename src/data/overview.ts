@@ -132,25 +132,33 @@ export const coverageBands = [
 ]
 
 export const navItems = [
-  { id: 'overview', label: 'Overview', active: true },
-  { id: 'indikator', label: '12 Indikator' },
-  { id: 'service', label: 'Service Statistics' },
+  { id: 'overview', label: 'Overview', to: '/' },
+  {
+    id: 'indikator',
+    label: '12 Indikator',
+    to: '/indikator/mcpr',
+    matchPrefix: '/indikator',
+  },
+  { id: 'service', label: 'Service Statistics', to: '/#service' },
   {
     id: 'input',
     label: 'Kapasitas & Kemitraan',
     section: 'INPUT',
+    to: '/#input',
   },
   {
     id: 'proses',
     label: 'Aktivitas Layanan',
     section: 'PROSES',
+    to: '/#proses',
   },
   {
     id: 'output',
     label: 'Hasil Pelayanan',
     section: 'OUTPUT',
+    to: '/#output',
   },
-  { id: 'peta', label: 'Peta Capaian' },
-  { id: 'wilayah', label: 'Wilayah Prioritas' },
-  { id: 'data', label: 'Data & Sumber' },
+  { id: 'peta', label: 'Peta Capaian', to: '/#peta' },
+  { id: 'wilayah', label: 'Wilayah Prioritas', to: '/#wilayah' },
+  { id: 'data', label: 'Data & Sumber', to: '/#data' },
 ] as const
