@@ -5,43 +5,92 @@ import {
   setWorkerUrl,
   type MapLayerMouseEvent,
 } from 'maplibre-gl'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import {
+  buildChoroplethScale,
+  buildFillColorExpression,
   mapLegendPlaceholder,
   mapNoDataColor,
   PROVINCE_GEOJSON_URL,
+  type MapLegendItem,
   type MapLevel,
 } from '../lib/mapChoropleth'
+import type { MapValueKind } from '../data/mapIndicators'
 
 if (typeof window !== 'undefined') {
   setWorkerUrl('/maplibre-gl-worker.mjs')
 }
 
-type Hovered = { name: string; code: number }
+type Hovered = {
+  name: string
+  code: number
+  value: number | null
+}
 
 type IndonesiaChoroplethMapProps = {
   heightClassName?: string
   level?: MapLevel
   showLegend?: boolean
-  onProvinceClick?: (province: Hovered) => void
+  /** Province BPS code → indicator value (null = no data). */
+  valuesByCode?: Record<number, number | null>
+  /** Optional display names keyed by BPS code (overrides GeoJSON labels). */
+  nameByCode?: Record<number, string>
+  valueKind?: MapValueKind
+  higherIsBetter?: boolean
+  formatValue?: (value: number | null) => string
+  legendTitle?: string
+  emptyHint?: string
+  onProvinceClick?: (province: {
+    name: string
+    code: number
+    value: number | null
+  }) => void
 }
 
 export function IndonesiaChoroplethMap({
   heightClassName = 'h-[360px] md:h-[480px]',
   level = 'provinsi',
   showLegend = true,
+  valuesByCode = {},
+  nameByCode = {},
+  valueKind = 'pct',
+  higherIsBetter = true,
+  formatValue = (v) => (v == null ? '—' : String(v)),
+  legendTitle = 'Legenda',
+  emptyHint = 'Data wilayah belum tersedia — outline batas provinsi saja',
   onProvinceClick,
 }: IndonesiaChoroplethMapProps) {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const mapRef = useRef<MapLibreMap | null>(null)
+  const valuesRef = useRef(valuesByCode)
+  const namesRef = useRef(nameByCode)
+  const formatRef = useRef(formatValue)
   const onClickRef = useRef(onProvinceClick)
   const [ready, setReady] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [hovered, setHovered] = useState<Hovered | null>(null)
   const [bootKey, setBootKey] = useState(0)
 
+  valuesRef.current = valuesByCode
+  namesRef.current = nameByCode
+  formatRef.current = formatValue
   onClickRef.current = onProvinceClick
+
+  const scale = useMemo(
+    () =>
+      buildChoroplethScale(Object.values(valuesByCode), {
+        kind: valueKind,
+        higherIsBetter,
+      }),
+    [valuesByCode, valueKind, higherIsBetter],
+  )
+
+  const legendItems: MapLegendItem[] = scale?.legend ?? [
+    ...mapLegendPlaceholder.filter((item) => item.key === 'nodata'),
+  ]
+
+  const hasData = scale != null
 
   useEffect(() => {
     let active = true
@@ -181,18 +230,31 @@ export function IndonesiaChoroplethMap({
 
         let lastHoverId: number | null = null
 
+        const resolveValue = (code: number): number | null => {
+          const raw = valuesRef.current[code]
+          return raw == null || !Number.isFinite(raw) ? null : raw
+        }
+
+        const resolveName = (code: number, fallback: string): string => {
+          return namesRef.current[code] ?? fallback
+        }
+
         const handleHover = (event: MapLayerMouseEvent) => {
           const feature = event.features?.[0]
           if (!feature || !map) return
           const code = Number(
             feature.properties?.provinceCode ?? feature.properties?.kode ?? 0,
           )
-          const name = String(
+          const fallback = String(
             feature.properties?.provinceName ??
               feature.properties?.Propinsi ??
               'Provinsi',
           )
-          setHovered({ name, code })
+          setHovered({
+            name: resolveName(code, fallback),
+            code,
+            value: resolveValue(code),
+          })
           map.getCanvas().style.cursor = 'pointer'
           if (lastHoverId !== null && lastHoverId !== code) {
             map.setFeatureState(
@@ -223,15 +285,18 @@ export function IndonesiaChoroplethMap({
         const handleClick = (event: MapLayerMouseEvent) => {
           const feature = event.features?.[0]
           if (!feature) return
+          const code = Number(
+            feature.properties?.provinceCode ?? feature.properties?.kode ?? 0,
+          )
+          const fallback = String(
+            feature.properties?.provinceName ??
+              feature.properties?.Propinsi ??
+              'Provinsi',
+          )
           const province = {
-            name: String(
-              feature.properties?.provinceName ??
-                feature.properties?.Propinsi ??
-                'Provinsi',
-            ),
-            code: Number(
-              feature.properties?.provinceCode ?? feature.properties?.kode ?? 0,
-            ),
+            name: resolveName(code, fallback),
+            code,
+            value: resolveValue(code),
           }
           onClickRef.current?.(province)
         }
@@ -256,6 +321,26 @@ export function IndonesiaChoroplethMap({
       if (mapRef.current === map) mapRef.current = null
     }
   }, [bootKey])
+
+  // Update fill colors when indicator values / scale change
+  useEffect(() => {
+    const map = mapRef.current
+    if (!map || !ready || !map.getLayer('province-fill')) return
+    const expr = buildFillColorExpression(valuesByCode, scale)
+    // MapLibre expression typing is stricter than our builder return.
+    map.setPaintProperty('province-fill', 'fill-color', expr as never)
+  }, [valuesByCode, scale, ready])
+
+  // Keep hover tooltip value in sync when indicator switches
+  useEffect(() => {
+    setHovered((prev) => {
+      if (!prev) return prev
+      const raw = valuesByCode[prev.code]
+      const next = raw == null || !Number.isFinite(raw) ? null : raw
+      if (next === prev.value) return prev
+      return { ...prev, value: next }
+    })
+  }, [valuesByCode])
 
   if (error) {
     return (
@@ -316,8 +401,8 @@ export function IndonesiaChoroplethMap({
               KODE {hovered.code}
             </span>
           </div>
-          <p className="mt-2 text-[11px] text-slate-500">
-            Data capaian belum tersedia
+          <p className="mt-2 text-[13px] font-bold tabular-nums text-navy-950">
+            {formatValue(hovered.value)}
           </p>
         </div>
       ) : null}
@@ -328,13 +413,15 @@ export function IndonesiaChoroplethMap({
           aria-label="Legenda indikator peta"
         >
           <p className="text-[10px] font-extrabold tracking-wide text-slate-800 uppercase">
-            Legenda (placeholder)
+            {legendTitle}
           </p>
-          <p className="mt-0.5 text-[9px] text-slate-400">
-            Belum terhubung ke nilai indikator
-          </p>
+          {!hasData ? (
+            <p className="mt-0.5 text-[9px] text-slate-400">
+              Belum terhubung ke nilai indikator
+            </p>
+          ) : null}
           <ul className="mt-2 flex flex-col gap-1.5">
-            {mapLegendPlaceholder.map((item) => (
+            {legendItems.map((item) => (
               <li
                 key={item.key}
                 className="flex items-start gap-2 text-[10px] leading-tight"
@@ -353,9 +440,9 @@ export function IndonesiaChoroplethMap({
         </aside>
       ) : null}
 
-      {ready && !hovered ? (
+      {ready && !hovered && !hasData ? (
         <div className="pointer-events-none absolute bottom-3 left-1/2 z-10 max-w-sm -translate-x-1/2 rounded-lg bg-white/90 px-3 py-1.5 text-center text-[11px] font-semibold text-slate-500 shadow-sm">
-          Data wilayah belum tersedia — outline batas provinsi saja
+          {emptyHint}
         </div>
       ) : null}
     </div>
