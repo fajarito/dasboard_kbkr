@@ -13,11 +13,28 @@ Overview + detail indikator + Peta Capaian for Kemendukbangga — 12 indikator p
 
 ```bash
 npm install
-npm run dev
+npm run dev          # SPA only (Vite)
+npm run api          # Unmet Need API → http://127.0.0.1:8787
+npm run dev:all      # SPA + API (Vite proxies /api → :8787)
 npm run build
 ```
 
 Local app: `http://127.0.0.1:5173/`
+
+### Unmet Need API
+
+- **Postgres** when `DATABASE_URL` or `PGHOST`/`PGPORT`/`PGDATABASE`/`PGUSER`/`PGPASSWORD` are set (default table `dwh_siga.fa_laporan_dallap_bulanan_tabel10_20rdk`). Example: port **5435**, database **BKKBN** — see [`.env.example`](.env.example).
+- **Fixture fallback** if DB env is unset (partial ~1000-row sample; national % fixture-only).
+
+```bash
+cp .env.example .env   # fill credentials locally — never commit .env
+npm run api
+curl 'http://127.0.0.1:8787/api/unmet-need?level=nasional&tahun=2023&bulan=7'
+```
+
+Details + SQL examples: [`server/README.md`](server/README.md).
+
+OpenShift SPA image stays nginx-only; API + DB secrets can be a separate service later.
 
 ## OpenShift deploy
 
