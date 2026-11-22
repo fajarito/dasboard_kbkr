@@ -3,6 +3,7 @@ import {
   mcprCoverageBands,
   oct2026Dummy,
   OCT2026_SOURCE_CAPTION,
+  OCT2026_SOURCE_CAPTION_4T,
 } from './dummy/oct2026'
 
 export type Indicator = {
@@ -19,6 +20,7 @@ export type Indicator = {
 
 const unmetNasional = formatPctId(oct2026Dummy.nasional.unmet_need_pct)
 const mcprNasional = formatPctId(oct2026Dummy.nasional.mcpr_pct)
+const fourTNasional = formatPctId(oct2026Dummy.nasional.pct_4t)
 
 export const overviewDataCaption = OCT2026_SOURCE_CAPTION
 
@@ -40,10 +42,9 @@ export const indicators: Indicator[] = [
   {
     id: '03',
     label: '4T (RISIKO)',
-    value: '16,7%',
-    delta: '1,3 p.p',
-    direction: 'down',
+    value: fourTNasional,
     status: 'ok',
+    note: OCT2026_SOURCE_CAPTION_4T,
   },
   {
     id: '04',
