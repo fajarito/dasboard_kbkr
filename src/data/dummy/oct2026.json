@@ -1546,7 +1546,9 @@
     "pct_terlalu_muda": 3.1246,
     "pct_terlalu_tua": 14.4086,
     "pct_terlalu_dekat": 5.4804,
-    "pct_terlalu_banyak": 0.0004
+    "pct_terlalu_banyak": 0.0004,
+    "ktd": 143,
+    "demand_satisfied_pct": 92.2505
   },
   "formulas": {
     "unmet_need": "(hamil_ihn + hamil_tial + tdkhamil_ihn + tdkhamil_tial) / jumlah_pus * 100",
@@ -1554,7 +1556,11 @@
     "mcpr_proxy": "total_modern (Tabel11 col12) / jumlah_pus (Tabel10) * 100 — confirm vs SIGA mCPR definition",
     "pct_4t": "jumlah_bumil_4t / jumlah_bumil * 100",
     "pct_4t_note": "terlalu_muda (<20), terlalu_tua (>=35), terlalu_dekat (<2 thn), terlalu_banyak (>3 anak) — jumlah_bumil_4t is unique count (not sum of components)",
-    "tabel1_source": "Tabel1.xlsx — JUMLAH IBU HAMIL (BUMIL) TEREGISTER … KATEGORI 4T"
+    "tabel1_source": "Tabel1.xlsx — JUMLAH IBU HAMIL (BUMIL) TEREGISTER … KATEGORI 4T",
+    "ktd": "hamil_tial (Tabel16 col HAMIL · TIDAK INGIN ANAK LAGI) — count, not percent",
+    "ktd_note": "KTD = pregnant and does not want another child (hamil_tial). Nasional = sum of 38 Provinsi.",
+    "demand_satisfied": "pengguna_KB_modern (Tabel11 total_modern) / (pengguna_KB_modern + unmet_need Tabel16 jumlah_unmet_need) * 100",
+    "demand_satisfied_note": "Demand Satisfied %; unmet_need = unique unmet count (calc_unmet / jumlah_unmet_need), not %"
   },
   "tabel1_4t": [
     {
@@ -1570,7 +1576,7 @@
       "pct_terlalu_muda": 1.402,
       "pct_terlalu_tua": 17.0977,
       "pct_terlalu_dekat": 7.2275,
-      "pct_terlalu_banyak": 0.0
+      "pct_terlalu_banyak": 0
     },
     {
       "kode": "12",
@@ -1585,7 +1591,7 @@
       "pct_terlalu_muda": 2.7354,
       "pct_terlalu_tua": 12.7784,
       "pct_terlalu_dekat": 13.9117,
-      "pct_terlalu_banyak": 0.0
+      "pct_terlalu_banyak": 0
     },
     {
       "kode": "13",
@@ -1600,7 +1606,7 @@
       "pct_terlalu_muda": 1.2701,
       "pct_terlalu_tua": 16.6786,
       "pct_terlalu_dekat": 9.0822,
-      "pct_terlalu_banyak": 0.0
+      "pct_terlalu_banyak": 0
     },
     {
       "kode": "14",
@@ -1615,7 +1621,7 @@
       "pct_terlalu_muda": 2.1316,
       "pct_terlalu_tua": 12.7278,
       "pct_terlalu_dekat": 7.0436,
-      "pct_terlalu_banyak": 0.0
+      "pct_terlalu_banyak": 0
     },
     {
       "kode": "15",
@@ -1630,7 +1636,7 @@
       "pct_terlalu_muda": 3.7436,
       "pct_terlalu_tua": 13.2706,
       "pct_terlalu_dekat": 4.2143,
-      "pct_terlalu_banyak": 0.0
+      "pct_terlalu_banyak": 0
     },
     {
       "kode": "16",
@@ -1645,7 +1651,7 @@
       "pct_terlalu_muda": 3.9395,
       "pct_terlalu_tua": 14.5056,
       "pct_terlalu_dekat": 5.4005,
-      "pct_terlalu_banyak": 0.0
+      "pct_terlalu_banyak": 0
     },
     {
       "kode": "17",
@@ -1660,7 +1666,7 @@
       "pct_terlalu_muda": 3.8309,
       "pct_terlalu_tua": 14.3989,
       "pct_terlalu_dekat": 5.9445,
-      "pct_terlalu_banyak": 0.0
+      "pct_terlalu_banyak": 0
     },
     {
       "kode": "18",
@@ -1675,7 +1681,7 @@
       "pct_terlalu_muda": 2.5135,
       "pct_terlalu_tua": 15.1018,
       "pct_terlalu_dekat": 5.6086,
-      "pct_terlalu_banyak": 0.0
+      "pct_terlalu_banyak": 0
     },
     {
       "kode": "19",
@@ -1690,7 +1696,7 @@
       "pct_terlalu_muda": 5.4529,
       "pct_terlalu_tua": 13.7246,
       "pct_terlalu_dekat": 4.9445,
-      "pct_terlalu_banyak": 0.0
+      "pct_terlalu_banyak": 0
     },
     {
       "kode": "21",
@@ -1705,7 +1711,7 @@
       "pct_terlalu_muda": 1.849,
       "pct_terlalu_tua": 14.3297,
       "pct_terlalu_dekat": 9.5532,
-      "pct_terlalu_banyak": 0.0
+      "pct_terlalu_banyak": 0
     },
     {
       "kode": "31",
@@ -1716,11 +1722,11 @@
       "terlalu_dekat": 0,
       "terlalu_banyak": 0,
       "jumlah_bumil_4t": 0,
-      "pct_4t": 0.0,
-      "pct_terlalu_muda": 0.0,
-      "pct_terlalu_tua": 0.0,
-      "pct_terlalu_dekat": 0.0,
-      "pct_terlalu_banyak": 0.0
+      "pct_4t": 0,
+      "pct_terlalu_muda": 0,
+      "pct_terlalu_tua": 0,
+      "pct_terlalu_dekat": 0,
+      "pct_terlalu_banyak": 0
     },
     {
       "kode": "32",
@@ -1750,7 +1756,7 @@
       "pct_terlalu_muda": 1.5381,
       "pct_terlalu_tua": 13.6099,
       "pct_terlalu_dekat": 4.7419,
-      "pct_terlalu_banyak": 0.0
+      "pct_terlalu_banyak": 0
     },
     {
       "kode": "34",
@@ -1765,7 +1771,7 @@
       "pct_terlalu_muda": 1.0903,
       "pct_terlalu_tua": 13.7375,
       "pct_terlalu_dekat": 4.0558,
-      "pct_terlalu_banyak": 0.0
+      "pct_terlalu_banyak": 0
     },
     {
       "kode": "35",
@@ -1780,7 +1786,7 @@
       "pct_terlalu_muda": 3.6836,
       "pct_terlalu_tua": 11.6262,
       "pct_terlalu_dekat": 4.2885,
-      "pct_terlalu_banyak": 0.0
+      "pct_terlalu_banyak": 0
     },
     {
       "kode": "36",
@@ -1795,7 +1801,7 @@
       "pct_terlalu_muda": 2.3062,
       "pct_terlalu_tua": 16.599,
       "pct_terlalu_dekat": 5.8992,
-      "pct_terlalu_banyak": 0.0
+      "pct_terlalu_banyak": 0
     },
     {
       "kode": "51",
@@ -1810,7 +1816,7 @@
       "pct_terlalu_muda": 2.4938,
       "pct_terlalu_tua": 13.217,
       "pct_terlalu_dekat": 8.8529,
-      "pct_terlalu_banyak": 0.0
+      "pct_terlalu_banyak": 0
     },
     {
       "kode": "52",
@@ -1825,7 +1831,7 @@
       "pct_terlalu_muda": 4.7783,
       "pct_terlalu_tua": 18.9841,
       "pct_terlalu_dekat": 3.6806,
-      "pct_terlalu_banyak": 0.0
+      "pct_terlalu_banyak": 0
     },
     {
       "kode": "53",
@@ -1840,7 +1846,7 @@
       "pct_terlalu_muda": 4.6178,
       "pct_terlalu_tua": 19.1228,
       "pct_terlalu_dekat": 5.5443,
-      "pct_terlalu_banyak": 0.0
+      "pct_terlalu_banyak": 0
     },
     {
       "kode": "61",
@@ -1855,7 +1861,7 @@
       "pct_terlalu_muda": 6.6644,
       "pct_terlalu_tua": 12.8935,
       "pct_terlalu_dekat": 5.9277,
-      "pct_terlalu_banyak": 0.0
+      "pct_terlalu_banyak": 0
     },
     {
       "kode": "62",
@@ -1870,7 +1876,7 @@
       "pct_terlalu_muda": 6.7287,
       "pct_terlalu_tua": 13.3142,
       "pct_terlalu_dekat": 3.3644,
-      "pct_terlalu_banyak": 0.0
+      "pct_terlalu_banyak": 0
     },
     {
       "kode": "63",
@@ -1885,7 +1891,7 @@
       "pct_terlalu_muda": 4.6503,
       "pct_terlalu_tua": 13.0651,
       "pct_terlalu_dekat": 3.9306,
-      "pct_terlalu_banyak": 0.0
+      "pct_terlalu_banyak": 0
     },
     {
       "kode": "64",
@@ -1900,7 +1906,7 @@
       "pct_terlalu_muda": 3.4727,
       "pct_terlalu_tua": 18.1994,
       "pct_terlalu_dekat": 8.6817,
-      "pct_terlalu_banyak": 0.0
+      "pct_terlalu_banyak": 0
     },
     {
       "kode": "65",
@@ -1915,7 +1921,7 @@
       "pct_terlalu_muda": 5.8524,
       "pct_terlalu_tua": 11.9593,
       "pct_terlalu_dekat": 11.1959,
-      "pct_terlalu_banyak": 0.0
+      "pct_terlalu_banyak": 0
     },
     {
       "kode": "71",
@@ -1930,7 +1936,7 @@
       "pct_terlalu_muda": 11.1792,
       "pct_terlalu_tua": 10.2603,
       "pct_terlalu_dekat": 5.9724,
-      "pct_terlalu_banyak": 0.0
+      "pct_terlalu_banyak": 0
     },
     {
       "kode": "72",
@@ -1945,7 +1951,7 @@
       "pct_terlalu_muda": 5.8761,
       "pct_terlalu_tua": 12.9986,
       "pct_terlalu_dekat": 6.3746,
-      "pct_terlalu_banyak": 0.0
+      "pct_terlalu_banyak": 0
     },
     {
       "kode": "73",
@@ -1960,7 +1966,7 @@
       "pct_terlalu_muda": 5.1632,
       "pct_terlalu_tua": 15.3948,
       "pct_terlalu_dekat": 7.4981,
-      "pct_terlalu_banyak": 0.0
+      "pct_terlalu_banyak": 0
     },
     {
       "kode": "74",
@@ -1975,7 +1981,7 @@
       "pct_terlalu_muda": 4.7206,
       "pct_terlalu_tua": 16.5603,
       "pct_terlalu_dekat": 9.2626,
-      "pct_terlalu_banyak": 0.0
+      "pct_terlalu_banyak": 0
     },
     {
       "kode": "75",
@@ -1990,7 +1996,7 @@
       "pct_terlalu_muda": 6.7257,
       "pct_terlalu_tua": 9.3805,
       "pct_terlalu_dekat": 5.9587,
-      "pct_terlalu_banyak": 0.0
+      "pct_terlalu_banyak": 0
     },
     {
       "kode": "76",
@@ -2005,7 +2011,7 @@
       "pct_terlalu_muda": 6.5369,
       "pct_terlalu_tua": 13.178,
       "pct_terlalu_dekat": 9.5271,
-      "pct_terlalu_banyak": 0.0
+      "pct_terlalu_banyak": 0
     },
     {
       "kode": "81",
@@ -2020,7 +2026,7 @@
       "pct_terlalu_muda": 3.5127,
       "pct_terlalu_tua": 16.1435,
       "pct_terlalu_dekat": 9.2676,
-      "pct_terlalu_banyak": 0.0
+      "pct_terlalu_banyak": 0
     },
     {
       "kode": "82",
@@ -2035,7 +2041,7 @@
       "pct_terlalu_muda": 6.0751,
       "pct_terlalu_tua": 17.506,
       "pct_terlalu_dekat": 4.2366,
-      "pct_terlalu_banyak": 0.0
+      "pct_terlalu_banyak": 0
     },
     {
       "kode": "91",
@@ -2050,7 +2056,7 @@
       "pct_terlalu_muda": 5.395,
       "pct_terlalu_tua": 11.368,
       "pct_terlalu_dekat": 10.5973,
-      "pct_terlalu_banyak": 0.0
+      "pct_terlalu_banyak": 0
     },
     {
       "kode": "92",
@@ -2065,7 +2071,7 @@
       "pct_terlalu_muda": 4.2857,
       "pct_terlalu_tua": 14.2857,
       "pct_terlalu_dekat": 14.2857,
-      "pct_terlalu_banyak": 0.0
+      "pct_terlalu_banyak": 0
     },
     {
       "kode": "93",
@@ -2080,7 +2086,7 @@
       "pct_terlalu_muda": 13.5071,
       "pct_terlalu_tua": 13.0332,
       "pct_terlalu_dekat": 17.7725,
-      "pct_terlalu_banyak": 0.0
+      "pct_terlalu_banyak": 0
     },
     {
       "kode": "94",
@@ -2091,11 +2097,11 @@
       "terlalu_dekat": 10,
       "terlalu_banyak": 0,
       "jumlah_bumil_4t": 16,
-      "pct_4t": 50.0,
+      "pct_4t": 50,
       "pct_terlalu_muda": 12.5,
       "pct_terlalu_tua": 15.625,
       "pct_terlalu_dekat": 31.25,
-      "pct_terlalu_banyak": 0.0
+      "pct_terlalu_banyak": 0
     },
     {
       "kode": "95",
@@ -2110,7 +2116,7 @@
       "pct_terlalu_muda": 7.5829,
       "pct_terlalu_tua": 31.2796,
       "pct_terlalu_dekat": 7.109,
-      "pct_terlalu_banyak": 0.0
+      "pct_terlalu_banyak": 0
     },
     {
       "kode": "96",
@@ -2121,11 +2127,317 @@
       "terlalu_dekat": 1,
       "terlalu_banyak": 0,
       "jumlah_bumil_4t": 5,
-      "pct_4t": 25.0,
-      "pct_terlalu_muda": 5.0,
-      "pct_terlalu_tua": 15.0,
-      "pct_terlalu_dekat": 5.0,
-      "pct_terlalu_banyak": 0.0
+      "pct_4t": 25,
+      "pct_terlalu_muda": 5,
+      "pct_terlalu_tua": 15,
+      "pct_terlalu_dekat": 5,
+      "pct_terlalu_banyak": 0
+    }
+  ],
+  "ktd_demand_satisfied": [
+    {
+      "kode": "11",
+      "provinsi": "ACEH",
+      "ktd": 3,
+      "modern": 484853,
+      "unmet_need": 26520,
+      "demand_satisfied_pct": 94.814
+    },
+    {
+      "kode": "12",
+      "provinsi": "SUMATERA UTARA",
+      "ktd": 6,
+      "modern": 1082323,
+      "unmet_need": 132505,
+      "demand_satisfied_pct": 89.0927
+    },
+    {
+      "kode": "13",
+      "provinsi": "SUMATERA BARAT",
+      "ktd": 7,
+      "modern": 464303,
+      "unmet_need": 42758,
+      "demand_satisfied_pct": 91.5675
+    },
+    {
+      "kode": "14",
+      "provinsi": "RIAU",
+      "ktd": 1,
+      "modern": 716346,
+      "unmet_need": 56619,
+      "demand_satisfied_pct": 92.6751
+    },
+    {
+      "kode": "15",
+      "provinsi": "JAMBI",
+      "ktd": 1,
+      "modern": 452494,
+      "unmet_need": 21724,
+      "demand_satisfied_pct": 95.419
+    },
+    {
+      "kode": "16",
+      "provinsi": "SUMATERA SELATAN",
+      "ktd": 1,
+      "modern": 958446,
+      "unmet_need": 51828,
+      "demand_satisfied_pct": 94.8699
+    },
+    {
+      "kode": "17",
+      "provinsi": "BENGKULU",
+      "ktd": 1,
+      "modern": 227257,
+      "unmet_need": 12608,
+      "demand_satisfied_pct": 94.7437
+    },
+    {
+      "kode": "18",
+      "provinsi": "LAMPUNG",
+      "ktd": 0,
+      "modern": 895412,
+      "unmet_need": 66037,
+      "demand_satisfied_pct": 93.1315
+    },
+    {
+      "kode": "19",
+      "provinsi": "KEPULAUAN BANGKA BELITUNG",
+      "ktd": 1,
+      "modern": 193803,
+      "unmet_need": 8028,
+      "demand_satisfied_pct": 96.0224
+    },
+    {
+      "kode": "21",
+      "provinsi": "KEPULAUAN RIAU",
+      "ktd": 0,
+      "modern": 234295,
+      "unmet_need": 15093,
+      "demand_satisfied_pct": 93.948
+    },
+    {
+      "kode": "31",
+      "provinsi": "DKI JAKARTA",
+      "ktd": 0,
+      "modern": 613362,
+      "unmet_need": 160545,
+      "demand_satisfied_pct": 79.2553
+    },
+    {
+      "kode": "32",
+      "provinsi": "JAWA BARAT",
+      "ktd": 23,
+      "modern": 4718585,
+      "unmet_need": 379699,
+      "demand_satisfied_pct": 92.5524
+    },
+    {
+      "kode": "33",
+      "provinsi": "JAWA TENGAH",
+      "ktd": 47,
+      "modern": 3896646,
+      "unmet_need": 263861,
+      "demand_satisfied_pct": 93.658
+    },
+    {
+      "kode": "34",
+      "provinsi": "DAERAH ISTIMEWA YOGYAKARTA",
+      "ktd": 2,
+      "modern": 339119,
+      "unmet_need": 32126,
+      "demand_satisfied_pct": 91.3464
+    },
+    {
+      "kode": "35",
+      "provinsi": "JAWA TIMUR",
+      "ktd": 15,
+      "modern": 4064881,
+      "unmet_need": 263409,
+      "demand_satisfied_pct": 93.9142
+    },
+    {
+      "kode": "36",
+      "provinsi": "BANTEN",
+      "ktd": 1,
+      "modern": 1354818,
+      "unmet_need": 74349,
+      "demand_satisfied_pct": 94.7977
+    },
+    {
+      "kode": "51",
+      "provinsi": "BALI",
+      "ktd": 1,
+      "modern": 457821,
+      "unmet_need": 38108,
+      "demand_satisfied_pct": 92.3158
+    },
+    {
+      "kode": "52",
+      "provinsi": "NUSA TENGGARA BARAT",
+      "ktd": 1,
+      "modern": 588627,
+      "unmet_need": 55585,
+      "demand_satisfied_pct": 91.3716
+    },
+    {
+      "kode": "53",
+      "provinsi": "NUSA TENGGARA TIMUR",
+      "ktd": 9,
+      "modern": 363095,
+      "unmet_need": 82814,
+      "demand_satisfied_pct": 81.428
+    },
+    {
+      "kode": "61",
+      "provinsi": "KALIMANTAN BARAT",
+      "ktd": 0,
+      "modern": 613969,
+      "unmet_need": 48333,
+      "demand_satisfied_pct": 92.7023
+    },
+    {
+      "kode": "62",
+      "provinsi": "KALIMANTAN TENGAH",
+      "ktd": 0,
+      "modern": 332024,
+      "unmet_need": 16822,
+      "demand_satisfied_pct": 95.1778
+    },
+    {
+      "kode": "63",
+      "provinsi": "KALIMANTAN SELATAN",
+      "ktd": 2,
+      "modern": 501953,
+      "unmet_need": 18958,
+      "demand_satisfied_pct": 96.3606
+    },
+    {
+      "kode": "64",
+      "provinsi": "KALIMANTAN TIMUR",
+      "ktd": 0,
+      "modern": 437726,
+      "unmet_need": 33684,
+      "demand_satisfied_pct": 92.8546
+    },
+    {
+      "kode": "65",
+      "provinsi": "KALIMANTAN UTARA",
+      "ktd": 0,
+      "modern": 79728,
+      "unmet_need": 8409,
+      "demand_satisfied_pct": 90.4592
+    },
+    {
+      "kode": "71",
+      "provinsi": "SULAWESI UTARA",
+      "ktd": 1,
+      "modern": 215660,
+      "unmet_need": 20506,
+      "demand_satisfied_pct": 91.3171
+    },
+    {
+      "kode": "72",
+      "provinsi": "SULAWESI TENGAH",
+      "ktd": 1,
+      "modern": 329871,
+      "unmet_need": 30261,
+      "demand_satisfied_pct": 91.5972
+    },
+    {
+      "kode": "73",
+      "provinsi": "SULAWESI SELATAN",
+      "ktd": 14,
+      "modern": 812351,
+      "unmet_need": 53615,
+      "demand_satisfied_pct": 93.8086
+    },
+    {
+      "kode": "74",
+      "provinsi": "SULAWESI TENGGARA",
+      "ktd": 1,
+      "modern": 238147,
+      "unmet_need": 25278,
+      "demand_satisfied_pct": 90.4041
+    },
+    {
+      "kode": "75",
+      "provinsi": "GORONTALO",
+      "ktd": 0,
+      "modern": 128208,
+      "unmet_need": 8861,
+      "demand_satisfied_pct": 93.5354
+    },
+    {
+      "kode": "76",
+      "provinsi": "SULAWESI BARAT",
+      "ktd": 2,
+      "modern": 134490,
+      "unmet_need": 14704,
+      "demand_satisfied_pct": 90.1444
+    },
+    {
+      "kode": "81",
+      "provinsi": "MALUKU",
+      "ktd": 2,
+      "modern": 131967,
+      "unmet_need": 28346,
+      "demand_satisfied_pct": 82.3183
+    },
+    {
+      "kode": "82",
+      "provinsi": "MALUKU UTARA",
+      "ktd": 0,
+      "modern": 134707,
+      "unmet_need": 12757,
+      "demand_satisfied_pct": 91.3491
+    },
+    {
+      "kode": "91",
+      "provinsi": "PAPUA",
+      "ktd": 0,
+      "modern": 55822,
+      "unmet_need": 21539,
+      "demand_satisfied_pct": 72.1578
+    },
+    {
+      "kode": "92",
+      "provinsi": "PAPUA BARAT",
+      "ktd": 0,
+      "modern": 44756,
+      "unmet_need": 8703,
+      "demand_satisfied_pct": 83.7202
+    },
+    {
+      "kode": "93",
+      "provinsi": "PAPUA SELATAN",
+      "ktd": 0,
+      "modern": 27841,
+      "unmet_need": 10525,
+      "demand_satisfied_pct": 72.5669
+    },
+    {
+      "kode": "94",
+      "provinsi": "PAPUA TENGAH",
+      "ktd": 0,
+      "modern": 32192,
+      "unmet_need": 25927,
+      "demand_satisfied_pct": 55.3898
+    },
+    {
+      "kode": "95",
+      "provinsi": "PAPUA PEGUNUNGAN",
+      "ktd": 0,
+      "modern": 11324,
+      "unmet_need": 35059,
+      "demand_satisfied_pct": 24.4141
+    },
+    {
+      "kode": "96",
+      "provinsi": "PAPUA BARAT DAYA",
+      "ktd": 0,
+      "modern": 32842,
+      "unmet_need": 11394,
+      "demand_satisfied_pct": 74.2427
     }
   ]
 }

@@ -1,4 +1,5 @@
 import {
+  formatCountId,
   formatPctId,
   mcprCoverageBands,
   oct2026Dummy,
@@ -21,6 +22,10 @@ export type Indicator = {
 const unmetNasional = formatPctId(oct2026Dummy.nasional.unmet_need_pct)
 const mcprNasional = formatPctId(oct2026Dummy.nasional.mcpr_pct)
 const fourTNasional = formatPctId(oct2026Dummy.nasional.pct_4t)
+const ktdNasional = formatCountId(oct2026Dummy.nasional.ktd)
+const demandSatisfiedNasional = formatPctId(
+  oct2026Dummy.nasional.demand_satisfied_pct,
+)
 
 export const overviewDataCaption = OCT2026_SOURCE_CAPTION
 
@@ -49,18 +54,16 @@ export const indicators: Indicator[] = [
   {
     id: '04',
     label: 'KTD',
-    value: '10,8%',
-    delta: '0,9 p.p',
-    direction: 'down',
+    value: ktdNasional,
     status: 'ok',
+    note: 'hamil_tial count · dummy Oct 2026',
   },
   {
     id: '05',
     label: 'DEMAND SATISFIED',
-    value: '88,1%',
-    delta: '1,5 p.p',
-    direction: 'up',
+    value: demandSatisfiedNasional,
     status: 'ok',
+    note: 'modern÷(modern+unmet) · dummy Oct 2026',
   },
   {
     id: '06',
@@ -131,8 +134,8 @@ export const comparisonBars = [
   {
     key: 'demand',
     label: 'Demand Satisfied',
-    valueLabel: '88,1%',
-    value: 88.1,
+    valueLabel: demandSatisfiedNasional,
+    value: oct2026Dummy.nasional.demand_satisfied_pct,
     color: '#377887',
   },
   {

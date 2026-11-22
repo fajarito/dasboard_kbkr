@@ -1,22 +1,33 @@
+import {
+  formatPctId,
+  oct2026Dummy,
+  OCT2026_SOURCE_CAPTION,
+} from './dummy/oct2026'
+
+export type { GeoLevel, TrendPeriod } from './indicatorShared'
+export { geoLevels, trendPeriods } from './indicatorShared'
+
+const n = oct2026Dummy.nasional
+
 export const demandSatisfiedMeta = {
   title: 'Detail Indikator: Demand Satisfied',
   shortName: 'Demand Satisfied',
   subtitle:
-    'Pengguna metode modern ÷ (pengguna metode modern + unmet need) × 100%. Derivasi dari mCPR (#2) dan Unmet Need (#1).',
-  capaian: '88,1%',
-  capaianDelta: '1,5 p.p',
+    'Pengguna metode modern ÷ (pengguna metode modern + unmet need) × 100%. Derivasi Tabel11 + Tabel16.',
+  capaian: formatPctId(n.demand_satisfied_pct),
+  capaianDelta: undefined as string | undefined,
   capaianDirection: 'up' as const,
   target: 'Target belum dikonfirmasi',
   targetNote: 'Nilai target RPJMN belum ditetapkan di UI',
-  sumber: 'Derivasi #1 + #2',
-  sumberNote:
-    'Tidak ada tabel baru — DALLAP T10–16 (sama endpoint Unmet Need / mCPR: report-siga-dallap-ocp)',
-  strength: 'Sedang — bergantung validitas Unmet Need sebagai proksi administratif',
+  sumber: 'Dummy Excel · Tabel 11 + 16',
+  sumberNote: OCT2026_SOURCE_CAPTION,
+  strength: 'modern÷(modern+unmet) · unmet = jumlah unmet need (count)',
 } as const
 
 export const demandSatisfiedNotes = [
-  'Indikator turunan murni dari mCPR (numerator modern users) dan Unmet Need.',
-  'Sumber SIGA: tidak ada tabel baru; tarik DALLAP Tabel 10–16 lewat report-siga-dallap-ocp.',
-  'Kekuatan sedang: akurasi mengikuti validitas Unmet Need (#1) sebagai proksi administratif.',
-  'Breakdown standar hingga kabupaten/kota setelah API #1 dan #2 tersedia.',
+  'Sumber UI default: dummy Excel Oktober 2026 — Tabel11 total_modern + Tabel16 jumlah_unmet_need.',
+  `Nasional: modern ${n.peserta_kb_aktif_modern.toLocaleString('id-ID')} / (modern + unmet ${n.unmet_need.toLocaleString('id-ID')}) ≈ ${n.demand_satisfied_pct}%.`,
+  'Unmet need di rumus ini adalah count unik (calc_unmet / jumlah_unmet_need), bukan persen Unmet Need.',
+  'Breakdown 38 Provinsi dari Excel; kabupaten tidak ada di share ini.',
+  'Jalur live Postgres tetap tersedia dengan VITE_USE_LIVE_API=true.',
 ] as const

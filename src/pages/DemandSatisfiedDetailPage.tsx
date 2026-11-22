@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { CatatanAnalitik } from '../components/CatatanAnalitik'
 import { DashboardLayout } from '../components/DashboardLayout'
@@ -6,7 +6,17 @@ import { DetailKpiCard } from '../components/DetailKpiCard'
 import { DetailPageHeader } from '../components/DetailPageHeader'
 import { FilterBar } from '../components/FilterBar'
 import { IndicatorTrendPanel } from '../components/IndicatorTrendPanel'
-import { WilayahBreakdown } from '../components/WilayahBreakdown'
+import {
+  WilayahBreakdown,
+  type WilayahBreakdownRow,
+} from '../components/WilayahBreakdown'
+import {
+  buildDemandSatisfiedDummyResponse,
+  formatPctId,
+  OCT2026_LABEL,
+  OCT2026_SOURCE_CAPTION,
+  preferOct2026Dummy,
+} from '../data/dummy/oct2026'
 import {
   demandSatisfiedMeta,
   demandSatisfiedNotes,
@@ -15,6 +25,45 @@ import { levelLabel, type GeoLevel } from '../data/indicatorShared'
 
 export function DemandSatisfiedDetailPage() {
   const [level, setLevel] = useState<GeoLevel>('nasional')
+  const useDummy = preferOct2026Dummy()
+
+  const payload = useMemo(
+    () => (useDummy ? buildDemandSatisfiedDummyResponse(level) : null),
+    [level, useDummy],
+  )
+
+  const capaianFromDummy =
+    useDummy && level === 'nasional' && payload?.data[0] != null
+
+  const capaianValue = capaianFromDummy
+    ? formatPctId(payload!.data[0].demand_satisfied_pct)
+    : demandSatisfiedMeta.capaian
+
+  const breakdownRows: WilayahBreakdownRow[] | undefined =
+    useDummy && payload && level === 'provinsi'
+      ? [...payload.data]
+          .sort(
+            (a, b) =>
+              (b.demand_satisfied_pct ?? 0) - (a.demand_satisfied_pct ?? 0),
+          )
+          .map((row) => ({
+            wilayah: row.kode_provinsi
+              ? `${row.nama_provinsi} (${row.kode_provinsi})`
+              : (row.nama_provinsi ?? '—'),
+            value: formatPctId(row.demand_satisfied_pct),
+            vsTarget: '—',
+            tren: `modern=${row.modern.toLocaleString('id-ID')} / unmet=${row.unmet_need.toLocaleString('id-ID')}`,
+          }))
+      : useDummy && level === 'nasional' && payload?.data[0]
+        ? [
+            {
+              wilayah: 'Nasional',
+              value: formatPctId(payload.data[0].demand_satisfied_pct),
+              vsTarget: demandSatisfiedMeta.target,
+              tren: `modern=${payload.data[0].modern.toLocaleString('id-ID')} / unmet=${payload.data[0].unmet_need.toLocaleString('id-ID')}`,
+            },
+          ]
+        : undefined
 
   return (
     <DashboardLayout mobileTitle="Detail Demand Satisfied">
@@ -25,8 +74,21 @@ export function DemandSatisfiedDetailPage() {
         indikatorPath="/indikator/demand-satisfied"
       />
 
+      {useDummy ? (
+        <p className="rounded-xl border border-sky-200 bg-sky-50 px-3 py-2 text-[12px] leading-relaxed text-sky-950">
+          {OCT2026_SOURCE_CAPTION}. Rumus = total_modern (Tabel11) ÷
+          (total_modern + jumlah_unmet_need Tabel16) × 100. Live API:{' '}
+          <code className="rounded bg-white px-1 py-0.5 text-[11px]">
+            VITE_USE_LIVE_API=true
+          </code>
+          .
+        </p>
+      ) : null}
+
       <FilterBar
-        periode="Jan – Jun 2026"
+        periode={
+          useDummy ? `${OCT2026_LABEL} (dummy Excel)` : OCT2026_LABEL
+        }
         wilayah="Nasional"
         level={levelLabel(level)}
       />
@@ -34,10 +96,10 @@ export function DemandSatisfiedDetailPage() {
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
         <DetailKpiCard
           label="Capaian saat ini"
-          value={demandSatisfiedMeta.capaian}
+          value={capaianValue}
           footnote={
-            <span className="inline-flex items-center gap-1 font-semibold text-trend">
-              <ArrowUp />+{demandSatisfiedMeta.capaianDelta}
+            <span className="font-medium leading-snug text-slate-500">
+              {useDummy ? OCT2026_SOURCE_CAPTION : 'Stub Overview'}
             </span>
           }
         />
@@ -84,7 +146,7 @@ export function DemandSatisfiedDetailPage() {
           </Link>
           <span className="text-slate-400">
             {' '}
-            — Demand Satisfied dihitung dari keduanya (SIGA #5).
+            — Demand Satisfied = modern ÷ (modern + unmet count).
           </span>
         </p>
       </section>
@@ -94,9 +156,9 @@ export function DemandSatisfiedDetailPage() {
           title="Tren Demand Satisfied Nasional"
           defaultPeriod="bulanan"
           annualSubtitle="Seri tahunan · ≥5 tahun (opsional / RPJMN) · skala 0–100%"
-          monthlySubtitle="Seri bulanan · ≥36 bulan (turunan DALLAP T10–16) · skala 0–100%"
-          monthlyStubDetail="Seri bulanan belum tersedia. Nilai akan dihitung dari deret mCPR + Unmet Need (DALLAP Tabel 10–16) setelah kedua sumber terhubung. Capaian Overview 88,1% saja yang ditampilkan — tidak ada deret yang dikarang."
-          annualStubDetail="Seri tahunan belum tersedia. Tidak ada nilai yang dikarang — hanya capaian Overview (88,1%) di kartu KPI."
+          monthlySubtitle="Seri bulanan · ≥36 bulan (turunan DALLAP T11+T16) · skala 0–100%"
+          monthlyStubDetail={`Seri bulanan belum tersedia. Capaian dummy Oct 2026 = ${demandSatisfiedMeta.capaian} — tidak ada deret yang dikarang.`}
+          annualStubDetail={`Seri tahunan belum tersedia. Tidak ada nilai yang dikarang — hanya capaian Overview (${demandSatisfiedMeta.capaian}) di kartu KPI.`}
         />
         <CatatanAnalitik notes={demandSatisfiedNotes} />
       </div>
@@ -106,15 +168,21 @@ export function DemandSatisfiedDetailPage() {
         onLevelChange={setLevel}
         metricColumn="Demand Sat."
         indicatorName="Demand Satisfied"
+        rows={breakdownRows}
+        emptyOverride={
+          level === 'kabupaten'
+            ? {
+                title: 'Data per kabupaten belum tersedia',
+                body: 'Share dummy Excel Oct 2026 hanya nasional + 38 Provinsi. Tidak ada angka kabupaten yang dikarang.',
+              }
+            : undefined
+        }
+        footerNote={
+          useDummy
+            ? '38 Provinsi · Demand Satisfied = modern / (modern + unmet). Kabupaten tidak disertakan.'
+            : undefined
+        }
       />
     </DashboardLayout>
-  )
-}
-
-function ArrowUp() {
-  return (
-    <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden>
-      <path d="M5 1.5 L8.5 7 H1.5 Z" fill="currentColor" />
-    </svg>
   )
 }

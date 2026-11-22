@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { CatatanAnalitik } from '../components/CatatanAnalitik'
 import { DashboardLayout } from '../components/DashboardLayout'
@@ -6,12 +6,58 @@ import { DetailKpiCard } from '../components/DetailKpiCard'
 import { DetailPageHeader } from '../components/DetailPageHeader'
 import { FilterBar } from '../components/FilterBar'
 import { IndicatorTrendPanel } from '../components/IndicatorTrendPanel'
-import { WilayahBreakdown } from '../components/WilayahBreakdown'
+import {
+  WilayahBreakdown,
+  type WilayahBreakdownRow,
+} from '../components/WilayahBreakdown'
+import {
+  buildKtdDummyResponse,
+  formatCountId,
+  OCT2026_LABEL,
+  OCT2026_SOURCE_CAPTION,
+  preferOct2026Dummy,
+} from '../data/dummy/oct2026'
 import { levelLabel, type GeoLevel } from '../data/indicatorShared'
 import { ktdMeta, ktdNotes } from '../data/ktd'
 
 export function KtdDetailPage() {
   const [level, setLevel] = useState<GeoLevel>('nasional')
+  const useDummy = preferOct2026Dummy()
+
+  const payload = useMemo(
+    () => (useDummy ? buildKtdDummyResponse(level) : null),
+    [level, useDummy],
+  )
+
+  const capaianFromDummy =
+    useDummy && level === 'nasional' && payload?.data[0] != null
+
+  const capaianValue = capaianFromDummy
+    ? formatCountId(payload!.data[0].ktd)
+    : ktdMeta.capaian
+
+  const breakdownRows: WilayahBreakdownRow[] | undefined =
+    useDummy && payload && level === 'provinsi'
+      ? [...payload.data]
+          .sort((a, b) => b.ktd - a.ktd)
+          .map((row) => ({
+            wilayah: row.kode_provinsi
+              ? `${row.nama_provinsi} (${row.kode_provinsi})`
+              : (row.nama_provinsi ?? '—'),
+            value: formatCountId(row.ktd),
+            vsTarget: '—',
+            tren: `hamil_tial=${formatCountId(row.ktd)}`,
+          }))
+      : useDummy && level === 'nasional' && payload?.data[0]
+        ? [
+            {
+              wilayah: 'Nasional',
+              value: formatCountId(payload.data[0].ktd),
+              vsTarget: ktdMeta.target,
+              tren: `hamil_tial=${formatCountId(payload.data[0].ktd)}`,
+            },
+          ]
+        : undefined
 
   return (
     <DashboardLayout mobileTitle="Detail KTD">
@@ -22,34 +68,49 @@ export function KtdDetailPage() {
         indikatorPath="/indikator/ktd"
       />
 
+      {useDummy ? (
+        <p className="rounded-xl border border-sky-200 bg-sky-50 px-3 py-2 text-[12px] leading-relaxed text-sky-950">
+          {OCT2026_SOURCE_CAPTION}. KTD = Tabel16{' '}
+          <span className="font-semibold">hamil_tial</span> (HAMIL · TIDAK
+          INGIN ANAK LAGI) — count, bukan %. Live API:{' '}
+          <code className="rounded bg-white px-1 py-0.5 text-[11px]">
+            VITE_USE_LIVE_API=true
+          </code>
+          .
+        </p>
+      ) : (
+        <div className="rounded-2xl border border-[#e8c98a] bg-[#f7edd8] px-4 py-3 sm:px-5">
+          <p className="text-[12px] leading-relaxed text-[#9a6b2f]">
+            <span className="font-bold">Gap sumber (SIGA #4):</span> field
+            intensi kehamilan belum terkonfirmasi di katalog. Lihat juga{' '}
+            <Link
+              to="/indikator/unmet-need"
+              className="font-semibold text-brand-600 underline-offset-2 hover:underline"
+            >
+              Unmet Need
+            </Link>{' '}
+            (berbagi DALLAP Tabel 16).
+          </p>
+        </div>
+      )}
+
       <FilterBar
-        periode="Jan – Jun 2026"
+        periode={
+          useDummy ? `${OCT2026_LABEL} (dummy Excel)` : OCT2026_LABEL
+        }
         wilayah="Nasional"
         level={levelLabel(level)}
       />
 
-      <div className="rounded-2xl border border-[#e8c98a] bg-[#f7edd8] px-4 py-3 sm:px-5">
-        <p className="text-[12px] leading-relaxed text-[#9a6b2f]">
-          <span className="font-bold">Gap sumber (SIGA #4):</span> field intensi
-          kehamilan belum terkonfirmasi di katalog. Angka Overview bersifat
-          placeholder hingga DALLAP T16 / Elsimil T2·T4 diverifikasi. Lihat juga{' '}
-          <Link
-            to="/indikator/unmet-need"
-            className="font-semibold text-brand-600 underline-offset-2 hover:underline"
-          >
-            Unmet Need
-          </Link>{' '}
-          (berbagi DALLAP Tabel 16 sebagai proksi).
-        </p>
-      </div>
-
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
         <DetailKpiCard
           label="Capaian saat ini"
-          value={ktdMeta.capaian}
+          value={capaianValue}
           footnote={
-            <span className="inline-flex items-center gap-1 font-semibold text-trend">
-              <ArrowDown />−{ktdMeta.capaianDelta}
+            <span className="font-medium leading-snug text-slate-500">
+              {useDummy
+                ? 'Count hamil_tial · dummy Excel Oct 2026'
+                : 'Stub Overview'}
             </span>
           }
         />
@@ -70,7 +131,7 @@ export function KtdDetailPage() {
           footnote={
             <span className="font-medium leading-snug text-slate-500">
               {ktdMeta.sumberNote}
-              <span className="mt-1 block text-[11px] font-semibold text-[#b45309]">
+              <span className="mt-1 block text-[11px] text-slate-400">
                 {ktdMeta.strength}
               </span>
             </span>
@@ -82,10 +143,10 @@ export function KtdDetailPage() {
         <IndicatorTrendPanel
           title="Tren KTD Nasional"
           defaultPeriod="bulanan"
-          annualSubtitle="Seri tahunan · ≥5 tahun (RPJMN) · skala 0–100%"
-          monthlySubtitle="Seri bulanan · ≥36 bulan · skala 0–100%"
-          monthlyStubDetail="Seri bulanan belum tersedia. Akan diisi setelah field intensi KTD terkonfirmasi di DALLAP Tabel 16 dan/atau Elsimil T2/T4. Capaian Overview 10,8% saja yang ditampilkan — tidak ada deret yang dikarang."
-          annualStubDetail="Seri tahunan belum tersedia. Tidak ada nilai yang dikarang — hanya capaian Overview (10,8%) di kartu KPI."
+          annualSubtitle="Seri tahunan · ≥5 tahun (RPJMN) · skala count"
+          monthlySubtitle="Seri bulanan · ≥36 bulan · skala count"
+          monthlyStubDetail={`Seri bulanan belum tersedia. Capaian dummy Oct 2026 = ${ktdMeta.capaian} (hamil_tial) — tidak ada deret yang dikarang.`}
+          annualStubDetail={`Seri tahunan belum tersedia. Tidak ada nilai yang dikarang — hanya capaian Overview (${ktdMeta.capaian}) di kartu KPI.`}
         />
         <CatatanAnalitik notes={ktdNotes} />
       </div>
@@ -95,15 +156,21 @@ export function KtdDetailPage() {
         onLevelChange={setLevel}
         metricColumn="KTD"
         indicatorName="KTD"
+        rows={breakdownRows}
+        emptyOverride={
+          level === 'kabupaten'
+            ? {
+                title: 'Data per kabupaten belum tersedia',
+                body: 'Share dummy Excel Oct 2026 hanya nasional + 38 Provinsi. Tidak ada angka kabupaten yang dikarang.',
+              }
+            : undefined
+        }
+        footerNote={
+          useDummy
+            ? '38 Provinsi · KTD = hamil_tial (count). Kabupaten tidak disertakan.'
+            : undefined
+        }
       />
     </DashboardLayout>
-  )
-}
-
-function ArrowDown() {
-  return (
-    <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden>
-      <path d="M5 8.5 L1.5 3 H8.5 Z" fill="currentColor" />
-    </svg>
   )
 }
