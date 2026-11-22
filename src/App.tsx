@@ -1,5 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { DemandSatisfiedDetailPage } from './pages/DemandSatisfiedDetailPage'
+import { FourTDetailPage } from './pages/FourTDetailPage'
 import { McprDetailPage } from './pages/McprDetailPage'
 import { OverviewPage } from './pages/OverviewPage'
 import { UnmetNeedDetailPage } from './pages/UnmetNeedDetailPage'
@@ -15,6 +16,7 @@ export default function App() {
           path="/indikator/demand-satisfied"
           element={<DemandSatisfiedDetailPage />}
         />
+        <Route path="/indikator/4t" element={<FourTDetailPage />} />
         <Route path="/indikator" element={<Navigate to="/indikator/mcpr" replace />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

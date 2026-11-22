@@ -27,9 +27,11 @@ function IndicatorCard({ item }: { item: Indicator }) {
       ? '/indikator/unmet-need'
       : item.id === '02'
         ? '/indikator/mcpr'
-        : item.id === '05'
-          ? '/indikator/demand-satisfied'
-          : undefined
+        : item.id === '03'
+          ? '/indikator/4t'
+          : item.id === '05'
+            ? '/indikator/demand-satisfied'
+            : undefined
 
   const card = (
     <article
