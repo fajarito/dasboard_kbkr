@@ -13,6 +13,7 @@ import {
   buildKtdDummyResponse,
   formatCountId,
   OCT2026_LABEL,
+  OCT2026_SOURCE_CAPTION_KTD,
   preferOct2026Dummy,
 } from '../data/dummy/oct2026'
 import { levelLabel, type GeoLevel } from '../data/indicatorShared'
@@ -66,6 +67,12 @@ export function KtdDetailPage() {
         indikatorPath="/indikator/ktd"
       />
 
+      {useDummy ? (
+        <p className="rounded-xl border border-sky-200 bg-sky-50 px-3 py-2 text-[12px] leading-relaxed text-sky-950">
+          {OCT2026_SOURCE_CAPTION_KTD}
+        </p>
+      ) : null}
+
       <FilterBar
         periode={OCT2026_LABEL}
         wilayah="Nasional"
@@ -78,7 +85,7 @@ export function KtdDetailPage() {
           value={capaianValue}
           footnote={
             <span className="font-medium leading-snug text-slate-500">
-              {useDummy ? 'Oktober 2026' : 'Stub Overview'}
+              {useDummy ? OCT2026_SOURCE_CAPTION_KTD : 'Stub Overview'}
             </span>
           }
         />
@@ -96,6 +103,11 @@ export function KtdDetailPage() {
           label="Sumber data"
           value={ktdMeta.sumber}
           valueClassName="text-[15px] sm:text-[17px]"
+          footnote={
+            <span className="font-medium leading-snug text-slate-500">
+              {ktdMeta.sumberNote}
+            </span>
+          }
         />
       </div>
 
@@ -105,7 +117,7 @@ export function KtdDetailPage() {
           defaultPeriod="bulanan"
           annualSubtitle="Seri tahunan · ≥5 tahun (RPJMN) · skala count"
           monthlySubtitle="Seri bulanan · ≥36 bulan · skala count"
-          monthlyStubDetail={`Seri bulanan belum tersedia. Capaian Oktober 2026 = ${ktdMeta.capaian} — tidak ada deret yang dikarang.`}
+          monthlyStubDetail={`Seri bulanan belum tersedia. Capaian Oktober 2026 = ${ktdMeta.capaian} (Dallap Tabel 16 - SIGA) — tidak ada deret yang dikarang.`}
           annualStubDetail={`Seri tahunan belum tersedia. Tidak ada nilai yang dikarang — hanya capaian Overview (${ktdMeta.capaian}) di kartu KPI.`}
         />
         <CatatanAnalitik notes={ktdNotes} />

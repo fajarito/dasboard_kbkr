@@ -13,6 +13,7 @@ import {
   buildMiiDummyResponse,
   formatPctId,
   OCT2026_LABEL,
+  OCT2026_SOURCE_CAPTION_MII,
   preferOct2026Dummy,
 } from '../data/dummy/oct2026'
 import { levelLabel, type GeoLevel } from '../data/indicatorShared'
@@ -66,6 +67,12 @@ export function MiiDetailPage() {
         indikatorPath="/indikator/mii"
       />
 
+      {useDummy ? (
+        <p className="rounded-xl border border-sky-200 bg-sky-50 px-3 py-2 text-[12px] leading-relaxed text-sky-950">
+          {OCT2026_SOURCE_CAPTION_MII}
+        </p>
+      ) : null}
+
       <FilterBar
         periode={OCT2026_LABEL}
         wilayah="Nasional"
@@ -78,7 +85,7 @@ export function MiiDetailPage() {
           value={capaianValue}
           footnote={
             <span className="font-medium leading-snug text-slate-500">
-              {useDummy ? 'Oktober 2026' : 'Stub Overview'}
+              {useDummy ? OCT2026_SOURCE_CAPTION_MII : 'Stub Overview'}
             </span>
           }
         />
@@ -96,6 +103,11 @@ export function MiiDetailPage() {
           label="Sumber data"
           value={miiMeta.sumber}
           valueClassName="text-[15px] sm:text-[17px]"
+          footnote={
+            <span className="font-medium leading-snug text-slate-500">
+              {miiMeta.sumberNote}
+            </span>
+          }
         />
       </div>
 
@@ -105,7 +117,7 @@ export function MiiDetailPage() {
           defaultPeriod="bulanan"
           annualSubtitle="Seri tahunan · ≥5 tahun (RPJMN) · skala 0–100%"
           monthlySubtitle="Seri bulanan · ≥36 bulan · skala 0–100%"
-          monthlyStubDetail={`Seri bulanan belum tersedia. Capaian Oktober 2026 = ${miiMeta.capaian} — tidak ada deret yang dikarang.`}
+          monthlyStubDetail={`Seri bulanan belum tersedia. Capaian Oktober 2026 = ${miiMeta.capaian} (Dallap Tabel 2, 3 & 10 - SIGA) — tidak ada deret yang dikarang.`}
           annualStubDetail={`Seri tahunan belum tersedia. Tidak ada nilai yang dikarang — hanya capaian Overview (${miiMeta.capaian}) di kartu KPI.`}
         />
         <CatatanAnalitik notes={miiNotes} />
@@ -127,7 +139,7 @@ export function MiiDetailPage() {
         }
         footerNote={
           useDummy
-            ? '38 Provinsi · MII = (IC_baru+IC_ulangan)/(KB_baru_selected+KB_ulangan_selected). Kabupaten tidak disertakan. Tabel10 ulangan: vasektomi/tubektomi = 0 (kolom tidak ada).'
+            ? '38 Provinsi. Kabupaten tidak disertakan.'
             : undefined
         }
       />

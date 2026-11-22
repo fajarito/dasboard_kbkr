@@ -15,16 +15,15 @@ export const wilayahKhususMeta = {
   title: 'Detail Indikator: Kesertaan KB Wilayah Khusus',
   shortName: 'Wil. Khusus',
   subtitle:
-    'Persentase peserta KB aktif metode kondom + vasektomi di kabupaten tertinggal (Tabel20) — (Kondom + Vasektomi) ÷ Jumlah Peserta KB Aktif × 100.',
+    'Persentase peserta KB aktif metode kondom + vasektomi di kabupaten tertinggal — (Kondom + Vasektomi) ÷ Jumlah Peserta KB Aktif × 100.',
   capaian: formatPctId(n.wilayah_khusus_pct),
   capaianDelta: undefined as string | undefined,
   capaianDirection: 'up' as const,
   target: 'Target belum dikonfirmasi',
   targetNote: 'Nilai target RPJMN belum ditetapkan di UI',
-  sumber: 'SIGA',
+  sumber: 'Dallap Tabel 20 - SIGA',
   sumberNote: OCT2026_SOURCE_CAPTION_WILAYAH_KHUSUS,
-  strength:
-    'Tabel20 kabupaten tertinggal · (kondom+vasektomi)/KB aktif · 15 Provinsi saja',
+  strength: 'Dallap Tabel 20 - SIGA · 15 Provinsi',
 } as const
 
 export const wilayahKhususTopProvinces = rankedProvinces(
@@ -39,7 +38,8 @@ export const wilayahKhususLowestProvinces = rankedProvinces(
 )
 
 export const wilayahKhususNotes = [
+  'Sumber: Dallap Tabel 20 - SIGA.',
   `Nasional: (kondom ${n.wilayah_khusus_kondom.toLocaleString('id-ID')} + vasektomi ${n.wilayah_khusus_vasektomi.toLocaleString('id-ID')}) = ${n.wilayah_khusus_numerator.toLocaleString('id-ID')} / KB aktif ${n.wilayah_khusus_jumlah_kb_aktif.toLocaleString('id-ID')} ≈ ${n.wilayah_khusus_pct}% → UI ${formatPctId(n.wilayah_khusus_pct)}.`,
-  'Hanya 15 Provinsi yang muncul di Tabel20 — Provinsi lain tidak dikarang.',
+  'Hanya 15 Provinsi yang muncul di sumber — Provinsi lain tidak dikarang.',
   'Agregat kabupaten tertinggal per Provinsi; baris kabupaten individual belum tersedia.',
 ] as const

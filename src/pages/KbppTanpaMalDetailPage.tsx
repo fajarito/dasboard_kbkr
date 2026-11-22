@@ -13,6 +13,7 @@ import {
   buildKbppDummyResponse,
   formatPctId,
   OCT2026_LABEL,
+  OCT2026_SOURCE_CAPTION_KBPP,
   preferOct2026Dummy,
 } from '../data/dummy/oct2026'
 import { levelLabel, type GeoLevel } from '../data/indicatorShared'
@@ -74,6 +75,12 @@ export function KbppTanpaMalDetailPage() {
         indikatorPath="/indikator/kbpp-tanpa-mal"
       />
 
+      {useDummy ? (
+        <p className="rounded-xl border border-sky-200 bg-sky-50 px-3 py-2 text-[12px] leading-relaxed text-sky-950">
+          {OCT2026_SOURCE_CAPTION_KBPP}
+        </p>
+      ) : null}
+
       <FilterBar
         periode={OCT2026_LABEL}
         wilayah="Nasional"
@@ -86,7 +93,7 @@ export function KbppTanpaMalDetailPage() {
           value={capaianValue}
           footnote={
             <span className="font-medium leading-snug text-slate-500">
-              {useDummy ? 'Oktober 2026' : 'Stub Overview'}
+              {useDummy ? OCT2026_SOURCE_CAPTION_KBPP : 'Stub Overview'}
             </span>
           }
         />
@@ -104,6 +111,11 @@ export function KbppTanpaMalDetailPage() {
           label="Sumber data"
           value={kbppMeta.sumber}
           valueClassName="text-[15px] sm:text-[17px]"
+          footnote={
+            <span className="font-medium leading-snug text-slate-500">
+              {kbppMeta.sumberNote}
+            </span>
+          }
         />
       </div>
 
@@ -114,7 +126,8 @@ export function KbppTanpaMalDetailPage() {
               Ranking Provinsi (KBPP Tanpa MAL)
             </h2>
             <p className="mt-0.5 text-[12px] text-slate-500">
-              Top 5 tertinggi &amp; terendah dari 38 Provinsi
+              Top 5 tertinggi &amp; terendah dari 38 Provinsi · Dallap Tabel 1 -
+              SIGA
             </p>
           </header>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -130,7 +143,7 @@ export function KbppTanpaMalDetailPage() {
           defaultPeriod="bulanan"
           annualSubtitle="Seri tahunan · ≥5 tahun (RPJMN) · skala 0–100%"
           monthlySubtitle="Seri bulanan · ≥36 bulan · skala 0–100%"
-          monthlyStubDetail={`Seri bulanan belum tersedia. Capaian Oktober 2026 = ${kbppMeta.capaian} — tidak ada deret yang dikarang.`}
+          monthlyStubDetail={`Seri bulanan belum tersedia. Capaian Oktober 2026 = ${kbppMeta.capaian} (Dallap Tabel 1 - SIGA) — tidak ada deret yang dikarang.`}
           annualStubDetail={`Seri tahunan belum tersedia. Tidak ada nilai yang dikarang — hanya capaian Overview (${kbppMeta.capaian}) di kartu KPI.`}
         />
         <CatatanAnalitik notes={kbppNotes} />

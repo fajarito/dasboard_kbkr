@@ -74,8 +74,13 @@ export function GenericIndicatorDetailPage({ config }: Props) {
           value={config.sumber}
           valueClassName="text-[15px] sm:text-[17px]"
           footnote={
-            <span className={`font-medium leading-snug ${strengthClass}`}>
-              {config.strength}
+            <span className="font-medium leading-snug text-slate-500">
+              {config.sumberNote}
+              <span
+                className={`mt-1 block text-[11px] font-semibold ${strengthClass}`}
+              >
+                {config.strength}
+              </span>
             </span>
           }
         />

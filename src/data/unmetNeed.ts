@@ -14,12 +14,13 @@ export const unmetNeedMeta = {
   capaianDirection: 'down' as const,
   target: 'Target belum dikonfirmasi',
   targetNote: 'Nilai target RPJMN belum ditetapkan di UI',
-  sumber: 'SIGA',
+  sumber: 'Dallap Tabel 16 - SIGA',
   sumberNote: OCT2026_SOURCE_CAPTION_UNMET,
-  strength: 'Formula verified',
+  strength: 'Dallap Tabel 16 - SIGA',
 } as const
 
 export const unmetNeedNotes = [
+  'Sumber: Dallap Tabel 16 - SIGA.',
   `Nasional: unmet ${oct2026Dummy.nasional.unmet_need.toLocaleString('id-ID')} / PUS ${oct2026Dummy.nasional.jumlah_pus.toLocaleString('id-ID')} ≈ ${oct2026Dummy.nasional.unmet_need_pct}%.`,
   'Breakdown 38 Provinsi; kabupaten belum tersedia.',
 ] as const

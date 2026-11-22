@@ -72,7 +72,7 @@ export const remainingIndicators: IndicatorDetailConfig[] = [
     capaianDirection: 'up',
     target: 'Target belum dikonfirmasi',
     targetNote: 'Nilai target RPJMN belum ditetapkan di UI',
-    sumber: 'SIGA',
+    sumber: 'DALLAP T2–9 + T8–16',
     sumberNote:
       'Bulanan aktivitas + Tahunan kapasitas · formula belum ada',
     strength: 'Sedang — banyak kandidat Tabel; formula index belum ada',
@@ -105,7 +105,7 @@ export const remainingIndicators: IndicatorDetailConfig[] = [
     capaianPendingLabel: 'DCR (Permas) · perlu konfirmasi',
     target: 'Target belum dikonfirmasi',
     targetNote: 'Nilai target dan definisi Permas belum ditetapkan di UI',
-    sumber: 'SIGA',
+    sumber: 'DALLAP Tabel 17',
     sumberNote:
       'Opsional YanKB pencabutan · arti Permas terbuka',
     strength: 'Perlu konfirmasi — angka Overview belum diisi',
