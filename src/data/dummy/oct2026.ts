@@ -1,6 +1,6 @@
 /**
- * Oktober 2026 Excel dummy (Tabel10 / Tabel11 / Tabel16) — nasional + 38 provinsi.
- * Source of truth: internal/dummy-oct2026/oct2026-dummy.json (copied to oct2026.json).
+ * Oktober 2026 Excel dummy (Tabel1 / Tabel10 / Tabel11 / Tabel16) — nasional + 38 provinsi.
+ * Source of truth: internal/dummy-oct2026 (Tabel1 → 4T; T10/11/16 → unmet/mCPR).
  *
  * Prefer this for UI default. Set VITE_USE_LIVE_API=true to hit /api (Postgres / sample).
  */
@@ -10,7 +10,9 @@ export const OCT2026_BULAN = 10
 export const OCT2026_TAHUN = 2026
 export const OCT2026_LABEL = 'Oktober 2026'
 export const OCT2026_SOURCE_CAPTION =
-  'Dummy Excel Oct 2026 (Tabel10/11/16 · nasional + 38 Provinsi)'
+  'Dummy Excel Oct 2026 (Tabel1/10/11/16 · nasional + 38 Provinsi)'
+export const OCT2026_SOURCE_CAPTION_4T =
+  'Dummy Excel Tabel1 Oct 2026 (nasional + 38 Provinsi)'
 
 export type Oct2026Period = {
   bulan_rekap: number
@@ -61,12 +63,39 @@ export type Oct2026Tabel16 = {
   match_col10: boolean
 }
 
+export type Oct2026Tabel1FourT = {
+  kode: string
+  provinsi: string
+  jumlah_bumil: number
+  terlalu_muda: number
+  terlalu_tua: number
+  terlalu_dekat: number
+  terlalu_banyak: number
+  jumlah_bumil_4t: number
+  pct_4t: number
+  pct_terlalu_muda: number
+  pct_terlalu_tua: number
+  pct_terlalu_dekat: number
+  pct_terlalu_banyak: number
+}
+
 export type Oct2026Nasional = {
   jumlah_pus: number
   unmet_need: number
   unmet_need_pct: number
   peserta_kb_aktif_modern: number
   mcpr_pct: number
+  jumlah_bumil: number
+  terlalu_muda: number
+  terlalu_tua: number
+  terlalu_dekat: number
+  terlalu_banyak: number
+  jumlah_bumil_4t: number
+  pct_4t: number
+  pct_terlalu_muda: number
+  pct_terlalu_tua: number
+  pct_terlalu_dekat: number
+  pct_terlalu_banyak: number
 }
 
 export type Oct2026Dummy = {
@@ -74,11 +103,15 @@ export type Oct2026Dummy = {
   tabel10_pus: Oct2026Tabel10[]
   tabel11_kb_aktif: Oct2026Tabel11[]
   tabel16_unmet_need: Oct2026Tabel16[]
+  tabel1_4t: Oct2026Tabel1FourT[]
   nasional: Oct2026Nasional
   formulas: {
     unmet_need: string
     unmet_need_note: string
     mcpr_proxy: string
+    pct_4t: string
+    pct_4t_note: string
+    tabel1_source: string
   }
 }
 
@@ -156,6 +189,65 @@ export function mcprProvinceRows(): ProvinceIndicatorRow[] {
       pct: Math.round(pct * 10000) / 10000,
     }
   })
+}
+
+/** Headline 4T % = jumlah_bumil_4t / jumlah_bumil (unique; do not sum components). */
+export function fourTPct(jumlahBumil4t: number, jumlahBumil: number): number | null {
+  if (!jumlahBumil) return null
+  return (jumlahBumil4t / jumlahBumil) * 100
+}
+
+export function fourTProvinceRows(): ProvinceIndicatorRow[] {
+  return oct2026Dummy.tabel1_4t.map((row) => ({
+    kode: row.kode,
+    provinsi: row.provinsi,
+    jumlah_pus: row.jumlah_bumil,
+    numerator: row.jumlah_bumil_4t,
+    pct: row.pct_4t,
+  }))
+}
+
+export type FourTComponentKey =
+  | 'terlalu_muda'
+  | 'terlalu_tua'
+  | 'terlalu_dekat'
+  | 'terlalu_banyak'
+
+export type FourTComponentRow = {
+  key: FourTComponentKey
+  label: string
+  count: number
+  pct: number
+}
+
+export function fourTNasionalComponents(): FourTComponentRow[] {
+  const n = oct2026Dummy.nasional
+  return [
+    {
+      key: 'terlalu_muda',
+      label: 'Terlalu Muda (<20)',
+      count: n.terlalu_muda,
+      pct: n.pct_terlalu_muda,
+    },
+    {
+      key: 'terlalu_tua',
+      label: 'Terlalu Tua (≥35)',
+      count: n.terlalu_tua,
+      pct: n.pct_terlalu_tua,
+    },
+    {
+      key: 'terlalu_dekat',
+      label: 'Terlalu Dekat (<2 thn)',
+      count: n.terlalu_dekat,
+      pct: n.pct_terlalu_dekat,
+    },
+    {
+      key: 'terlalu_banyak',
+      label: 'Terlalu Banyak (>3 anak)',
+      count: n.terlalu_banyak,
+      pct: n.pct_terlalu_banyak,
+    },
+  ]
 }
 
 export function rankedProvinces(
@@ -352,6 +444,102 @@ export function buildMcprDummyResponse(
       numerator: row.numerator,
       denominator: row.jumlah_pus,
       mcpr_pct: row.pct,
+    })),
+  }
+}
+
+export type DummyFourTResponse = {
+  meta: {
+    source: 'excel-dummy'
+    fixture_note: string
+    formula: string
+    filters: {
+      level: string
+      tahun_rekap: number
+      bulan_rekap: number
+      period_mode: 'bulanan'
+    }
+  }
+  data: Array<{
+    level: 'nasional' | 'provinsi'
+    nama_provinsi?: string
+    kode_provinsi?: string
+    numerator: number
+    denominator: number
+    pct_4t: number | null
+    terlalu_muda?: number
+    terlalu_tua?: number
+    terlalu_dekat?: number
+    terlalu_banyak?: number
+    pct_terlalu_muda?: number
+    pct_terlalu_tua?: number
+    pct_terlalu_dekat?: number
+    pct_terlalu_banyak?: number
+  }>
+}
+
+export function buildFourTDummyResponse(
+  level: 'nasional' | 'provinsi' | 'kabupaten',
+): DummyFourTResponse {
+  const { nasional, formulas, tabel1_4t } = oct2026Dummy
+  const meta = {
+    source: 'excel-dummy' as const,
+    fixture_note: OCT2026_SOURCE_CAPTION_4T,
+    formula: formulas.pct_4t,
+    filters: {
+      level,
+      tahun_rekap: OCT2026_TAHUN,
+      bulan_rekap: OCT2026_BULAN,
+      period_mode: 'bulanan' as const,
+    },
+  }
+
+  if (level === 'kabupaten') {
+    return {
+      meta: { ...meta, filters: { ...meta.filters, level: 'kabupaten' } },
+      data: [],
+    }
+  }
+
+  if (level === 'nasional') {
+    return {
+      meta,
+      data: [
+        {
+          level: 'nasional',
+          numerator: nasional.jumlah_bumil_4t,
+          denominator: nasional.jumlah_bumil,
+          pct_4t: nasional.pct_4t,
+          terlalu_muda: nasional.terlalu_muda,
+          terlalu_tua: nasional.terlalu_tua,
+          terlalu_dekat: nasional.terlalu_dekat,
+          terlalu_banyak: nasional.terlalu_banyak,
+          pct_terlalu_muda: nasional.pct_terlalu_muda,
+          pct_terlalu_tua: nasional.pct_terlalu_tua,
+          pct_terlalu_dekat: nasional.pct_terlalu_dekat,
+          pct_terlalu_banyak: nasional.pct_terlalu_banyak,
+        },
+      ],
+    }
+  }
+
+  return {
+    meta,
+    data: tabel1_4t.map((row) => ({
+      level: 'provinsi' as const,
+      nama_provinsi: row.provinsi,
+      kode_provinsi: row.kode,
+      numerator: row.jumlah_bumil_4t,
+      denominator: row.jumlah_bumil,
+      pct_4t: row.pct_4t,
+      terlalu_muda: row.terlalu_muda,
+      terlalu_tua: row.terlalu_tua,
+      terlalu_dekat: row.terlalu_dekat,
+      terlalu_banyak: row.terlalu_banyak,
+      pct_terlalu_muda: row.pct_terlalu_muda,
+      pct_terlalu_tua: row.pct_terlalu_tua,
+      pct_terlalu_dekat: row.pct_terlalu_dekat,
+      pct_terlalu_banyak: row.pct_terlalu_banyak,
     })),
   }
 }
