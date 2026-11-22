@@ -61,36 +61,6 @@ export const remainingIndicators: IndicatorDetailConfig[] = [
     screenshotBase: 'ikp',
   },
   {
-    id: '08',
-    slug: 'mkjp',
-    title: 'Detail Indikator: % MKJP',
-    shortName: '% MKJP',
-    subtitle:
-      'Persentase Metode Kontrasepsi Jangka Panjang (IUD, Implan, MOW, MOP) dari peserta KB relevan — YanKB Bulanan Tabel 3 + Tabel 10.',
-    capaian: '27,3%',
-    capaianDelta: '1,9 p.p',
-    capaianDirection: 'up',
-    target: 'Target belum dikonfirmasi',
-    targetNote: 'Nilai target RPJMN belum ditetapkan di UI',
-    sumber: 'YanKB Tabel 3 + 10',
-    sumberNote: 'Endpoint report-siga-yankb-ocp · KB Baru + KB Ulangan',
-    strength: 'Kuat — Tabel YanKB cocok untuk % MKJP',
-    strengthTone: 'ok',
-    notes: [
-      'Sumber SIGA utama: YanKB Bulanan Tabel 3 (KB Baru) dan Tabel 10 (KB Ulangan) dengan breakdown metode.',
-      'MKJP = IUD, Implan, MOW, MOP; pastikan klasifikasi metode di YanKB selaras definisi program.',
-      'Endpoint report-siga-yankb-ocp.',
-      'Breakdown kab/kota standar setelah API tersedia.',
-    ],
-    metricColumn: '% MKJP',
-    defaultTrendPeriod: 'bulanan',
-    monthlyStubDetail:
-      'Seri bulanan (≥36 bulan) akan diisi dari YanKB Tabel 3 + 10. Capaian Overview 27,3% saja yang ditampilkan sementara.',
-    annualStubDetail:
-      'Seri tahunan belum tersedia. Tidak ada nilai yang dikarang — hanya capaian Overview (27,3%) di kartu KPI.',
-    screenshotBase: 'mkjp',
-  },
-  {
     id: '09',
     slug: 'wilayah-khusus',
     title: 'Detail Indikator: Kesertaan KB Wilayah Khusus',

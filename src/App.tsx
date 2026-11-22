@@ -5,6 +5,7 @@ import { GenericIndicatorDetailPage } from './pages/GenericIndicatorDetailPage'
 import { KtdDetailPage } from './pages/KtdDetailPage'
 import { McprDetailPage } from './pages/McprDetailPage'
 import { MiiDetailPage } from './pages/MiiDetailPage'
+import { MkjpDetailPage } from './pages/MkjpDetailPage'
 import { OverviewPage } from './pages/OverviewPage'
 import { PetaCapaianPage } from './pages/PetaCapaianPage'
 import { UnmetNeedDetailPage } from './pages/UnmetNeedDetailPage'
@@ -25,6 +26,7 @@ export default function App() {
         <Route path="/indikator/4t" element={<FourTDetailPage />} />
         <Route path="/indikator/ktd" element={<KtdDetailPage />} />
         <Route path="/indikator/mii" element={<MiiDetailPage />} />
+        <Route path="/indikator/mkjp" element={<MkjpDetailPage />} />
         {remainingIndicators.map((config) => (
           <Route
             key={config.slug}
