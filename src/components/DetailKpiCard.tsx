@@ -3,7 +3,7 @@ import type { ReactNode } from 'react'
 type DetailKpiCardProps = {
   label: string
   value: string
-  footnote: ReactNode
+  footnote?: ReactNode
   valueClassName?: string
 }
 
@@ -23,7 +23,9 @@ export function DetailKpiCard({
       >
         {value}
       </p>
-      <div className="mt-2.5 text-[12px]">{footnote}</div>
+      {footnote != null ? (
+        <div className="mt-2.5 text-[12px]">{footnote}</div>
+      ) : null}
     </article>
   )
 }

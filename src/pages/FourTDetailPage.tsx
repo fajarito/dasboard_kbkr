@@ -14,7 +14,6 @@ import {
   formatPctId,
   fourTNasionalComponents,
   OCT2026_LABEL,
-  OCT2026_SOURCE_CAPTION_4T,
   preferOct2026Dummy,
 } from '../data/dummy/oct2026'
 import {
@@ -80,17 +79,6 @@ export function FourTDetailPage() {
         indikatorPath="/indikator/4t"
       />
 
-      {useDummy ? (
-        <p className="rounded-xl border border-sky-200 bg-sky-50 px-3 py-2 text-[12px] leading-relaxed text-sky-950">
-          {OCT2026_SOURCE_CAPTION_4T}. Headline KPI = jumlah_bumil_4t ÷
-          jumlah_bumil (unique — bukan penjumlahan empat komponen). Live API:{' '}
-          <code className="rounded bg-white px-1 py-0.5 text-[11px]">
-            VITE_USE_LIVE_API=true
-          </code>
-          .
-        </p>
-      ) : null}
-
       <FilterBar
         periode={OCT2026_LABEL}
         wilayah="Nasional"
@@ -103,7 +91,7 @@ export function FourTDetailPage() {
           value={capaianValue}
           footnote={
             <span className="font-medium leading-snug text-slate-500">
-              {useDummy ? OCT2026_SOURCE_CAPTION_4T : 'Stub Overview'}
+              {useDummy ? 'Oktober 2026' : 'Stub Overview'}
             </span>
           }
         />
@@ -121,14 +109,6 @@ export function FourTDetailPage() {
           label="Sumber data"
           value={fourTMeta.sumber}
           valueClassName="text-[16px] sm:text-[18px]"
-          footnote={
-            <span className="font-medium leading-snug text-slate-500">
-              {fourTMeta.sumberNote}
-              <span className="mt-1 block text-[11px] text-slate-400">
-                {fourTMeta.strength}
-              </span>
-            </span>
-          }
         />
       </div>
 
@@ -171,8 +151,7 @@ export function FourTDetailPage() {
               Ranking Provinsi (pct_4t)
             </h2>
             <p className="mt-0.5 text-[12px] text-slate-500">
-              Top 5 tertinggi &amp; terendah dari 38 Provinsi · Dallap Tabel 1 -
-              SIGA
+              Top 5 tertinggi &amp; terendah dari 38 Provinsi
             </p>
           </header>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -198,7 +177,7 @@ export function FourTDetailPage() {
           defaultPeriod="bulanan"
           annualSubtitle="Seri tahunan / kumulatif · ≥5 tahun (RPJMN) · skala 0–100%"
           monthlySubtitle="Seri bulanan · ≥36 bulan (Elsimil Bumil) · skala 0–100%"
-          monthlyStubDetail={`Seri bulanan belum tersedia. Capaian Overview ${capaianValue} dari Dallap Tabel 1 - SIGA saja yang ditampilkan — tidak ada deret yang dikarang.`}
+          monthlyStubDetail={`Seri bulanan belum tersedia. Capaian Overview ${capaianValue} saja yang ditampilkan — tidak ada deret yang dikarang.`}
           annualStubDetail={`Seri tahunan/kumulatif belum tersedia. Tidak ada nilai yang dikarang — hanya capaian Overview (${capaianValue}) di kartu KPI.`}
         />
         <CatatanAnalitik notes={fourTNotes} />

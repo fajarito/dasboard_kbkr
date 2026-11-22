@@ -14,7 +14,6 @@ import {
   buildDemandSatisfiedDummyResponse,
   formatPctId,
   OCT2026_LABEL,
-  OCT2026_SOURCE_CAPTION_DEMAND,
   preferOct2026Dummy,
 } from '../data/dummy/oct2026'
 import {
@@ -74,17 +73,6 @@ export function DemandSatisfiedDetailPage() {
         indikatorPath="/indikator/demand-satisfied"
       />
 
-      {useDummy ? (
-        <p className="rounded-xl border border-sky-200 bg-sky-50 px-3 py-2 text-[12px] leading-relaxed text-sky-950">
-          {OCT2026_SOURCE_CAPTION_DEMAND}. Rumus = total_modern (Tabel11) ÷
-          (total_modern + jumlah_unmet_need Tabel16) × 100. Live API:{' '}
-          <code className="rounded bg-white px-1 py-0.5 text-[11px]">
-            VITE_USE_LIVE_API=true
-          </code>
-          .
-        </p>
-      ) : null}
-
       <FilterBar
         periode={OCT2026_LABEL}
         wilayah="Nasional"
@@ -97,7 +85,7 @@ export function DemandSatisfiedDetailPage() {
           value={capaianValue}
           footnote={
             <span className="font-medium leading-snug text-slate-500">
-              {useDummy ? OCT2026_SOURCE_CAPTION_DEMAND : 'Stub Overview'}
+              {useDummy ? 'Oktober 2026' : 'Stub Overview'}
             </span>
           }
         />
@@ -115,14 +103,6 @@ export function DemandSatisfiedDetailPage() {
           label="Sumber data"
           value={demandSatisfiedMeta.sumber}
           valueClassName="text-[16px] sm:text-[18px]"
-          footnote={
-            <span className="font-medium leading-snug text-slate-500">
-              {demandSatisfiedMeta.sumberNote}
-              <span className="mt-1 block text-[11px] text-slate-400">
-                {demandSatisfiedMeta.strength}
-              </span>
-            </span>
-          }
         />
       </div>
 

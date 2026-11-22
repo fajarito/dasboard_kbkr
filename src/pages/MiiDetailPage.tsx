@@ -13,7 +13,6 @@ import {
   buildMiiDummyResponse,
   formatPctId,
   OCT2026_LABEL,
-  OCT2026_SOURCE_CAPTION_MII,
   preferOct2026Dummy,
 } from '../data/dummy/oct2026'
 import { levelLabel, type GeoLevel } from '../data/indicatorShared'
@@ -67,18 +66,6 @@ export function MiiDetailPage() {
         indikatorPath="/indikator/mii"
       />
 
-      {useDummy ? (
-        <p className="rounded-xl border border-sky-200 bg-sky-50 px-3 py-2 text-[12px] leading-relaxed text-sky-950">
-          {OCT2026_SOURCE_CAPTION_MII}. Rumus = (IC_baru + IC_ulangan) ÷
-          (KB_baru_selected + KB_ulangan_selected) × 100. Tabel10 KB ulangan
-          tanpa kolom vasektomi/tubektomi (dianggap 0). Live API:{' '}
-          <code className="rounded bg-white px-1 py-0.5 text-[11px]">
-            VITE_USE_LIVE_API=true
-          </code>
-          .
-        </p>
-      ) : null}
-
       <FilterBar
         periode={OCT2026_LABEL}
         wilayah="Nasional"
@@ -91,7 +78,7 @@ export function MiiDetailPage() {
           value={capaianValue}
           footnote={
             <span className="font-medium leading-snug text-slate-500">
-              {useDummy ? OCT2026_SOURCE_CAPTION_MII : 'Stub Overview'}
+              {useDummy ? 'Oktober 2026' : 'Stub Overview'}
             </span>
           }
         />
@@ -109,14 +96,6 @@ export function MiiDetailPage() {
           label="Sumber data"
           value={miiMeta.sumber}
           valueClassName="text-[15px] sm:text-[17px]"
-          footnote={
-            <span className="font-medium leading-snug text-slate-500">
-              {miiMeta.sumberNote}
-              <span className="mt-1 block text-[11px] text-slate-400">
-                {miiMeta.strength}
-              </span>
-            </span>
-          }
         />
       </div>
 

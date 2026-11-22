@@ -21,7 +21,7 @@ export const wilayahKhususMeta = {
   capaianDirection: 'up' as const,
   target: 'Target belum dikonfirmasi',
   targetNote: 'Nilai target RPJMN belum ditetapkan di UI',
-  sumber: 'Dallap Tabel 20 - SIGA',
+  sumber: 'SIGA',
   sumberNote: OCT2026_SOURCE_CAPTION_WILAYAH_KHUSUS,
   strength:
     'Tabel20 kabupaten tertinggal · (kondom+vasektomi)/KB aktif · 15 Provinsi saja',
@@ -39,9 +39,7 @@ export const wilayahKhususLowestProvinces = rankedProvinces(
 )
 
 export const wilayahKhususNotes = [
-  'Sumber: Dallap Tabel 20 - SIGA — JUMLAH PESERTA KB AKTIF PADA KABUPATEN TERTINGGAL.',
   `Nasional: (kondom ${n.wilayah_khusus_kondom.toLocaleString('id-ID')} + vasektomi ${n.wilayah_khusus_vasektomi.toLocaleString('id-ID')}) = ${n.wilayah_khusus_numerator.toLocaleString('id-ID')} / KB aktif ${n.wilayah_khusus_jumlah_kb_aktif.toLocaleString('id-ID')} ≈ ${n.wilayah_khusus_pct}% → UI ${formatPctId(n.wilayah_khusus_pct)}.`,
   'Hanya 15 Provinsi yang muncul di Tabel20 — Provinsi lain tidak dikarang.',
   'Agregat kabupaten tertinggal per Provinsi; baris kabupaten individual belum tersedia.',
-  'Jalur live Postgres tetap tersedia dengan VITE_USE_LIVE_API=true.',
 ] as const

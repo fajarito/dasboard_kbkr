@@ -72,9 +72,9 @@ export const remainingIndicators: IndicatorDetailConfig[] = [
     capaianDirection: 'up',
     target: 'Target belum dikonfirmasi',
     targetNote: 'Nilai target RPJMN belum ditetapkan di UI',
-    sumber: 'DALLAP T2–9 + T8–16',
+    sumber: 'SIGA',
     sumberNote:
-      'Bulanan aktivitas + Tahunan kapasitas · report-siga-dallap-ocp · formula belum ada',
+      'Bulanan aktivitas + Tahunan kapasitas · formula belum ada',
     strength: 'Sedang — banyak kandidat Tabel; formula index belum ada',
     strengthTone: 'warn',
     gapBanner:
@@ -105,9 +105,9 @@ export const remainingIndicators: IndicatorDetailConfig[] = [
     capaianPendingLabel: 'DCR (Permas) · perlu konfirmasi',
     target: 'Target belum dikonfirmasi',
     targetNote: 'Nilai target dan definisi Permas belum ditetapkan di UI',
-    sumber: 'DALLAP Tabel 17',
+    sumber: 'SIGA',
     sumberNote:
-      'Opsional YanKB pencabutan · report-siga-dallap-ocp (+ yankb) · arti Permas terbuka',
+      'Opsional YanKB pencabutan · arti Permas terbuka',
     strength: 'Perlu konfirmasi — angka Overview belum diisi',
     strengthTone: 'weak',
     gapBanner:
@@ -121,7 +121,7 @@ export const remainingIndicators: IndicatorDetailConfig[] = [
     metricColumn: 'DCR',
     defaultTrendPeriod: 'bulanan',
     monthlyStubDetail:
-      'Seri bulanan belum tersedia. Tidak ada angka yang dikarang — tunggu konfirmasi definisi DCR/Permas dan DALLAP Tabel 17.',
+      'Seri bulanan belum tersedia. Tidak ada angka yang dikarang — tunggu konfirmasi definisi DCR/Permas.',
     annualStubDetail:
       'Seri tahunan belum tersedia. Capaian Overview masih “—” / perlu konfirmasi.',
     screenshotBase: 'dcr',

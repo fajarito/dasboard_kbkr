@@ -7,7 +7,7 @@ export function CoverageDonut() {
       <header className="mb-2">
         <h2 className="text-[15px] font-bold text-navy-950">Cakupan Wilayah</h2>
         <p className="mt-0.5 text-[12px] text-slate-500">
-          Distribusi 38 Provinsi menurut mCPR (Dallap Tabel 11 - SIGA)
+          Distribusi 38 Provinsi menurut mCPR
         </p>
       </header>
 

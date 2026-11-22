@@ -1,5 +1,4 @@
 import { useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
 import { CatatanAnalitik } from '../components/CatatanAnalitik'
 import { DashboardLayout } from '../components/DashboardLayout'
 import { DetailKpiCard } from '../components/DetailKpiCard'
@@ -14,7 +13,6 @@ import {
   buildKtdDummyResponse,
   formatCountId,
   OCT2026_LABEL,
-  OCT2026_SOURCE_CAPTION_KTD,
   preferOct2026Dummy,
 } from '../data/dummy/oct2026'
 import { levelLabel, type GeoLevel } from '../data/indicatorShared'
@@ -46,7 +44,7 @@ export function KtdDetailPage() {
               : (row.nama_provinsi ?? '—'),
             value: formatCountId(row.ktd),
             vsTarget: '—',
-            tren: `hamil_tial=${formatCountId(row.ktd)}`,
+            tren: formatCountId(row.ktd),
           }))
       : useDummy && level === 'nasional' && payload?.data[0]
         ? [
@@ -54,7 +52,7 @@ export function KtdDetailPage() {
               wilayah: 'Nasional',
               value: formatCountId(payload.data[0].ktd),
               vsTarget: ktdMeta.target,
-              tren: `hamil_tial=${formatCountId(payload.data[0].ktd)}`,
+              tren: formatCountId(payload.data[0].ktd),
             },
           ]
         : undefined
@@ -68,32 +66,6 @@ export function KtdDetailPage() {
         indikatorPath="/indikator/ktd"
       />
 
-      {useDummy ? (
-        <p className="rounded-xl border border-sky-200 bg-sky-50 px-3 py-2 text-[12px] leading-relaxed text-sky-950">
-          {OCT2026_SOURCE_CAPTION_KTD}. KTD = Tabel16{' '}
-          <span className="font-semibold">hamil_tial</span> (HAMIL · TIDAK
-          INGIN ANAK LAGI) — count, bukan %. Live API:{' '}
-          <code className="rounded bg-white px-1 py-0.5 text-[11px]">
-            VITE_USE_LIVE_API=true
-          </code>
-          .
-        </p>
-      ) : (
-        <div className="rounded-2xl border border-[#e8c98a] bg-[#f7edd8] px-4 py-3 sm:px-5">
-          <p className="text-[12px] leading-relaxed text-[#9a6b2f]">
-            <span className="font-bold">Gap sumber (SIGA #4):</span> field
-            intensi kehamilan belum terkonfirmasi di katalog. Lihat juga{' '}
-            <Link
-              to="/indikator/unmet-need"
-              className="font-semibold text-brand-600 underline-offset-2 hover:underline"
-            >
-              Unmet Need
-            </Link>{' '}
-            (berbagi DALLAP Tabel 16).
-          </p>
-        </div>
-      )}
-
       <FilterBar
         periode={OCT2026_LABEL}
         wilayah="Nasional"
@@ -106,9 +78,7 @@ export function KtdDetailPage() {
           value={capaianValue}
           footnote={
             <span className="font-medium leading-snug text-slate-500">
-              {useDummy
-                ? 'Count hamil_tial · Dallap Tabel 16 - SIGA'
-                : 'Stub Overview'}
+              {useDummy ? 'Oktober 2026' : 'Stub Overview'}
             </span>
           }
         />
@@ -126,14 +96,6 @@ export function KtdDetailPage() {
           label="Sumber data"
           value={ktdMeta.sumber}
           valueClassName="text-[15px] sm:text-[17px]"
-          footnote={
-            <span className="font-medium leading-snug text-slate-500">
-              {ktdMeta.sumberNote}
-              <span className="mt-1 block text-[11px] text-slate-400">
-                {ktdMeta.strength}
-              </span>
-            </span>
-          }
         />
       </div>
 
@@ -143,7 +105,7 @@ export function KtdDetailPage() {
           defaultPeriod="bulanan"
           annualSubtitle="Seri tahunan · ≥5 tahun (RPJMN) · skala count"
           monthlySubtitle="Seri bulanan · ≥36 bulan · skala count"
-          monthlyStubDetail={`Seri bulanan belum tersedia. Capaian Oktober 2026 = ${ktdMeta.capaian} (hamil_tial) — tidak ada deret yang dikarang.`}
+          monthlyStubDetail={`Seri bulanan belum tersedia. Capaian Oktober 2026 = ${ktdMeta.capaian} — tidak ada deret yang dikarang.`}
           annualStubDetail={`Seri tahunan belum tersedia. Tidak ada nilai yang dikarang — hanya capaian Overview (${ktdMeta.capaian}) di kartu KPI.`}
         />
         <CatatanAnalitik notes={ktdNotes} />
@@ -165,7 +127,7 @@ export function KtdDetailPage() {
         }
         footerNote={
           useDummy
-            ? '38 Provinsi · KTD = hamil_tial (count). Kabupaten tidak disertakan.'
+            ? '38 Provinsi. Kabupaten belum tersedia.'
             : undefined
         }
       />
