@@ -73,12 +73,12 @@ Names are **never invented** — missing joins stay `null`.
 
 ```bash
 # Provinsi with names (fixture or PG)
-curl -s 'http://127.0.0.1:8787/api/unmet-need?level=provinsi&tahun=2023&bulan=7' | jq '.data[0]'
+curl -s 'http://127.0.0.1:8787/api/unmet-need?level=provinsi&tahun=2026&bulan=10' | jq '.data[0]'
 # → id_provinsi, nama_provinsi, kode_provinsi, unmet_need_pct, …
 
-curl -s 'http://127.0.0.1:8787/api/unmet-need?level=kabupaten&tahun=2023&bulan=7&id_provinsi=25' | jq '.data[:2]'
-curl -s 'http://127.0.0.1:8787/api/unmet-need?level=nasional&tahun=2023&bulan=7' | jq '.meta.wilayah'
-curl -s 'http://127.0.0.1:8787/api/unmet-need?level=nasional&tahun=2023'   # yearly rollup
+curl -s 'http://127.0.0.1:8787/api/unmet-need?level=kabupaten&tahun=2026&bulan=10&id_provinsi=25' | jq '.data[:2]'
+curl -s 'http://127.0.0.1:8787/api/unmet-need?level=nasional&tahun=2026&bulan=10' | jq '.meta.wilayah'
+curl -s 'http://127.0.0.1:8787/api/unmet-need?level=nasional&tahun=2026'   # yearly rollup
 ```
 
 ## SQL reference

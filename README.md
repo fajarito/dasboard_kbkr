@@ -30,7 +30,7 @@ Local app: `http://127.0.0.1:5173/`
 ```bash
 cp .env.example .env   # fill credentials locally — never commit .env
 npm run api
-curl 'http://127.0.0.1:8787/api/unmet-need?level=nasional&tahun=2023&bulan=7'
+curl 'http://127.0.0.1:8787/api/unmet-need?level=nasional&tahun=2026&bulan=10'
 ```
 
 Details + SQL examples: [`server/README.md`](server/README.md).
