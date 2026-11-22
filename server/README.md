@@ -1,11 +1,11 @@
 # Dashboard KBKR API — Unmet Need
 
-Express API for **Unmet Need** aggregates.
+Express API for **Unmet Need** aggregates with wilayah name enrichment.
 
 - **Live Postgres** when `DATABASE_URL` or `PGHOST`+`PGDATABASE`+`PGUSER` are set
 - **Fixture fallback** (partial ~1000-row sample) when DB env is unset
 
-Default table: `dwh_siga.fa_laporan_dallap_bulanan_tabel10_20rdk`
+Default fact table: `dwh_siga.fa_laporan_dallap_bulanan_tabel10_20rdk`
 
 ## Run
 
@@ -26,7 +26,8 @@ Health: `GET /api/health` — reports `data_source: postgres|fixture`.
 | --- | --- |
 | `DATABASE_URL` | Preferred connection string |
 | `PGHOST` / `PGPORT` / `PGDATABASE` / `PGUSER` / `PGPASSWORD` | Discrete connection (example port **5435**, database **BKKBN**) |
-| `UNMET_NEED_TABLE` | Optional `schema.table` override |
+| `UNMET_NEED_TABLE` | Optional fact `schema.table` override |
+| `DIM_SCHEMA` | Schema for year-suffixed dims (default `dwh_siga`) |
 | `PORT` | API listen port (default `8787`) |
 
 See repo-root [`.env.example`](../.env.example). **Do not commit real passwords or host secrets.**
@@ -47,22 +48,42 @@ GET /api/unmet-need?level=nasional|provinsi|kabupaten&tahun=&bulan=&id_provinsi=
 **Formula:** `(hamil_ihn + hamil_tial + tdkhamil_ihn + tdkhamil_tial) / status_pus_true * 100`  
 Denominator 0 → `unmet_need_pct: null`.
 
-Response: `numerator`, `denominator`, `unmet_need_pct`, wilayah ids, `meta.source` (`postgres`|`fixture`).
+### Response fields
 
-Wilayah **names are not invented** — only ids.
+Each row includes:
+
+- `numerator`, `denominator`, `unmet_need_pct`, `row_count`
+- `id_provinsi` / `id_kabupaten`
+- `nama_provinsi` / `kode_provinsi` / `nama_kabupaten` / `kode_kabupaten` (null when dim miss)
+
+`meta.wilayah` reports which dim year/tables were used.
+
+### Wilayah dims
+
+| Mode | Source |
+| --- | --- |
+| Postgres | `{DIM_SCHEMA}.d_provinsi_YYYY` and `d_kabupaten_YYYY` — exact `tahun_rekap`, else **nearest** available year table |
+| Fixture | `fixtures/d_provinsi_sample.json` + `d_kabupaten_sample.json` (same nearest-year rule) |
+
+Names are **never invented** — missing joins stay `null`.
 
 ## Examples
 
 ```bash
-curl 'http://127.0.0.1:8787/api/unmet-need?level=nasional&tahun=2023&bulan=7'
-curl 'http://127.0.0.1:8787/api/unmet-need?level=provinsi&tahun=2023&bulan=7'
-curl 'http://127.0.0.1:8787/api/unmet-need?level=kabupaten&tahun=2023&bulan=7&id_provinsi=25'
-curl 'http://127.0.0.1:8787/api/unmet-need?level=nasional&tahun=2023'   # yearly rollup
+# Provinsi with names (fixture or PG)
+curl -s 'http://127.0.0.1:8787/api/unmet-need?level=provinsi&tahun=2023&bulan=7' | jq '.data[0]'
+# → id_provinsi, nama_provinsi, kode_provinsi, unmet_need_pct, …
+
+curl -s 'http://127.0.0.1:8787/api/unmet-need?level=kabupaten&tahun=2023&bulan=7&id_provinsi=25' | jq '.data[:2]'
+curl -s 'http://127.0.0.1:8787/api/unmet-need?level=nasional&tahun=2023&bulan=7' | jq '.meta.wilayah'
+curl -s 'http://127.0.0.1:8787/api/unmet-need?level=nasional&tahun=2023'   # yearly rollup
 ```
 
 ## SQL reference
 
-`sql/unmet-need-examples.sql` and DDL in `sql/fa_laporan_dallap_bulanan_tabel10_20rdk.sql`.
+- Fact + aggregate examples: `sql/unmet-need-examples.sql`
+- Dim DDL: `sql/d_provinsi.sql`, `sql/d_kabupaten.sql`
+- Fact DDL: `sql/fa_laporan_dallap_bulanan_tabel10_20rdk.sql`
 
 ## OpenShift
 

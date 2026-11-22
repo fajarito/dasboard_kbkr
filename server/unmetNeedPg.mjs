@@ -7,6 +7,7 @@
  */
 
 import { getPool, resolveTableName } from './db.mjs'
+import { enrichFromPgDims } from './wilayahPg.mjs'
 
 const FORMULA =
   '(hamil_ihn + hamil_tial + tdkhamil_ihn + tdkhamil_tial) / status_pus_true * 100'
@@ -160,7 +161,7 @@ export async function queryUnmetNeedFromPg(query) {
   }
 
   const result = await pool.query(selectSql, params)
-  const data =
+  const baseData =
     filters.level === 'nasional'
       ? [mapRow('nasional', result.rows[0] || {
           id_provinsi: null,
@@ -172,7 +173,11 @@ export async function queryUnmetNeedFromPg(query) {
         })]
       : result.rows.map((row) => mapRow(filters.level, row))
 
-  const matched_rows = data.reduce((sum, row) => sum + (row.row_count || 0), 0)
+  const enriched = await enrichFromPgDims(baseData, filters.tahun)
+  const matched_rows = enriched.data.reduce(
+    (sum, row) => sum + (row.row_count || 0),
+    0,
+  )
 
   return {
     meta: {
@@ -188,7 +193,8 @@ export async function queryUnmetNeedFromPg(query) {
         period_mode: filters.bulan != null ? 'bulanan' : 'tahunan_rollup',
       },
       matched_rows,
+      wilayah: enriched.wilayah,
     },
-    data,
+    data: enriched.data,
   }
 }

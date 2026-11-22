@@ -1,0 +1,1066 @@
+[
+  {
+    "id_provinsi": 2,
+    "kode_provinsi": "12",
+    "nama_provinsi": "SUMATERA UTARA",
+    "is_active": 1,
+    "tahun": 2023
+  },
+  {
+    "id_provinsi": 3,
+    "kode_provinsi": "13",
+    "nama_provinsi": "SUMATERA BARAT",
+    "is_active": 1,
+    "tahun": 2023
+  },
+  {
+    "id_provinsi": 4,
+    "kode_provinsi": "14",
+    "nama_provinsi": "RIAU",
+    "is_active": 1,
+    "tahun": 2023
+  },
+  {
+    "id_provinsi": 5,
+    "kode_provinsi": "15",
+    "nama_provinsi": "JAMBI",
+    "is_active": 1,
+    "tahun": 2023
+  },
+  {
+    "id_provinsi": 6,
+    "kode_provinsi": "16",
+    "nama_provinsi": "SUMATERA SELATAN",
+    "is_active": 1,
+    "tahun": 2023
+  },
+  {
+    "id_provinsi": 7,
+    "kode_provinsi": "17",
+    "nama_provinsi": "BENGKULU",
+    "is_active": 1,
+    "tahun": 2023
+  },
+  {
+    "id_provinsi": 8,
+    "kode_provinsi": "18",
+    "nama_provinsi": "LAMPUNG",
+    "is_active": 1,
+    "tahun": 2023
+  },
+  {
+    "id_provinsi": 9,
+    "kode_provinsi": "19",
+    "nama_provinsi": "KEPULAUAN BANGKA BELITUNG",
+    "is_active": 1,
+    "tahun": 2023
+  },
+  {
+    "id_provinsi": 10,
+    "kode_provinsi": "21",
+    "nama_provinsi": "KEPULAUAN RIAU",
+    "is_active": 1,
+    "tahun": 2023
+  },
+  {
+    "id_provinsi": 11,
+    "kode_provinsi": "31",
+    "nama_provinsi": "DKI JAKARTA",
+    "is_active": 1,
+    "tahun": 2023
+  },
+  {
+    "id_provinsi": 12,
+    "kode_provinsi": "32",
+    "nama_provinsi": "JAWA BARAT",
+    "is_active": 1,
+    "tahun": 2023
+  },
+  {
+    "id_provinsi": 13,
+    "kode_provinsi": "33",
+    "nama_provinsi": "JAWA TENGAH",
+    "is_active": 1,
+    "tahun": 2023
+  },
+  {
+    "id_provinsi": 14,
+    "kode_provinsi": "34",
+    "nama_provinsi": "DAERAH ISTIMEWA YOGYAKARTA",
+    "is_active": 1,
+    "tahun": 2023
+  },
+  {
+    "id_provinsi": 15,
+    "kode_provinsi": "35",
+    "nama_provinsi": "JAWA TIMUR",
+    "is_active": 1,
+    "tahun": 2023
+  },
+  {
+    "id_provinsi": 16,
+    "kode_provinsi": "36",
+    "nama_provinsi": "BANTEN",
+    "is_active": 1,
+    "tahun": 2023
+  },
+  {
+    "id_provinsi": 17,
+    "kode_provinsi": "51",
+    "nama_provinsi": "BALI",
+    "is_active": 1,
+    "tahun": 2023
+  },
+  {
+    "id_provinsi": 18,
+    "kode_provinsi": "52",
+    "nama_provinsi": "NUSA TENGGARA BARAT",
+    "is_active": 1,
+    "tahun": 2023
+  },
+  {
+    "id_provinsi": 19,
+    "kode_provinsi": "53",
+    "nama_provinsi": "NUSA TENGGARA TIMUR",
+    "is_active": 1,
+    "tahun": 2023
+  },
+  {
+    "id_provinsi": 20,
+    "kode_provinsi": "61",
+    "nama_provinsi": "KALIMANTAN BARAT",
+    "is_active": 1,
+    "tahun": 2023
+  },
+  {
+    "id_provinsi": 21,
+    "kode_provinsi": "62",
+    "nama_provinsi": "KALIMANTAN TENGAH",
+    "is_active": 1,
+    "tahun": 2023
+  },
+  {
+    "id_provinsi": 22,
+    "kode_provinsi": "63",
+    "nama_provinsi": "KALIMANTAN SELATAN",
+    "is_active": 1,
+    "tahun": 2023
+  },
+  {
+    "id_provinsi": 23,
+    "kode_provinsi": "64",
+    "nama_provinsi": "KALIMANTAN TIMUR",
+    "is_active": 1,
+    "tahun": 2023
+  },
+  {
+    "id_provinsi": 24,
+    "kode_provinsi": "71",
+    "nama_provinsi": "SULAWESI UTARA",
+    "is_active": 1,
+    "tahun": 2023
+  },
+  {
+    "id_provinsi": 25,
+    "kode_provinsi": "72",
+    "nama_provinsi": "SULAWESI TENGAH",
+    "is_active": 1,
+    "tahun": 2023
+  },
+  {
+    "id_provinsi": 26,
+    "kode_provinsi": "73",
+    "nama_provinsi": "SULAWESI SELATAN",
+    "is_active": 1,
+    "tahun": 2023
+  },
+  {
+    "id_provinsi": 27,
+    "kode_provinsi": "74",
+    "nama_provinsi": "SULAWESI TENGGARA",
+    "is_active": 1,
+    "tahun": 2023
+  },
+  {
+    "id_provinsi": 28,
+    "kode_provinsi": "75",
+    "nama_provinsi": "GORONTALO",
+    "is_active": 1,
+    "tahun": 2023
+  },
+  {
+    "id_provinsi": 29,
+    "kode_provinsi": "76",
+    "nama_provinsi": "SULAWESI BARAT",
+    "is_active": 1,
+    "tahun": 2023
+  },
+  {
+    "id_provinsi": 30,
+    "kode_provinsi": "81",
+    "nama_provinsi": "MALUKU",
+    "is_active": 1,
+    "tahun": 2023
+  },
+  {
+    "id_provinsi": 31,
+    "kode_provinsi": "82",
+    "nama_provinsi": "MALUKU UTARA",
+    "is_active": 1,
+    "tahun": 2023
+  },
+  {
+    "id_provinsi": 32,
+    "kode_provinsi": "91",
+    "nama_provinsi": "PAPUA",
+    "is_active": 1,
+    "tahun": 2023
+  },
+  {
+    "id_provinsi": 33,
+    "kode_provinsi": "92",
+    "nama_provinsi": "PAPUA BARAT",
+    "is_active": 1,
+    "tahun": 2023
+  },
+  {
+    "id_provinsi": 36,
+    "kode_provinsi": "65",
+    "nama_provinsi": "KALIMANTAN UTARA",
+    "is_active": 1,
+    "tahun": 2023
+  },
+  {
+    "id_provinsi": 37,
+    "kode_provinsi": "93",
+    "nama_provinsi": "PAPUA SELATAN",
+    "is_active": 1,
+    "tahun": 2023
+  },
+  {
+    "id_provinsi": 38,
+    "kode_provinsi": "94",
+    "nama_provinsi": "PAPUA TENGAH",
+    "is_active": 1,
+    "tahun": 2023
+  },
+  {
+    "id_provinsi": 39,
+    "kode_provinsi": "95",
+    "nama_provinsi": "PAPUA PEGUNUNGAN",
+    "is_active": 1,
+    "tahun": 2023
+  },
+  {
+    "id_provinsi": 40,
+    "kode_provinsi": "96",
+    "nama_provinsi": "PAPUA BARAT DAYA",
+    "is_active": 1,
+    "tahun": 2023
+  },
+  {
+    "id_provinsi": 1,
+    "kode_provinsi": "11",
+    "nama_provinsi": "ACEH",
+    "is_active": 1,
+    "tahun": 2023
+  },
+  {
+    "id_provinsi": 2,
+    "kode_provinsi": "12",
+    "nama_provinsi": "SUMATERA UTARA",
+    "is_active": 1,
+    "tahun": 2024
+  },
+  {
+    "id_provinsi": 3,
+    "kode_provinsi": "13",
+    "nama_provinsi": "SUMATERA BARAT",
+    "is_active": 1,
+    "tahun": 2024
+  },
+  {
+    "id_provinsi": 4,
+    "kode_provinsi": "14",
+    "nama_provinsi": "RIAU",
+    "is_active": 1,
+    "tahun": 2024
+  },
+  {
+    "id_provinsi": 5,
+    "kode_provinsi": "15",
+    "nama_provinsi": "JAMBI",
+    "is_active": 1,
+    "tahun": 2024
+  },
+  {
+    "id_provinsi": 6,
+    "kode_provinsi": "16",
+    "nama_provinsi": "SUMATERA SELATAN",
+    "is_active": 1,
+    "tahun": 2024
+  },
+  {
+    "id_provinsi": 7,
+    "kode_provinsi": "17",
+    "nama_provinsi": "BENGKULU",
+    "is_active": 1,
+    "tahun": 2024
+  },
+  {
+    "id_provinsi": 8,
+    "kode_provinsi": "18",
+    "nama_provinsi": "LAMPUNG",
+    "is_active": 1,
+    "tahun": 2024
+  },
+  {
+    "id_provinsi": 9,
+    "kode_provinsi": "19",
+    "nama_provinsi": "KEPULAUAN BANGKA BELITUNG",
+    "is_active": 1,
+    "tahun": 2024
+  },
+  {
+    "id_provinsi": 10,
+    "kode_provinsi": "21",
+    "nama_provinsi": "KEPULAUAN RIAU",
+    "is_active": 1,
+    "tahun": 2024
+  },
+  {
+    "id_provinsi": 11,
+    "kode_provinsi": "31",
+    "nama_provinsi": "DKI JAKARTA",
+    "is_active": 1,
+    "tahun": 2024
+  },
+  {
+    "id_provinsi": 12,
+    "kode_provinsi": "32",
+    "nama_provinsi": "JAWA BARAT",
+    "is_active": 1,
+    "tahun": 2024
+  },
+  {
+    "id_provinsi": 13,
+    "kode_provinsi": "33",
+    "nama_provinsi": "JAWA TENGAH",
+    "is_active": 1,
+    "tahun": 2024
+  },
+  {
+    "id_provinsi": 14,
+    "kode_provinsi": "34",
+    "nama_provinsi": "DAERAH ISTIMEWA YOGYAKARTA",
+    "is_active": 1,
+    "tahun": 2024
+  },
+  {
+    "id_provinsi": 15,
+    "kode_provinsi": "35",
+    "nama_provinsi": "JAWA TIMUR",
+    "is_active": 1,
+    "tahun": 2024
+  },
+  {
+    "id_provinsi": 16,
+    "kode_provinsi": "36",
+    "nama_provinsi": "BANTEN",
+    "is_active": 1,
+    "tahun": 2024
+  },
+  {
+    "id_provinsi": 17,
+    "kode_provinsi": "51",
+    "nama_provinsi": "BALI",
+    "is_active": 1,
+    "tahun": 2024
+  },
+  {
+    "id_provinsi": 18,
+    "kode_provinsi": "52",
+    "nama_provinsi": "NUSA TENGGARA BARAT",
+    "is_active": 1,
+    "tahun": 2024
+  },
+  {
+    "id_provinsi": 19,
+    "kode_provinsi": "53",
+    "nama_provinsi": "NUSA TENGGARA TIMUR",
+    "is_active": 1,
+    "tahun": 2024
+  },
+  {
+    "id_provinsi": 20,
+    "kode_provinsi": "61",
+    "nama_provinsi": "KALIMANTAN BARAT",
+    "is_active": 1,
+    "tahun": 2024
+  },
+  {
+    "id_provinsi": 21,
+    "kode_provinsi": "62",
+    "nama_provinsi": "KALIMANTAN TENGAH",
+    "is_active": 1,
+    "tahun": 2024
+  },
+  {
+    "id_provinsi": 22,
+    "kode_provinsi": "63",
+    "nama_provinsi": "KALIMANTAN SELATAN",
+    "is_active": 1,
+    "tahun": 2024
+  },
+  {
+    "id_provinsi": 23,
+    "kode_provinsi": "64",
+    "nama_provinsi": "KALIMANTAN TIMUR",
+    "is_active": 1,
+    "tahun": 2024
+  },
+  {
+    "id_provinsi": 24,
+    "kode_provinsi": "71",
+    "nama_provinsi": "SULAWESI UTARA",
+    "is_active": 1,
+    "tahun": 2024
+  },
+  {
+    "id_provinsi": 25,
+    "kode_provinsi": "72",
+    "nama_provinsi": "SULAWESI TENGAH",
+    "is_active": 1,
+    "tahun": 2024
+  },
+  {
+    "id_provinsi": 26,
+    "kode_provinsi": "73",
+    "nama_provinsi": "SULAWESI SELATAN",
+    "is_active": 1,
+    "tahun": 2024
+  },
+  {
+    "id_provinsi": 27,
+    "kode_provinsi": "74",
+    "nama_provinsi": "SULAWESI TENGGARA",
+    "is_active": 1,
+    "tahun": 2024
+  },
+  {
+    "id_provinsi": 28,
+    "kode_provinsi": "75",
+    "nama_provinsi": "GORONTALO",
+    "is_active": 1,
+    "tahun": 2024
+  },
+  {
+    "id_provinsi": 29,
+    "kode_provinsi": "76",
+    "nama_provinsi": "SULAWESI BARAT",
+    "is_active": 1,
+    "tahun": 2024
+  },
+  {
+    "id_provinsi": 30,
+    "kode_provinsi": "81",
+    "nama_provinsi": "MALUKU",
+    "is_active": 1,
+    "tahun": 2024
+  },
+  {
+    "id_provinsi": 31,
+    "kode_provinsi": "82",
+    "nama_provinsi": "MALUKU UTARA",
+    "is_active": 1,
+    "tahun": 2024
+  },
+  {
+    "id_provinsi": 32,
+    "kode_provinsi": "91",
+    "nama_provinsi": "PAPUA",
+    "is_active": 1,
+    "tahun": 2024
+  },
+  {
+    "id_provinsi": 33,
+    "kode_provinsi": "92",
+    "nama_provinsi": "PAPUA BARAT",
+    "is_active": 1,
+    "tahun": 2024
+  },
+  {
+    "id_provinsi": 36,
+    "kode_provinsi": "65",
+    "nama_provinsi": "KALIMANTAN UTARA",
+    "is_active": 1,
+    "tahun": 2024
+  },
+  {
+    "id_provinsi": 37,
+    "kode_provinsi": "93",
+    "nama_provinsi": "PAPUA SELATAN",
+    "is_active": 1,
+    "tahun": 2024
+  },
+  {
+    "id_provinsi": 38,
+    "kode_provinsi": "94",
+    "nama_provinsi": "PAPUA TENGAH",
+    "is_active": 1,
+    "tahun": 2024
+  },
+  {
+    "id_provinsi": 39,
+    "kode_provinsi": "95",
+    "nama_provinsi": "PAPUA PEGUNUNGAN",
+    "is_active": 1,
+    "tahun": 2024
+  },
+  {
+    "id_provinsi": 40,
+    "kode_provinsi": "96",
+    "nama_provinsi": "PAPUA BARAT DAYA",
+    "is_active": 1,
+    "tahun": 2024
+  },
+  {
+    "id_provinsi": 1,
+    "kode_provinsi": "11",
+    "nama_provinsi": "ACEH",
+    "is_active": 1,
+    "tahun": 2024
+  },
+  {
+    "id_provinsi": 2,
+    "kode_provinsi": "12",
+    "nama_provinsi": "SUMATERA UTARA",
+    "is_active": 1,
+    "tahun": 2025
+  },
+  {
+    "id_provinsi": 3,
+    "kode_provinsi": "13",
+    "nama_provinsi": "SUMATERA BARAT",
+    "is_active": 1,
+    "tahun": 2025
+  },
+  {
+    "id_provinsi": 4,
+    "kode_provinsi": "14",
+    "nama_provinsi": "RIAU",
+    "is_active": 1,
+    "tahun": 2025
+  },
+  {
+    "id_provinsi": 5,
+    "kode_provinsi": "15",
+    "nama_provinsi": "JAMBI",
+    "is_active": 1,
+    "tahun": 2025
+  },
+  {
+    "id_provinsi": 6,
+    "kode_provinsi": "16",
+    "nama_provinsi": "SUMATERA SELATAN",
+    "is_active": 1,
+    "tahun": 2025
+  },
+  {
+    "id_provinsi": 7,
+    "kode_provinsi": "17",
+    "nama_provinsi": "BENGKULU",
+    "is_active": 1,
+    "tahun": 2025
+  },
+  {
+    "id_provinsi": 8,
+    "kode_provinsi": "18",
+    "nama_provinsi": "LAMPUNG",
+    "is_active": 1,
+    "tahun": 2025
+  },
+  {
+    "id_provinsi": 9,
+    "kode_provinsi": "19",
+    "nama_provinsi": "KEPULAUAN BANGKA BELITUNG",
+    "is_active": 1,
+    "tahun": 2025
+  },
+  {
+    "id_provinsi": 10,
+    "kode_provinsi": "21",
+    "nama_provinsi": "KEPULAUAN RIAU",
+    "is_active": 1,
+    "tahun": 2025
+  },
+  {
+    "id_provinsi": 11,
+    "kode_provinsi": "31",
+    "nama_provinsi": "DKI JAKARTA",
+    "is_active": 1,
+    "tahun": 2025
+  },
+  {
+    "id_provinsi": 12,
+    "kode_provinsi": "32",
+    "nama_provinsi": "JAWA BARAT",
+    "is_active": 1,
+    "tahun": 2025
+  },
+  {
+    "id_provinsi": 13,
+    "kode_provinsi": "33",
+    "nama_provinsi": "JAWA TENGAH",
+    "is_active": 1,
+    "tahun": 2025
+  },
+  {
+    "id_provinsi": 14,
+    "kode_provinsi": "34",
+    "nama_provinsi": "DAERAH ISTIMEWA YOGYAKARTA",
+    "is_active": 1,
+    "tahun": 2025
+  },
+  {
+    "id_provinsi": 15,
+    "kode_provinsi": "35",
+    "nama_provinsi": "JAWA TIMUR",
+    "is_active": 1,
+    "tahun": 2025
+  },
+  {
+    "id_provinsi": 16,
+    "kode_provinsi": "36",
+    "nama_provinsi": "BANTEN",
+    "is_active": 1,
+    "tahun": 2025
+  },
+  {
+    "id_provinsi": 17,
+    "kode_provinsi": "51",
+    "nama_provinsi": "BALI",
+    "is_active": 1,
+    "tahun": 2025
+  },
+  {
+    "id_provinsi": 18,
+    "kode_provinsi": "52",
+    "nama_provinsi": "NUSA TENGGARA BARAT",
+    "is_active": 1,
+    "tahun": 2025
+  },
+  {
+    "id_provinsi": 19,
+    "kode_provinsi": "53",
+    "nama_provinsi": "NUSA TENGGARA TIMUR",
+    "is_active": 1,
+    "tahun": 2025
+  },
+  {
+    "id_provinsi": 20,
+    "kode_provinsi": "61",
+    "nama_provinsi": "KALIMANTAN BARAT",
+    "is_active": 1,
+    "tahun": 2025
+  },
+  {
+    "id_provinsi": 21,
+    "kode_provinsi": "62",
+    "nama_provinsi": "KALIMANTAN TENGAH",
+    "is_active": 1,
+    "tahun": 2025
+  },
+  {
+    "id_provinsi": 22,
+    "kode_provinsi": "63",
+    "nama_provinsi": "KALIMANTAN SELATAN",
+    "is_active": 1,
+    "tahun": 2025
+  },
+  {
+    "id_provinsi": 23,
+    "kode_provinsi": "64",
+    "nama_provinsi": "KALIMANTAN TIMUR",
+    "is_active": 1,
+    "tahun": 2025
+  },
+  {
+    "id_provinsi": 24,
+    "kode_provinsi": "71",
+    "nama_provinsi": "SULAWESI UTARA",
+    "is_active": 1,
+    "tahun": 2025
+  },
+  {
+    "id_provinsi": 25,
+    "kode_provinsi": "72",
+    "nama_provinsi": "SULAWESI TENGAH",
+    "is_active": 1,
+    "tahun": 2025
+  },
+  {
+    "id_provinsi": 26,
+    "kode_provinsi": "73",
+    "nama_provinsi": "SULAWESI SELATAN",
+    "is_active": 1,
+    "tahun": 2025
+  },
+  {
+    "id_provinsi": 27,
+    "kode_provinsi": "74",
+    "nama_provinsi": "SULAWESI TENGGARA",
+    "is_active": 1,
+    "tahun": 2025
+  },
+  {
+    "id_provinsi": 28,
+    "kode_provinsi": "75",
+    "nama_provinsi": "GORONTALO",
+    "is_active": 1,
+    "tahun": 2025
+  },
+  {
+    "id_provinsi": 29,
+    "kode_provinsi": "76",
+    "nama_provinsi": "SULAWESI BARAT",
+    "is_active": 1,
+    "tahun": 2025
+  },
+  {
+    "id_provinsi": 30,
+    "kode_provinsi": "81",
+    "nama_provinsi": "MALUKU",
+    "is_active": 1,
+    "tahun": 2025
+  },
+  {
+    "id_provinsi": 31,
+    "kode_provinsi": "82",
+    "nama_provinsi": "MALUKU UTARA",
+    "is_active": 1,
+    "tahun": 2025
+  },
+  {
+    "id_provinsi": 32,
+    "kode_provinsi": "91",
+    "nama_provinsi": "PAPUA",
+    "is_active": 1,
+    "tahun": 2025
+  },
+  {
+    "id_provinsi": 33,
+    "kode_provinsi": "92",
+    "nama_provinsi": "PAPUA BARAT",
+    "is_active": 1,
+    "tahun": 2025
+  },
+  {
+    "id_provinsi": 36,
+    "kode_provinsi": "65",
+    "nama_provinsi": "KALIMANTAN UTARA",
+    "is_active": 1,
+    "tahun": 2025
+  },
+  {
+    "id_provinsi": 37,
+    "kode_provinsi": "93",
+    "nama_provinsi": "PAPUA SELATAN",
+    "is_active": 1,
+    "tahun": 2025
+  },
+  {
+    "id_provinsi": 38,
+    "kode_provinsi": "94",
+    "nama_provinsi": "PAPUA TENGAH",
+    "is_active": 1,
+    "tahun": 2025
+  },
+  {
+    "id_provinsi": 39,
+    "kode_provinsi": "95",
+    "nama_provinsi": "PAPUA PEGUNUNGAN",
+    "is_active": 1,
+    "tahun": 2025
+  },
+  {
+    "id_provinsi": 40,
+    "kode_provinsi": "96",
+    "nama_provinsi": "PAPUA BARAT DAYA",
+    "is_active": 1,
+    "tahun": 2025
+  },
+  {
+    "id_provinsi": 1,
+    "kode_provinsi": "11",
+    "nama_provinsi": "ACEH",
+    "is_active": 1,
+    "tahun": 2025
+  },
+  {
+    "id_provinsi": 2,
+    "kode_provinsi": "12",
+    "nama_provinsi": "SUMATERA UTARA",
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_provinsi": 3,
+    "kode_provinsi": "13",
+    "nama_provinsi": "SUMATERA BARAT",
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_provinsi": 4,
+    "kode_provinsi": "14",
+    "nama_provinsi": "RIAU",
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_provinsi": 5,
+    "kode_provinsi": "15",
+    "nama_provinsi": "JAMBI",
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_provinsi": 6,
+    "kode_provinsi": "16",
+    "nama_provinsi": "SUMATERA SELATAN",
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_provinsi": 7,
+    "kode_provinsi": "17",
+    "nama_provinsi": "BENGKULU",
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_provinsi": 8,
+    "kode_provinsi": "18",
+    "nama_provinsi": "LAMPUNG",
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_provinsi": 9,
+    "kode_provinsi": "19",
+    "nama_provinsi": "KEPULAUAN BANGKA BELITUNG",
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_provinsi": 10,
+    "kode_provinsi": "21",
+    "nama_provinsi": "KEPULAUAN RIAU",
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_provinsi": 11,
+    "kode_provinsi": "31",
+    "nama_provinsi": "DKI JAKARTA",
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_provinsi": 12,
+    "kode_provinsi": "32",
+    "nama_provinsi": "JAWA BARAT",
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_provinsi": 13,
+    "kode_provinsi": "33",
+    "nama_provinsi": "JAWA TENGAH",
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_provinsi": 14,
+    "kode_provinsi": "34",
+    "nama_provinsi": "DAERAH ISTIMEWA YOGYAKARTA",
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_provinsi": 15,
+    "kode_provinsi": "35",
+    "nama_provinsi": "JAWA TIMUR",
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_provinsi": 16,
+    "kode_provinsi": "36",
+    "nama_provinsi": "BANTEN",
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_provinsi": 17,
+    "kode_provinsi": "51",
+    "nama_provinsi": "BALI",
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_provinsi": 18,
+    "kode_provinsi": "52",
+    "nama_provinsi": "NUSA TENGGARA BARAT",
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_provinsi": 19,
+    "kode_provinsi": "53",
+    "nama_provinsi": "NUSA TENGGARA TIMUR",
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_provinsi": 20,
+    "kode_provinsi": "61",
+    "nama_provinsi": "KALIMANTAN BARAT",
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_provinsi": 21,
+    "kode_provinsi": "62",
+    "nama_provinsi": "KALIMANTAN TENGAH",
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_provinsi": 22,
+    "kode_provinsi": "63",
+    "nama_provinsi": "KALIMANTAN SELATAN",
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_provinsi": 23,
+    "kode_provinsi": "64",
+    "nama_provinsi": "KALIMANTAN TIMUR",
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_provinsi": 24,
+    "kode_provinsi": "71",
+    "nama_provinsi": "SULAWESI UTARA",
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_provinsi": 25,
+    "kode_provinsi": "72",
+    "nama_provinsi": "SULAWESI TENGAH",
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_provinsi": 26,
+    "kode_provinsi": "73",
+    "nama_provinsi": "SULAWESI SELATAN",
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_provinsi": 27,
+    "kode_provinsi": "74",
+    "nama_provinsi": "SULAWESI TENGGARA",
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_provinsi": 28,
+    "kode_provinsi": "75",
+    "nama_provinsi": "GORONTALO",
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_provinsi": 29,
+    "kode_provinsi": "76",
+    "nama_provinsi": "SULAWESI BARAT",
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_provinsi": 30,
+    "kode_provinsi": "81",
+    "nama_provinsi": "MALUKU",
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_provinsi": 31,
+    "kode_provinsi": "82",
+    "nama_provinsi": "MALUKU UTARA",
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_provinsi": 32,
+    "kode_provinsi": "91",
+    "nama_provinsi": "PAPUA",
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_provinsi": 33,
+    "kode_provinsi": "92",
+    "nama_provinsi": "PAPUA BARAT",
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_provinsi": 36,
+    "kode_provinsi": "65",
+    "nama_provinsi": "KALIMANTAN UTARA",
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_provinsi": 37,
+    "kode_provinsi": "93",
+    "nama_provinsi": "PAPUA SELATAN",
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_provinsi": 38,
+    "kode_provinsi": "94",
+    "nama_provinsi": "PAPUA TENGAH",
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_provinsi": 39,
+    "kode_provinsi": "95",
+    "nama_provinsi": "PAPUA PEGUNUNGAN",
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_provinsi": 40,
+    "kode_provinsi": "96",
+    "nama_provinsi": "PAPUA BARAT DAYA",
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_provinsi": 1,
+    "kode_provinsi": "11",
+    "nama_provinsi": "ACEH",
+    "is_active": 1,
+    "tahun": 2026
+  }
+]

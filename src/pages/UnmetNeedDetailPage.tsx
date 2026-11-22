@@ -193,8 +193,8 @@ export function UnmetNeedDetailPage() {
         footerNote={
           apiStatus === 'ok'
             ? apiPayload?.meta.source === 'postgres'
-              ? 'Label wilayah memakai id dari database (nama resmi tidak diisi di UI).'
-              : 'Label wilayah memakai id dari fixture saja (nama resmi tidak diisi). Sample ~1000 baris — bukan angka nasional resmi.'
+              ? 'Nama wilayah dari d_provinsi / d_kabupaten (tahun dim mengikuti tahun_rekap, fallback tahun terdekat). Id tetap disertakan.'
+              : 'Nama dari sample dim JSON bila id cocok; jika tidak ada → id saja. Sample Unmet Need ~1000 baris (bukan angka nasional resmi).'
             : undefined
         }
       />

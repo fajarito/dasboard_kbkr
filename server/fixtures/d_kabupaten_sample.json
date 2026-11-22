@@ -1,0 +1,450 @@
+[
+  {
+    "id_kabupaten": 243,
+    "kode_kabupaten": "71",
+    "nama_kabupaten": "KOTA KEDIRI",
+    "id_provinsi": 15,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 218,
+    "kode_kabupaten": "21",
+    "nama_kabupaten": "NGAWI",
+    "id_provinsi": 15,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 284,
+    "kode_kabupaten": "18",
+    "nama_kabupaten": "SUMBA BARAT DAYA",
+    "id_provinsi": 19,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 32,
+    "kode_kabupaten": "02",
+    "nama_kabupaten": "TAPANULI UTARA",
+    "id_provinsi": 2,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 31,
+    "kode_kabupaten": "03",
+    "nama_kabupaten": "TAPANULI SELATAN",
+    "id_provinsi": 2,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 450,
+    "kode_kabupaten": "72",
+    "nama_kabupaten": "KOTA CILEGON",
+    "id_provinsi": 16,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 452,
+    "kode_kabupaten": "74",
+    "nama_kabupaten": "KOTA TANGERANG SELATAN",
+    "id_provinsi": 16,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 446,
+    "kode_kabupaten": "02",
+    "nama_kabupaten": "LEBAK",
+    "id_provinsi": 16,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 44,
+    "kode_kabupaten": "16",
+    "nama_kabupaten": "HUMBANG HASUNDUTAN",
+    "id_provinsi": 2,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 55,
+    "kode_kabupaten": "25",
+    "nama_kabupaten": "NIAS BARAT",
+    "id_provinsi": 2,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 462,
+    "kode_kabupaten": "71",
+    "nama_kabupaten": "KOTA GORONTALO",
+    "id_provinsi": 28,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 138,
+    "kode_kabupaten": "71",
+    "nama_kabupaten": "KOTA ADM. JAKARTA PUSAT",
+    "id_provinsi": 11,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 37,
+    "kode_kabupaten": "74",
+    "nama_kabupaten": "KOTA TANJUNG BALAI",
+    "id_provinsi": 2,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 345,
+    "kode_kabupaten": "01",
+    "nama_kabupaten": "BOLAANG MONGONDOW",
+    "id_provinsi": 24,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 385,
+    "kode_kabupaten": "05",
+    "nama_kabupaten": "TAKALAR",
+    "id_provinsi": 26,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 370,
+    "kode_kabupaten": "18",
+    "nama_kabupaten": "TANA TORAJA",
+    "id_provinsi": 26,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 389,
+    "kode_kabupaten": "22",
+    "nama_kabupaten": "LUWU UTARA",
+    "id_provinsi": 26,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 494,
+    "kode_kabupaten": "03",
+    "nama_kabupaten": "MAMASA",
+    "id_provinsi": 29,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 83,
+    "kode_kabupaten": "06",
+    "nama_kabupaten": "ROKAN HULU",
+    "id_provinsi": 4,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 87,
+    "kode_kabupaten": "10",
+    "nama_kabupaten": "KEPULAUAN MERANTI",
+    "id_provinsi": 4,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 258,
+    "kode_kabupaten": "02",
+    "nama_kabupaten": "LOMBOK TENGAH",
+    "id_provinsi": 18,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 439,
+    "kode_kabupaten": "06",
+    "nama_kabupaten": "YALIMO",
+    "id_provinsi": 39,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 482,
+    "kode_kabupaten": "02",
+    "nama_kabupaten": "SORONG SELATAN",
+    "id_provinsi": 40,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 430,
+    "kode_kabupaten": "02",
+    "nama_kabupaten": "BOVEN DIGOEL",
+    "id_provinsi": 37,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 442,
+    "kode_kabupaten": "07",
+    "nama_kabupaten": "INTAN JAYA",
+    "id_provinsi": 38,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 4,
+    "kode_kabupaten": "03",
+    "nama_kabupaten": "ACEH TIMUR",
+    "id_provinsi": 1,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 481,
+    "kode_kabupaten": "08",
+    "nama_kabupaten": "KAIMANA",
+    "id_provinsi": 33,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 529,
+    "kode_kabupaten": "11",
+    "nama_kabupaten": "MANOKWARI SELATAN",
+    "id_provinsi": 33,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 530,
+    "kode_kabupaten": "12",
+    "nama_kabupaten": "PEGUNUNGAN ARFAK",
+    "id_provinsi": 33,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 364,
+    "kode_kabupaten": "05",
+    "nama_kabupaten": "BUOL",
+    "id_provinsi": 25,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 367,
+    "kode_kabupaten": "09",
+    "nama_kabupaten": "TOJO UNA UNA",
+    "id_provinsi": 25,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 89,
+    "kode_kabupaten": "08",
+    "nama_kabupaten": "BUNGO",
+    "id_provinsi": 5,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 348,
+    "kode_kabupaten": "73",
+    "nama_kabupaten": "KOTA TOMOHON",
+    "id_provinsi": 24,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 104,
+    "kode_kabupaten": "05",
+    "nama_kabupaten": "MUSI RAWAS",
+    "id_provinsi": 6,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 99,
+    "kode_kabupaten": "06",
+    "nama_kabupaten": "MUSI BANYUASIN",
+    "id_provinsi": 6,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 319,
+    "kode_kabupaten": "06",
+    "nama_kabupaten": "HULU SUNGAI SELATAN",
+    "id_provinsi": 22,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 318,
+    "kode_kabupaten": "07",
+    "nama_kabupaten": "HULU SUNGAI TENGAH",
+    "id_provinsi": 22,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 320,
+    "kode_kabupaten": "08",
+    "nama_kabupaten": "HULU SUNGAI UTARA",
+    "id_provinsi": 22,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 324,
+    "kode_kabupaten": "09",
+    "nama_kabupaten": "TABALONG",
+    "id_provinsi": 22,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 312,
+    "kode_kabupaten": "08",
+    "nama_kabupaten": "SUKAMARA",
+    "id_provinsi": 21,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 309,
+    "kode_kabupaten": "10",
+    "nama_kabupaten": "GUNUNG MAS",
+    "id_provinsi": 21,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 293,
+    "kode_kabupaten": "06",
+    "nama_kabupaten": "KAPUAS HULU",
+    "id_provinsi": 20,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 268,
+    "kode_kabupaten": "12",
+    "nama_kabupaten": "SUMBA BARAT",
+    "id_provinsi": 19,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 161,
+    "kode_kabupaten": "73",
+    "nama_kabupaten": "KOTA BANDUNG",
+    "id_provinsi": 12,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 168,
+    "kode_kabupaten": "78",
+    "nama_kabupaten": "KOTA TASIKMALAYA",
+    "id_provinsi": 12,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 209,
+    "kode_kabupaten": "71",
+    "nama_kabupaten": "KOTA YOGYAKARTA",
+    "id_provinsi": 14,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 242,
+    "kode_kabupaten": "72",
+    "nama_kabupaten": "KOTA BLITAR",
+    "id_provinsi": 15,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 245,
+    "kode_kabupaten": "73",
+    "nama_kabupaten": "KOTA MALANG",
+    "id_provinsi": 15,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 445,
+    "kode_kabupaten": "01",
+    "nama_kabupaten": "PANDEGLANG",
+    "id_provinsi": 16,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 154,
+    "kode_kabupaten": "06",
+    "nama_kabupaten": "TASIKMALAYA",
+    "id_provinsi": 12,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 159,
+    "kode_kabupaten": "10",
+    "nama_kabupaten": "MAJALENGKA",
+    "id_provinsi": 12,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 510,
+    "kode_kabupaten": "14",
+    "nama_kabupaten": "BUTON TENGAH",
+    "id_provinsi": 27,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 382,
+    "kode_kabupaten": "02",
+    "nama_kabupaten": "BULUKUMBA",
+    "id_provinsi": 26,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 467,
+    "kode_kabupaten": "02",
+    "nama_kabupaten": "HALMAHERA TENGAH",
+    "id_provinsi": 31,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 30,
+    "kode_kabupaten": "01",
+    "nama_kabupaten": "TAPANULI TENGAH",
+    "id_provinsi": 2,
+    "is_active": 1,
+    "tahun": 2026
+  },
+  {
+    "id_kabupaten": 7,
+    "kode_kabupaten": "01",
+    "nama_kabupaten": "ACEH SELATAN",
+    "id_provinsi": 1,
+    "is_active": 1,
+    "tahun": 2026
+  }
+]
