@@ -5,6 +5,7 @@ import { GenericIndicatorDetailPage } from './pages/GenericIndicatorDetailPage'
 import { KtdDetailPage } from './pages/KtdDetailPage'
 import { McprDetailPage } from './pages/McprDetailPage'
 import { OverviewPage } from './pages/OverviewPage'
+import { PetaCapaianPage } from './pages/PetaCapaianPage'
 import { UnmetNeedDetailPage } from './pages/UnmetNeedDetailPage'
 import { remainingIndicators } from './data/remainingIndicators'
 
@@ -13,6 +14,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<OverviewPage />} />
+        <Route path="/peta" element={<PetaCapaianPage />} />
         <Route path="/indikator/mcpr" element={<McprDetailPage />} />
         <Route path="/indikator/unmet-need" element={<UnmetNeedDetailPage />} />
         <Route
