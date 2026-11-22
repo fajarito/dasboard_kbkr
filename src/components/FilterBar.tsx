@@ -1,11 +1,21 @@
-export function FilterBar() {
+type FilterBarProps = {
+  periode?: string
+  wilayah?: string
+  level?: string
+}
+
+export function FilterBar({
+  periode = 'Jan – Jun 2026',
+  wilayah = 'Nasional',
+  level = 'Provinsi',
+}: FilterBarProps) {
   return (
     <div className="rounded-2xl border border-slate-200/80 bg-white p-4 shadow-sm shadow-slate-200/40">
       <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <div className="grid flex-1 grid-cols-1 gap-3 sm:grid-cols-3">
-          <Field label="Periode" value="Jan – Jun 2026" />
-          <Field label="Wilayah" value="Nasional" />
-          <Field label="Level" value="Provinsi" />
+          <Field label="Periode" value={periode} />
+          <Field label="Wilayah" value={wilayah} />
+          <Field label="Level" value={level} />
         </div>
         <div className="flex shrink-0 items-center gap-2">
           <button

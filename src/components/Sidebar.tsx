@@ -1,3 +1,4 @@
+import { Link, useLocation } from 'react-router-dom'
 import { navItems } from '../data/overview'
 
 type SidebarProps = {
@@ -6,6 +7,8 @@ type SidebarProps = {
 }
 
 export function Sidebar({ open, onClose }: SidebarProps) {
+  const location = useLocation()
+
   return (
     <>
       <div
@@ -41,26 +44,36 @@ export function Sidebar({ open, onClose }: SidebarProps) {
         </div>
 
         <nav className="flex-1 space-y-1 overflow-y-auto px-3 pb-4">
-          {navItems.map((item) => (
-            <div key={item.id}>
-              {'section' in item && item.section ? (
-                <p className="mt-3 mb-1 px-3 text-[10px] font-semibold tracking-[0.14em] text-slate-500">
-                  {item.section}
-                </p>
-              ) : null}
-              <a
-                href={`#${item.id}`}
-                onClick={onClose}
-                className={`flex items-center rounded-xl px-3 py-2.5 text-[13px] font-semibold transition-colors ${
-                  'active' in item && item.active
-                    ? 'bg-brand-500 text-white shadow-sm shadow-brand-500/30'
-                    : 'bg-navy-800/70 text-slate-200 hover:bg-navy-700'
-                }`}
-              >
-                {item.label}
-              </a>
-            </div>
-          ))}
+          {navItems.map((item) => {
+            const active =
+              item.to === '/'
+                ? location.pathname === '/'
+                : 'matchPrefix' in item &&
+                    typeof item.matchPrefix === 'string'
+                  ? location.pathname.startsWith(item.matchPrefix)
+                  : false
+
+            return (
+              <div key={item.id}>
+                {'section' in item && item.section ? (
+                  <p className="mt-3 mb-1 px-3 text-[10px] font-semibold tracking-[0.14em] text-slate-500">
+                    {item.section}
+                  </p>
+                ) : null}
+                <Link
+                  to={item.to}
+                  onClick={onClose}
+                  className={`flex items-center rounded-xl px-3 py-2.5 text-[13px] font-semibold transition-colors ${
+                    active
+                      ? 'bg-brand-500 text-white shadow-sm shadow-brand-500/30'
+                      : 'bg-navy-800/70 text-slate-200 hover:bg-navy-700'
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              </div>
+            )
+          })}
         </nav>
 
         <div className="px-4 pb-5">

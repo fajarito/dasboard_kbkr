@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { comparisonBars } from '../data/overview'
 
 export function ComparisonBars() {
@@ -13,20 +14,39 @@ export function ComparisonBars() {
       </header>
 
       <div className="flex flex-1 flex-col justify-center gap-5">
-        {comparisonBars.map((bar) => (
-          <div key={bar.key} className="grid grid-cols-[110px_1fr_52px] items-center gap-3 sm:grid-cols-[140px_1fr_56px]">
-            <p className="text-[13px] font-semibold text-navy-900">{bar.label}</p>
-            <div className="h-3 overflow-hidden rounded-full bg-slate-100">
-              <div
-                className="h-full rounded-full transition-[width] duration-500"
-                style={{ width: `${bar.value}%`, backgroundColor: bar.color }}
-              />
+        {comparisonBars.map((bar) => {
+          const row = (
+            <div className="grid grid-cols-[110px_1fr_52px] items-center gap-3 sm:grid-cols-[140px_1fr_56px]">
+              <p className="text-[13px] font-semibold text-navy-900">
+                {bar.label}
+              </p>
+              <div className="h-3 overflow-hidden rounded-full bg-slate-100">
+                <div
+                  className="h-full rounded-full transition-[width] duration-500"
+                  style={{ width: `${bar.value}%`, backgroundColor: bar.color }}
+                />
+              </div>
+              <p className="text-right text-[13px] font-bold text-navy-950">
+                {bar.valueLabel}
+              </p>
             </div>
-            <p className="text-right text-[13px] font-bold text-navy-950">
-              {bar.valueLabel}
-            </p>
-          </div>
-        ))}
+          )
+
+          if (bar.key !== 'mcpr') {
+            return <div key={bar.key}>{row}</div>
+          }
+
+          return (
+            <Link
+              key={bar.key}
+              to="/indikator/mcpr"
+              className="rounded-xl outline-offset-4 transition hover:bg-navy-50/80"
+              aria-label="Buka detail indikator mCPR"
+            >
+              {row}
+            </Link>
+          )
+        })}
       </div>
 
       <p className="mt-5 text-[11px] text-slate-400">
