@@ -27,12 +27,8 @@ export function pickNearestYear(target, availableYears) {
 }
 
 function emptyWilayahFields() {
-  return {
-    nama_provinsi: null,
-    kode_provinsi: null,
-    nama_kabupaten: null,
-    kode_kabupaten: null,
-  }
+  // Only set keys when known; omitNullish strips remaining nulls on response.
+  return {}
 }
 
 /**
@@ -79,8 +75,12 @@ export function buildWilayahLookup(provRows, kabRows, tahunRequested) {
       if (row.id_provinsi != null) {
         const prov = provById.get(Number(row.id_provinsi))
         if (prov) {
-          fields.nama_provinsi = prov.nama_provinsi
-          fields.kode_provinsi = prov.kode_provinsi
+          if (prov.nama_provinsi != null && prov.nama_provinsi !== undefined) {
+            fields.nama_provinsi = prov.nama_provinsi
+          }
+          if (prov.kode_provinsi != null && prov.kode_provinsi !== undefined) {
+            fields.kode_provinsi = prov.kode_provinsi
+          }
         }
       }
       if (row.id_kabupaten != null && row.id_provinsi != null) {
@@ -88,8 +88,12 @@ export function buildWilayahLookup(provRows, kabRows, tahunRequested) {
           `${Number(row.id_provinsi)}:${Number(row.id_kabupaten)}`,
         )
         if (kab) {
-          fields.nama_kabupaten = kab.nama_kabupaten
-          fields.kode_kabupaten = kab.kode_kabupaten
+          if (kab.nama_kabupaten != null && kab.nama_kabupaten !== undefined) {
+            fields.nama_kabupaten = kab.nama_kabupaten
+          }
+          if (kab.kode_kabupaten != null && kab.kode_kabupaten !== undefined) {
+            fields.kode_kabupaten = kab.kode_kabupaten
+          }
         }
       }
       return fields
